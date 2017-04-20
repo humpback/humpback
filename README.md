@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://humpback.github.io/humpback">
-    <img alt="humpback" src="./docs/media/logo.png">
+    <img alt="humpback" src="./docs/_media/logo.png">
   </a>
 </p>
 
