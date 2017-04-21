@@ -13,3 +13,6 @@
 
 [GitHub](https://github.com/humpback/humpback)
 [Get Started](#Humpback)
+
+<!-- background color -->
+![color](linear-gradient(to bottom, darkgray, white))

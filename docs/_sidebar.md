@@ -10,7 +10,12 @@
 
 - 服务器管理
   - [创建分组](create-group.md)
-  - [权限管理](group-auth.md)
+  - [修改分组](edit-group.md)
+  
+- 用户管理
+  - [用户列表](user-manage.md)
+  - [添加用户](add-user.md)
+  - [编辑用户](edit-user.md)
 
 - 以Single模式管理容器
   - [如何创建容器](single-create-container.md)
