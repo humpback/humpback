@@ -8,7 +8,7 @@
   - [管理镜像](manage-image.md)
   - [最佳实践](image-best-practice.md)
 
-- 服务器管理
+- 分组管理
   - [创建分组](create-group.md)
   - [修改分组](edit-group.md)
   
