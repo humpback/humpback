@@ -10,7 +10,7 @@
 
 &ensp;&ensp;&ensp;Humpback Center 只是一个调度器而本身不运行容器，只会接受 API 请求，通过调度策略选择 Group 中合适的 Engine 来处理本地 Containers。这意味着即使 Humpback Center 由于某些原因出现宕机或关机， 已经运行起来的容器短时间内不会有任何影响。
 
-## 如何启动集群中心服務   
+## 如何启动集群中心服务   
 
 &emsp;Run Humpback Center in docker   
 ```bash
@@ -65,7 +65,7 @@
 
 ## 如何退出集群     
 
-&ensp;&ensp;&ensp;在 Humpback 站点将 Group 的 ClusterMode 选项关闭，此时 Group 中所有服务将退出集群管理模式，不需要重启 Humpback Agent 容器即可，若要彻底退出集群避免心跳，可以将 Humpback Agent 容器停止后删除，或将 `DOCKER_CLUSTER_ENABLED` 环境变量修改为false，再重新启动。需要注意：一但对出集群，与该 Group 相关所有之前受集群调度的容器将会被统一删除。   
+&ensp;&ensp;&ensp;在 Humpback 站点将 Group 的 ClusterMode 选项关闭，此时 Group 中所有服务将退出集群管理模式，不需要重启 Humpback Agent 容器即可，若要彻底退出集群避免心跳，可以将 Humpback Agent 容器停止后删除重建，重建时将 `DOCKER_CLUSTER_ENABLED` 环境变量设置为false即可。需要注意：一但对出集群，与该 Group 相关所有之前受集群调度的容器将会被统一删除。   
 
 ## 调度策略   
 
