@@ -66,7 +66,7 @@ $ curl http://localhost:5000/v2/_catalog
 
   找到 `INSECURE_REGISTRY` 选项选项修改为：INSECURE_REGISTRY="`<registry_server>`:5000"
 
-&ensp;&ensp;&ensp;&ensp;&ensp;配置完毕后重新启动 Docker 本地服务，检查配置是否生效，若进程出现 `--insecure-registry` 参数表明配置生效。
+&ensp;&ensp;&ensp;配置完毕后重新启动 Docker 本地服务，检查配置是否生效，若进程出现 `--insecure-registry` 参数表明配置生效。
 
 ```bash
 $ service docker restart
