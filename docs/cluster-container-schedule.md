@@ -20,7 +20,7 @@
        -v /opt/humpback-center/cache/:/opt/humpback-center/cache/ \     
        -v /opt/humpback-center/logs/:/opt/humpback-center/logs/ \     
        -v /opt/humpback-center/etc/config.yaml:/opt/humpback-center/etc/config.yaml \     
-       humpback-hub.newegg.org/bts/humpback-center:1.0.0  
+       humpback-center:1.0.0  
 ```   
 
 ## 如何加入到集群
@@ -35,7 +35,7 @@
        -e DOCKER_CLUSTER_URIS=zk://192.168.0.1:2181,192.168.0.2:2181,192.168.0.3:2181 \  
        -e DOCKER_CLUSTER_NAME=humpback/center \  
        -v /var/run/:/var/run/:rw \ 
-       humpback-hub.newegg.org/bts/humpback-agent:1.0.0
+       humpback-agent:1.0.0
 ```
 &ensp;&ensp;&ensp;相关环境变量   
 
