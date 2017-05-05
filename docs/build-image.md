@@ -51,13 +51,19 @@ REPOSITORY                      TAG           IMAGE ID          CREATED         
 alpine                          3.5           1bb3a95866d7      15 minutes ago   3.987MB
 192.168.1.10:5000/postgresql    9.6.2         b1ac4a82c2dd      45 seconds ago   27.59MB
 ```
-&ensp;&ensp;&ensp;注意这个命令,
-- -m 参数是指定提交信息
-- -a 指定一个作者   
+&ensp;&ensp;&ensp;注意 `docker commit` 命令格式如下：
+```bash
+docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]
+```
+&ensp;&ensp;&ensp;主要选项(OPTIONS)如下：   
+- -a, --author - {string}, 作者（如："John Hannibal Smith "）
+- -c, --change - {list}, 使用Dockerfile指令来创建镜像（默认 []）
+- -m, --message - {string}, 提交备注信息
+- -p, --pause - {string}, 提交时暂停容器（默认 true）
 
-&ensp;&ensp;&ensp;然后是被固化的容器ID `b1ac4a82c2dd`。   
+&ensp;&ensp;&ensp;紧接 `CONTAINER` 是被固化的容器ID `b1ac4a82c2dd`。   
 
-&ensp;&ensp;&ensp;最后是新镜像名称与 tag: `9.6.2`，其中`192.168.1.10:5000` 为私有仓库地址。
+&ensp;&ensp;&ensp;最后 `[REPOSITORY[:TAG]]` 是新镜像名称与 tag: `9.6.2`，示例中`192.168.1.10:5000` 为私有仓库地址。
 
 ```bash
 192.168.1.10:5000/postgresql:9.6.2
@@ -75,11 +81,13 @@ c1bfc2be7117: Pushed
 
 ## 通过 `Dockfile` 制作镜像   
 
-&ensp;&ensp;&ensp;使用 `docker commit` 命令很容易基于现有的容器创建新的扩展，除此之外我们还可以通过 `docker build` 来从零开始创建一个镜像，特别是基于一些基础镜像来构建我们自己的应用镜像，因此就通过 `Dockerfike` 来告诉 `docker` 如何构建镜像。   
+&ensp;&ensp;&ensp;使用 `docker commit` 命令很容易基于现有的容器创建新的扩展，除此之外我们还可以通过 `docker build` 来从零开始构建一个镜像，特别是基于一些基础镜像来构建我们自己的应用镜像，使用 `Dockerfile` 和 `docker build` 命令来构建镜像操作更灵活、过程可重复，因此也更推荐使用这种方式来构建镜像。   
 
-&ensp;&ensp;&ensp;以下同样以官方 `alpine:3.5` 基础镜像为例。   
+&ensp;&ensp;&ensp; `Dockerfile` 基于 `DSL (Domain Specific Language)` 语言构建 `Docker` 镜像，`Dockerfile` 编写完成后，就可以使用 `docker build` 命令来构建一个新镜像。
 
-&ensp;&ensp;&ensp;首先创建一个文件夹，取名为 `postgresql`，在目录内创建一个 `Dockerfile` 文件：
+&ensp;&ensp;&ensp;首先创建一个文件夹，取名为 `postgresql`，这个目录就是我们的构建环境，在 Docker 中，将这个环境称为上下文（content）或者构建上下文（build content），构建镜像时 Docker 会将构建环境中的文件和目录传递给守护进程，这样守护进程就访问到用户想在镜像中存储的任何代码、文件或其它数据。   
+
+&ensp;&ensp;&ensp;在目录内创建一个 `Dockerfile` 文件：
 
 ```bash
 $ mkdir postgresql
@@ -87,7 +95,7 @@ $ cd postgresql
 $ touch Dockerfile
 ```
 
-&ensp;&ensp;&ensp;然后编辑这个 `Dockerfile` 文件，   
+&ensp;&ensp;&ensp;然后编辑这个 `Dockerfile` 文件，同样以官方 `alpine:3.5` 基础镜像。     
 
 ```bash
 # This is a comment
