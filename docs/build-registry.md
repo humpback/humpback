@@ -71,7 +71,7 @@ $ curl http://localhost:5000/v2/_catalog
 ```bash
 $ service docker restart
 $ ps aux | grep docker
-root   5003  1.8  2.0  520284  42360 ?  Ssl  15:59  0:00  /usr/bin/dockerd -H fd:// --insecure-registry 192.168.0.10:5000
+root   5003  1.8  2.0  520284  42360 ?  Ssl  15:59  0:00  /usr/bin/dockerd -H fd:// --insecure-registry 192.168.1.10:5000
 ```
 
 ##  接入到Humpback
