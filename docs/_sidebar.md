@@ -6,7 +6,6 @@
 - 使用Docker私有仓库
   - [创建镜像](build-image.md)
   - [管理镜像](manage-image.md)
-  - [最佳实践](image-best-practice.md)
 
 - 分组管理
   - [创建分组](create-group.md)
