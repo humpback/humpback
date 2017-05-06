@@ -14,7 +14,13 @@
 * 多集群管理，权限隔离
 * 弹性伸缩
 * 私有仓库
-* 全界面操作，简单易用
+* 全界面操作，简
+
+## Components
+
+* [Humpback Web](https://github.com/humpback/humpback-web)
+* [Humpback Center](https://github.com/humpback/humpback-center)
+* [Humpback Agent](https://github.com/humpback/humpback-agent)
 
 ## License
 
