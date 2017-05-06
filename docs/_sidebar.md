@@ -2,7 +2,10 @@
   - [Humpback架构](humpback-arch.md)
   - [搭建私有仓库](build-registry.md)
   - [运行Humpback组件](run-humpback-components.md)
-
+    - [部署zookeeper集群](run-zookeeper.md)
+    - [部署私有仓库](run-registry.md)
+    - [部署Humpback Agent](run-humpback-agent.md)
+    - [部署Humpback Center](run-humpback-center.md)
 - 使用Docker私有仓库
   - [创建镜像](build-image.md)
   - [管理镜像](manage-image.md)
