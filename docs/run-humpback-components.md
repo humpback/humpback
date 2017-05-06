@@ -23,11 +23,11 @@ SERVER03：192.168.2.82
 &ensp;&ensp;&ensp;同时以下三台服务器都启动 `Humpback-Agent` 提供本地镜像管理功能，等待被 Humpback 平台调用。   
 
 ```
-| Server                   |  Zookeeper |  Docker Registry  |  Humpback-Web  |  Humpback-Agent  |  Humpback-Center  |
-|--------------------------|:----------:|:-----------------:|:--------------:|:----------------:|:-----------------:|
-| SERVER01  192.168.2.80   |     √      |         √         |        √       |        √         |         √         |
-| SERVER02  192.168.2.81   |     √      |         X         |        X       |        √         |         X         |
-| SERVER03  192.168.2.82   |     √      |         X         |        X       |        √         |         X         |
+| Server           |  Zookeeper |  Docker Registry  |  Humpback-Web  |  Humpback-Agent  |  Humpback-Center  |
+|------------------|:----------:|:-----------------:|:--------------:|:----------------:|:-----------------:|
+|   192.168.2.80   |     √      |         √         |        √       |        √         |         √         |
+|   192.168.2.81   |     √      |         X         |        X       |        √         |         X         |
+|   192.168.2.82   |     √      |         X         |        X       |        √         |         X         |
 ```
 
 &ensp;&ensp;&ensp;每台服务器都需要启动 `Zookeeper` 节点组成集群，但搭建 `Zookeeper` 集群不是必选项。   
