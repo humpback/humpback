@@ -4,6 +4,7 @@
   - [运行Humpback组件](run-humpback-components.md)
     - [部署zookeeper集群](run-zookeeper.md)
     - [部署私有仓库](run-registry.md)
+    - [部署Humpback Web](run-humpback-web.md)
     - [部署Humpback Agent](run-humpback-agent.md)
     - [部署Humpback Center](run-humpback-center.md)
 - 使用Docker私有仓库
