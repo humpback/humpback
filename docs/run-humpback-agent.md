@@ -44,7 +44,7 @@ $ docker run -d -ti --net=host --restart=always \
 > -e DOCKER_CLUSTER_URIS=zk://192.168.2.80:2181,192.168.2.81:2181,192.168.2.82:2181 \
 > -e DOCKER_CLUSTER_NAME=humpback/center \
 > -v /var/run/:/var/run/:rw \
-> humpback/humpback-agent:1.0.0
+> humpbacks/humpback-agent:1.0.0
 $ docker ps -a
 CONTAINER ID    IMAGE                           COMMAND                  CREATED        STATUS         PORTS         NAMES
 b1ac4a82c2dd    humpback/humpback-agent:1.0.0   "/usr/bin/dumb-init -"   3 minutes ago  20 seconds ago               humpback-agent

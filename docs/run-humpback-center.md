@@ -22,7 +22,7 @@ $ docker run -d -ti --net=host --restart=always \
 > -e /opt/app/humpback-center/cache:/opt/humpback-center/cache \
 > -e /opt/app/humpback-center/logs:/opt/humpback-center/logs \
 > -v /var/run/:/var/run/:rw \
-> humpback/humpback-center:1.0.0
+> humpbacks/humpback-center:1.0.0
 $ docker ps -a
 CONTAINER ID    IMAGE                           COMMAND                  CREATED        STATUS         PORTS         NAMES
 a1640bf8c956    humpback/humpback-center:1.0.0  "/usr/bin/dumb-init -"   15 minutes ago  45 seconds ago              humpback-center
