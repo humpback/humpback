@@ -29,26 +29,43 @@ Server:
 
 - 启动 Humpback Agent
 
-&ensp;&ensp;&ensp; `DOCKER_API_VERSION=v1.21` 一定要与上面的版本号对应一致。   
-
-&ensp;&ensp;&ensp; `DOCKER_CLUSTER_ENABLED=true` 如果当前 Agent 需要被集群模式调度 `Cluster Mode` 模式，请设置为 `true`，否则关闭集群调度该节点为 `Single Mode` 模式。   
-
-&ensp;&ensp;&ensp; `DOCKER_CLUSTER_URIS=zk://192.168.2.80:2181,192.168.2.81:2181,192.168.2.82:2181` 为先前配置的 `Zookeeper` 集群地址信息。
-
+&ensp;&ensp;&ensp; 1、集群模式启动
 ```bash 
-$ docker pull humpback/humpback-agent:1.0.0
+$ docker pull humpbacks/humpback-agent:1.0.0
 $ docker run -d -ti --net=host --restart=always \
-> --name=humpback-agent \
-> -e DOCKER_API_VERSION=v1.21 \
-> -e DOCKER_CLUSTER_ENABLED=true \
-> -e DOCKER_CLUSTER_URIS=zk://192.168.2.80:2181,192.168.2.81:2181,192.168.2.82:2181 \
-> -e DOCKER_CLUSTER_NAME=humpback/center \
-> -v /var/run/:/var/run/:rw \
-> humpbacks/humpback-agent:1.0.0
+ --name=humpback-agent \
+ -e DOCKER_API_VERSION=v1.21 \
+ -e DOCKER_CLUSTER_ENABLED=true \
+ -e DOCKER_CLUSTER_URIS=zk://192.168.2.80:2181,192.168.2.81:2181,192.168.2.82:2181 \
+ -e DOCKER_CLUSTER_NAME=humpback/center \
+ -v /var/run/:/var/run/:rw \
+ humpbacks/humpback-agent:1.0.0
 $ docker ps -a
-CONTAINER ID    IMAGE                           COMMAND                  CREATED        STATUS         PORTS         NAMES
-b1ac4a82c2dd    humpback/humpback-agent:1.0.0   "/usr/bin/dumb-init -"   3 minutes ago  20 seconds ago               humpback-agent
+CONTAINER ID    IMAGE                           COMMAND               CREATED        STATUS         PORTS         NAMES
+b1ac4a82c2dd    humpbacks/humpback-agent:1.0.0   "./humpback-agent"   3 minutes ago  20 seconds ago               humpback-agent
 ```
+&ensp;&ensp;&ensp; 2、非集群模式启动
+```bash 
+$ docker pull humpbacks/humpback-agent:1.0.0
+$ docker run -d -ti --net=host --restart=always \
+ --name=humpback-agent \
+ -e DOCKER_API_VERSION=v1.21 \
+ -v /var/run/:/var/run/:rw \
+ humpbacks/humpback-agent:1.0.0
+$ docker ps -a
+CONTAINER ID    IMAGE                           COMMAND               CREATED        STATUS         PORTS         NAMES
+b1ac4a82c2dd    humpbacks/humpback-agent:1.0.0   "./humpback-agent"   3 minutes ago  20 seconds ago               humpback-agent
+```
+
+- 环境变量与参数
+
+&ensp;&ensp;&ensp;`DOCKER_API_VERSION=v1.21` 一定要与上面的版本号对应一致。   
+
+&ensp;&ensp;&ensp;`DOCKER_CLUSTER_ENABLED=true` 如果当前 Agent 需要被集群模式调度， 那么 `Cluster Mode` 模式请设置为 `true`，否则关闭集群调度该节点为 `Single Mode` 模式。   
+
+&ensp;&ensp;&ensp;`DOCKER_CLUSTER_URIS=zk://192.168.2.80:2181,192.168.2.81:2181,192.168.2.82:2181` 为先前配置的 `Zookeeper` 集群地址信息。   
+
+&ensp;&ensp;&ensp;`DOCKER_CLUSTER_NAME=humpback/center` 集群名称，要与 `Humpback Center` 配置一致。
 
 - 创建分组，注册服务器
 

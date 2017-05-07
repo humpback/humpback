@@ -8,9 +8,9 @@
 $ ssh root@192.168.2.80
 $ mkdir -p /opt/app/humpback-web
 $ docker run -d --net=host --restart=always \
-> -v /opt/app/humpback-web/dbFiles:/humpback-web/dbFiles \
-> --name humpback-web \
-> humpbacks/humpback-web:1.0.0
+ -v /opt/app/humpback-web/dbFiles:/humpback-web/dbFiles \
+ --name humpback-web \
+ humpbacks/humpback-web:1.0.0
 ```
 &ensp;&ensp;&ensp;站点默认访问端口为：80，如果要自定义端口，请在容器创建时指定 `-e HUMPBACK_LISTEN_PORT=XXXX` 即可。   
 
