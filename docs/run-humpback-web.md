@@ -4,6 +4,10 @@
 
 &ensp;&ensp;&ensp;以 192.168.2.80 作为 Humpback Web 站点服务器启动，设置端口：8012。
 
+&ensp;&ensp;&ensp;站点默认访问端口为：80，如果要自定义端口，请在容器创建时指定 `-e HUMPBACK_LISTEN_PORT=XXXX` 即可。   
+
+&ensp;&ensp;&ensp;`/opt/app/humpback-web/dbFiles` 文件为 Humpback 系统持久化数据文件，会存储站点管理和分组信息，启动后请妥善保存。
+
 ```bash
 $ ssh root@192.168.2.80
 $ mkdir -p /opt/app/humpback-web
@@ -13,9 +17,6 @@ $ docker run -d --net=host --restart=always \
  --name humpback-web \
  humpbacks/humpback-web:1.0.0
 ```
-&ensp;&ensp;&ensp;站点默认访问端口为：80，如果要自定义端口，请在容器创建时指定 `-e HUMPBACK_LISTEN_PORT=XXXX` 即可。   
-
-&ensp;&ensp;&ensp;`dbFiles` 文件为 Humpback 系统持久化数据文件，会存储站点管理和分组信息，启动后请妥善保存。
 
 &ensp;&ensp;&ensp;访问站点，打开浏览器输入：http://192.168.2.80:8012    
 
