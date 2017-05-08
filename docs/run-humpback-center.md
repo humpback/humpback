@@ -12,7 +12,7 @@
 $ docker pull humpbacks/humpback-center:1.0.0
 $ docker run -d -ti --net=host --restart=always \
  --name=humpback-center \
- -e HUMPBACK_SITEAPI=http://192.168.2.80/api \
+ -e HUMPBACK_SITEAPI=http://192.168.2.80:8012/api \
  -e CENTER_LISTEN_PORT=:8589 \
  -e CENTER_API_ENABLECORS=true \
  -e DOCKER_CLUSTER_URIS=zk://192.168.2.80:2181,192.168.2.81:2181,192.168.2.82:2181 \
@@ -27,7 +27,7 @@ a1640bf8c956    humpbacks/humpback-center:1.0.0  "./humpback-center"     15 minu
 
 - 环境变量与参数
 
-&ensp;&ensp;&ensp;`HUMPBACK_SITEAPI=http://192.168.2.80/api` Humpback-Web 站点地址，注意要带上 `/api`。   
+&ensp;&ensp;&ensp;`HUMPBACK_SITEAPI=http://192.168.2.80:8012/api` Humpback-Web 站点地址，注意要带上 `/api`。   
 
 &ensp;&ensp;&ensp;`CENTER_LISTEN_PORT=:8589` Humpback Center 的 API 默认端口为：8589。   
 
