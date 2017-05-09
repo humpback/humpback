@@ -4,7 +4,7 @@
 
 ## 什么是 Humpback?
 
-&ensp;&ensp;&ensp;Humpback 是一套基于 Docker API 开发的多主机 Docker 容器管理平台，能够帮助广大 Docker 初学者以及企业快速部署轻量级的 Docker 容器应用，并提供维护管理功能。若将你的 Docker 主机接入到 Humpback平台中，就能够为你带来更快捷稳定的容器操作体验，简化了你与主机间繁琐的操作步骤。 
+&ensp;&ensp;&ensp;Humpback 可以帮助企业快速搭建轻量级的Docker容器云管理平台。若将你的 Docker 主机接入到 Humpback平台中，就能够为你带来更快捷稳定的容器操作体验。 
 
 ![Humpback Group](_media/humpback-arch.png)
 
@@ -27,7 +27,13 @@
 
 ![Humpback Group](_media/humpback-web.png)
 
-![Humpback Group](_media/humpback-group.png)
+Single Mode
+
+![Humpback Group](_media/single-mode-ui.png)
+
+Cluster Mode
+
+![Humpback Group](_media/cluster-mode-ui.png)
 
 &ensp;&ensp;&ensp;项目地址：<a href="https://humpback.github.io/humpback">https://humpback.github.io/humpback</a> 
 
