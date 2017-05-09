@@ -4,7 +4,7 @@
 
 ## 什么是 Humpback?
 
-&ensp;&ensp;&ensp;Humpback 可以帮助企业快速搭建轻量级的Docker容器云管理平台。若将你的 Docker 主机接入到 Humpback平台中，就能够为你带来更快捷稳定的容器操作体验。 
+&ensp;&ensp;&ensp;Humpback 可以帮助企业快速搭建轻量级的 Docker 容器云管理平台，若将你的 Docker 主机接入到 Humpback 平台中，就能够为你带来更快捷稳定的容器操作体验。 
 
 ![Humpback Group](_media/humpback-arch.png)
 
@@ -20,8 +20,11 @@
 - 私有仓库
 
 ## Humpback 模式介绍
-- Single Mode，对单组主机实现容器管理，提供容器创建，容器操作，容器重命名，容器升级与克隆，容器监控，容器日志输出等功能。   
-- Cluster Mode，集群模式，实现按实例数批量创建容器，批量容器操作，升级和迁移。 
+- `Single Mode`   
+  单一模式，对单组主机实现容器管理，提供容器创建，容器操作，容器重命名，容器升级与克隆，容器监控，容器日志输出等功能。   
+
+- `Cluster Mode`   
+  集群模式，实现按实例数批量创建容器，批量容器操作，升级和迁移。 
 
 &ensp;&ensp;&ensp;平台采用分组方式（Group）来管理多主机，多组之间权限操作隔离，同时也可以将一台主机加入到多个分组中交叉管理。
 
@@ -34,6 +37,20 @@ Single Mode
 Cluster Mode
 
 ![Humpback Group](_media/cluster-mode-ui.png)
+
+Container Monitor
+
+![Humpback Group](_media/container-monitor.png)
+
+Container Logs
+
+![Humpback Group](_media/container-logs.png)
+
+Container Detail
+
+![Humpback Group](_media/container-single-info.png)
+
+![Humpback Group](_media/container-cluster-info.png)
 
 &ensp;&ensp;&ensp;项目地址：<a href="https://humpback.github.io/humpback">https://humpback.github.io/humpback</a> 
 
