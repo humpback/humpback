@@ -32,10 +32,10 @@ http:
 
 ```bash
 $ docker run -d -p 5000:5000 --restart=always \
-> -v /var/lib/registry/:/var/lib/registry/ \
-> -v /etc/docker/registry/config.yml:/etc/docker/registry/config.yml \
-> --name registry \
-  registry:2.5.1
+ -v /var/lib/registry/:/var/lib/registry/ \
+ -v /etc/docker/registry/config.yml:/etc/docker/registry/config.yml \
+ --name registry \
+ registry:2.5.1
 ```
 - 检查启动状态，若 `_catalog` 接口能正常访问，证明仓库启动成功。    
 
