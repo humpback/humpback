@@ -24,7 +24,7 @@
   单一模式，对单组主机实现容器管理，提供容器创建，容器操作，容器重命名，容器升级与克隆，容器监控，容器日志输出等功能。   
 
 - `Cluster Mode`   
-  集群模式，实现按实例数批量创建容器，批量容器操作，升级和迁移。 
+  容器集群模式，实现按实例数批量创建容器，容器调度，批量操作容器，升级和迁移等。 
 
 &ensp;&ensp;&ensp;平台采用分组方式（Group）来管理多主机，多组之间权限操作隔离，同时也可以将一台主机加入到多个分组中交叉管理。
 
@@ -53,6 +53,8 @@ Container Detail
 ![Humpback Group](_media/container-cluster-info.png)
 
 &ensp;&ensp;&ensp;项目地址：<a href="https://humpback.github.io/humpback">https://humpback.github.io/humpback</a> 
+
+&ensp;&ensp;&ensp;Docker版本：Docker 1.8.3 或更高
 
 &ensp;&ensp;&ensp;开发授权协议: Apache 2.0   
 
