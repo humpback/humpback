@@ -1,6 +1,6 @@
 # User List
 
-*User only**Administrator**Permissions for user access*
+*User only **Administrator** Permissions for user access*
 
 ![User Manage](_media/user_manage.png)
 
