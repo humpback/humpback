@@ -7,7 +7,7 @@
     - [Deploy Humpback Web](run-humpback-web.md)
     - [Deploy Humpback Agent](run-humpback-agent.md)
     - [Deploy Humpback Center](run-humpback-center.md)
-- Use Docker private repository
+- Use Docker private registry
   - [Build image](build-image.md)
   - [Manage image](manage-image.md)
 
