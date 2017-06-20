@@ -1,7 +1,7 @@
-# 编辑用户
+# Edit User
 
 ![Edit User](_media/edit-user.png)
 
-> 说明
+> Description
 
-- 用户信息和[`添加用户`](add-user.md)一致
+- User information is consistent with [`adding users`](add-user.md)
