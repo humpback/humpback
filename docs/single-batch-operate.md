@@ -1,14 +1,14 @@
-# 批量操作
+# Batch Operation
 
-> 批量升级镜像
+> Bulk upgrade image
 
 ![Upgrade Container](_media/single-upgrade-container.png)
 
-- `New Tag`: 新的镜像Tag
-- `Servers`: 当前组内的服务器（多太服务器容器名必须保持一致，否则会升级不成功）
+- `New Tag`: New image tag
+- `Servers`: The servers in the current group (multiple server container names must be consistent, otherwise the upgrade will be unsuccessful)
 
-> 批量克隆镜像
+> Bulk clone image
 
 ![Clone Container](_media/single-container-clone.png)
 
-克隆镜像和创建容器的界面类似，除了页面上方的服务器选择框，为了避免出错，目前只支持单组内的多台服务器
+The cloned image interface is similar to the interface for creating the container, except for the server selection box at the top of the page, in order to avoid errors, currently only support multiple servers within a single group
