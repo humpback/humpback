@@ -1,25 +1,25 @@
-# 私有仓库
+# Private Registry
 
-&ensp;&ensp;&ensp;私有仓库为 Humpback 提供镜像存储基础服务，Humpback 涉及镜像查询、容器构建等功能都依赖于私有仓库服务。   
+&ensp;&ensp;&ensp;The private registry provides the image storage infrastructure for Humpback, Humpback involves image searching, container building, and so on, all dependent on private registry services.   
 
-##  前提条件   
+##  Prerequisites   
 
-- Docker 版本为 `1.8.3` 或更高版本   
+- Docker version is `1.8.3` or later  
 
-- Docker 官方仓库 `Distribution`，推荐 `2.5.1` 或更高   
+- Docker official registry `Distribution`, recommended` 2.5.1` or higher   
 
-##  启动仓库
+##  Start the Registry
 
-&ensp;&ensp;&ensp;本小节主要阐述以容器方式来构建并运行 Docker 私有仓库，采用 `2.5.1` 版本为例。   
+&ensp;&ensp;&ensp;This section focuses on building and running Docker private registries in containers, using the `2.5.1` version as an example.  
 
-&ensp;&ensp;&ensp;Docker 官方仓库 `Distribution` 在 hub.docker.com 的镜像名称为：<a href="https://hub.docker.com/r/library/registry/">`registry` </a>
+&ensp;&ensp;&ensp;The image name of Docker official registry `Distribution` at hub.docker.com is <a href="https://hub.docker.com/r/library/registry/">`registry` </a>
 
-&ensp;&ensp;&ensp;1、拉取仓库镜像到本地
+&ensp;&ensp;&ensp;1、Pull the registry image to the local
 
 ```bash
 $ docker pull registry:2.5.1
 ```
-&ensp;&ensp;&ensp;2、启动仓库服务   
+&ensp;&ensp;&ensp;2、Start the registry service   
 
 ```bash
 $ docker run -d -p 5000:5000 --restart=always \
@@ -28,45 +28,45 @@ $ docker run -d -p 5000:5000 --restart=always \
   --name registry \
   registry:2.5.1
 ```
-&ensp;&ensp;&ensp;关于仓库配置说明请参见 <a href="https://github.com/docker/distribution/blob/master/docs/configuration.md">`configuration.md` </a>
+&ensp;&ensp;&ensp;Refer to the registry configuration instructions <a href="https://github.com/docker/distribution/blob/master/docs/configuration.md">`configuration.md` </a>
 
-&ensp;&ensp;&ensp;3、验证仓库服务   
+&ensp;&ensp;&ensp;3、Verify the registry service 
 
 ```bash
 $ curl http://localhost:5000/v2/_catalog
 {"repositories":[]}
 ```
-&ensp;&ensp;&ensp;若能正常访问 `registry` 接口 `_catalog`，证明服务启动成功。 
+&ensp;&ensp;&ensp;If you can normally access the `registry` interface `_catalog`, the service starts successfully. 
 
-##  配置 Docker   
+##  Configure the Docker  
 
-&ensp;&ensp;&ensp;若希望 Docker deamon 能从 registry 顺利 `pull` 或 `push` 应用镜像，需要对 Docker 配置进行修改。    
+&ensp;&ensp;&ensp;If you want the Docker daemon to `pull` or` push` image from the registry smoothly, you need to modify the Docker configuration.
 
-&ensp;&ensp;&ensp;以下配置说明中 `<registry_server>` 为仓库服务器的 IP 地址或主机域名。   
+&ensp;&ensp;&ensp;In the following configuration instructions, `<registry_server>` is the IP address or host domain name of the registry server.  
 
 - CentOS 6   
 
-  修改 /etc/sysconfig/docker   
+  Modify /etc/sysconfig/docker   
 
-  在 `other_args` 选项中加上 "--insecure-registry `<registry_server>`:5000"
+  In the `other_args` option add "--insecure-registry `<registry_server>`:5000"
 
-  若没有 `other_args` 选项则为 Docker 版本差异，需找到 `INSECURE_REGISTRY` 选项并修改为：INSECURE_REGISTRY="`<registry_server>`:5000"  
+  If there is no `other_args` option for Docker version differences, need to find `INSECURE_REGISTRY` option and modified to: INSECURE_REGISTRY="`<registry_server>`:5000"  
 
-  注：部分 docker 版本 `1.10.x` 或更高已默认为 `CentOS 7` 的安装源，若系统为 `CentOS 7` 还需修改 `docker.service` 文件。   
+  Note: Part of the docker version of `1.10.x` or higher has default to` CentOS 7` installation source, if the system is `CentOS 7` also need to modify the` docker.service` file.   
 
-  在 `CentOS 7` 系统中，首先查看 /usr/lib/systemd/system/docker.service 中是否存在 `EnvironmentFile` 配置。
+  In the `CentOS 7` system, first see if there is a` EnvironmentFile` configuration in /usr/lib/systemd/system/docker.service.
 
 &ensp;&ensp;&ensp;&ensp;&ensp;![C6配置](./_media/centos7_docker_etc.jpg)   
   
-&ensp;&ensp;&ensp;&ensp;&ensp;文件内容可能略有不同，只需要注意红框中的 `EnvironmentFile` 和 `ExecStart` 部分，确保链接到配置文件路径和相关环境变量 `INSECURE_REGISTRY`。
+&ensp;&ensp;&ensp;&ensp;&ensp;File content may be slightly different, just pay attention to the `EnvironmentFile` and` ExecStart` part in the red box, make sure to link to the configuration file path and the relevant environment variable `INSECURE_REGISTRY`.
 
 - Ubuntu
 
-  修改 /etc/default/docker
+  Modify /etc/default/docker
 
-  找到 `INSECURE_REGISTRY` 选项选项修改为：INSECURE_REGISTRY="`<registry_server>`:5000"
+  Find the `INSECURE_REGISTRY` option and change to: INSECURE_REGISTRY =" `<registry_server>`: 5000 "
 
-&ensp;&ensp;&ensp;配置完毕后重新启动 Docker 本地服务，检查配置是否生效，若进程出现 `--insecure-registry` 参数表明配置生效。
+&ensp;&ensp;&ensp;After the configuration, restart the Docker local service and check whether the configuration takes effect. If the process appears, the `--insecure-registry` parameter indicates that the configuration takes effect.
 
 ```bash
 $ service docker restart
@@ -74,8 +74,8 @@ $ ps aux | grep docker
 root   5003  1.8  2.0  520284  42360 ?  Ssl  15:59  0:00  /usr/bin/dockerd -H fd:// --insecure-registry 192.168.1.10:5000
 ```
 
-##  接入到Humpback
+##  Access to Humpback
 
 ![C6配置](./_media/system_config.png)    
 
-&ensp;&ensp;&ensp;以管理员身份登录 Humpback，展开左侧 `Manage` 点击 `System Config`，进入系统配置界面，将 `Enabel Private Registry` 勾选，并填入私有仓库服务地址 `Save` 即可。    
+&ensp;&ensp;&ensp;Log in to Humpback as an administrator and expand the left `Manage` and click `System Config`. Enter the system configuration interface, check the `Enable Private Registry`, and fill in the private registry service address and `Save`.
