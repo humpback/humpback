@@ -1,6 +1,6 @@
-# 如何启动Humpback
+# How To Start Humpback
 
-> 准备工作   
+> Ready to work   
 
 首先准备好服务器，以下三台机器为搭建集群示例，在开始前请为每台机器安装好 `Docker` 实例。   
 
