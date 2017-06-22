@@ -1,10 +1,10 @@
-# Zookeeper 集群部署
+# Zookeeper Cluster Deployment
 
-> `Zookeeper` 集群搭建   
+> `Zookeeper` cluster build   
 
-- Zookeeper 下载   
+- Zookeeper download  
   
-  示例采用 `Zookeeper 3.4.6` 版本，请确保在服务器上安装了 `java open jdk7` 运行环境，下载 `Zookeeper` 并解压。
+Example Using the `Zookeeper 3.4.6` version, make sure that the `java open jdk7` runtime environment is installed on the server, download `Zookeeper` and unzip it.
 
 ```bash
 $ cd /opt/app
@@ -13,14 +13,14 @@ $ tar -xzvf zookeeper-3.4.6.tar.gz
 $ mv zookeeper-3.4.6 zookeeper
 $ cd zookeeper
 ```
-- 修改配置文件   
+- Modify the configuration file   
 
 ```bash
 $ cp conf/zoo_sample.cfg conf/zoo.cfg
 $ vim conf/zoo.cfg
 ```
 
-- 配置文件修改后如下   
+- The configuration file is modified as follows 
 
 ```
 tickTime=2000
@@ -34,7 +34,7 @@ server.2=192.168.2.81:2888:3888
 server.3=192.168.2.82:2888:3888
 ```
 
-- 创建数据目录   
+- Create a data directory   
 
 ```bash
 mkdir -p /opt/app/zookeeper/zkdata
@@ -43,9 +43,9 @@ mkdir -p /opt/app/zookeeper/logs
 
 &ensp;&ensp;&ensp;以上安装流程三台服务器都照执行，接下来开始创建 `zookeeper` 集群并启动。   
 
-- 建立 Zookeeper 节点标识文件 `myid`   
+- Create a Zookeeper node identification file `myid`   
 
-&ensp;&ensp;&ensp;创建 `myid` 编号，依次在每台 Server 上执行，注意每台 Server 的 `myid` 要对应正确的编号。
+&ensp;&ensp;&ensp;Create `myid` number, one by one execution on each server, pay attention to each server` myid` to correspond to the correct number.
 
 ```bash
 192.168.2.80
@@ -62,7 +62,7 @@ $ echo "2" > /opt/app/zookeeper/zkdata/myid
 $ echo "3" > /opt/app/zookeeper/zkdata/myid
 ```
 
-- 启动 Zookeeper
+- Start Zookeeper
 
 ```bash
 192.168.2.80
@@ -79,16 +79,16 @@ $ /opt/app/zookeeper/bin/zkServer.sh start
 $ /opt/app/zookeeper/bin/zkServer.sh start
 ```
 
-- Zookeeper 状态检查   
+- Zookeeper status check   
 
 ```bash
 192.168.2.80
 $ /opt/app/zookeeper/bin/zkServer.sh status
 ```
-&ensp;&ensp;&ensp;如果 Zookeeper 启动失败或报错，可能有以下几个原因：   
+&ensp;&ensp;&ensp;If the Zookeeper fails or is reported, there are several reasons:   
 
-&ensp;&ensp;&ensp;2、`zoo.cfg` 文件配置出错：dataLogDir 指定的目录未被创建。   
+&ensp;&ensp;&ensp;2、`Zoo.cfg` file configuration error: dataLogDir specified directory is not created.   
 
-&ensp;&ensp;&ensp;3、`myid` 文件中的整数格式不对，或者与 `zoo.cfg` 中的 server 整数不对应。   
+&ensp;&ensp;&ensp;3、The integer in the `myid` file is not formatted correctly or does not correspond to the server integer in` zoo.cfg`.   
 
-&ensp;&ensp;&ensp;4、防火墙未打开 Zookeeper 服务端口，如 `2888` 和 `3888`。  
+&ensp;&ensp;&ensp;4、The firewall does not open the Zookeeper service port, such as `2888` and` 3888`.  
