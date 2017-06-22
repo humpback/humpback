@@ -1,12 +1,12 @@
-# 部署 Humpback Agent 
+# Deploy the Humpback Agent 
 
 > Humpback Agent 
 
-&ensp;&ensp;&ensp; 三台服务器：192.168.2.80, 192.168.2.81, 192.168.2.82 都需要部署 Humpback Agent 用于实现本地镜像、容器管理。
+&ensp;&ensp;&ensp;Three servers: 192.168.2.80, 192.168.2.81, 192.168.2.82 need to deploy Humpback Agent for the realization of local image, container management.
 
-- 检查 Docker 版本
+- Check the Docker version
 
-&ensp;&ensp;&ensp; 首先检查 `Docker API` 版本号：`1.21`，注意不同 Docker 版本，版本号有所区别。
+&ensp;&ensp;&ensp;First check the `Docker API` version number:` 1.21`. Note that the version numbers of different Docker versions are different.
 
 ```bash
 $ docker version
@@ -27,9 +27,9 @@ Server:
  OS/Arch:      linux/amd64
 ```
 
-- 启动 Humpback Agent
+- Start the Humpback Agent
 
-&ensp;&ensp;&ensp; 1、集群模式启动
+&ensp;&ensp;&ensp; 1、Cluster mode start
 ```bash 
 $ docker pull humpbacks/humpback-agent:1.0.0
 $ docker run -d -ti --net=host --restart=always \
@@ -44,7 +44,7 @@ $ docker ps -a
 CONTAINER ID    IMAGE                           COMMAND               CREATED        STATUS         PORTS         NAMES
 b1ac4a82c2dd    humpbacks/humpback-agent:1.0.0   "./humpback-agent"   3 minutes ago  20 seconds ago               humpback-agent
 ```
-&ensp;&ensp;&ensp; 2、非集群模式启动
+&ensp;&ensp;&ensp; 2、Nonclustered mode startup
 ```bash 
 $ docker pull humpbacks/humpback-agent:1.0.0
 $ docker run -d -ti --net=host --restart=always \
@@ -57,30 +57,30 @@ CONTAINER ID    IMAGE                           COMMAND               CREATED   
 b1ac4a82c2dd    humpbacks/humpback-agent:1.0.0   "./humpback-agent"   3 minutes ago  20 seconds ago               humpback-agent
 ```
 
-- 环境变量与参数
+- Environment variables and parameters
 
-&ensp;&ensp;&ensp;`DOCKER_API_VERSION=v1.21` 一定要与上面的版本号对应一致。   
+&ensp;&ensp;&ensp;`DOCKER_API_VERSION=v1.21` must be consistent with the above version number.   
 
-&ensp;&ensp;&ensp;`DOCKER_CLUSTER_ENABLED=true` 如果当前 Agent 需要被集群模式调度， 那么 `Cluster Mode` 模式请设置为 `true`，否则关闭集群调度该节点为 `Single Mode` 模式。   
+&ensp;&ensp;&ensp;`DOCKER_CLUSTER_ENABLED=true` 如果当前 Agent 需要被集群模式调度， 那么 `Cluster Mode` 模式请设置为 `true`，否则关闭集群调度该节点为 `Single Mode` 模式。If the current agent needs to be scheduled by cluster mode, set the cluster mode to true.    
 
-&ensp;&ensp;&ensp;`DOCKER_CLUSTER_URIS=zk://192.168.2.80:2181,192.168.2.81:2181,192.168.2.82:2181` 为先前配置的 `Zookeeper` 集群地址信息。   
+&ensp;&ensp;&ensp;`DOCKER_CLUSTER_URIS=zk://192.168.2.80:2181,192.168.2.81:2181,192.168.2.82:2181` is the previously configured` Zookeeper` cluster address information.   
 
-&ensp;&ensp;&ensp;`DOCKER_CLUSTER_NAME=humpback/center` 集群名称，要与 `Humpback Center` 配置一致。
+&ensp;&ensp;&ensp;`DOCKER_CLUSTER_NAME=humpback/center` Cluster name, It is consistent with the `Humpback Center` configuration.
 
-- 创建分组，注册服务器
+- Create a grouping, register the server
 
-&ensp;&ensp;&ensp;三台服务器都成功启动 `Humpback Agent` 容器后，进入 `Humpback Web` 站点，展开左侧 `Manage` 功能点击 `Groups` 创建一个分组：`MyCluster`   
+&ensp;&ensp;&ensp;After the three servers have successfully started the `Humpback Agent` container, go to the `Humpback Web` site. Expand the left side of the `Manage` function, click `Groups` to create a group `MyCluster`   
 
-&ensp;&ensp;&ensp;并将三台节点服务器加入到该组中并点击 `Save` 即可。
+&ensp;&ensp;&ensp;And add three node servers to the group and click `Save`.
 
 ![Humpback Add Group](_media/humpbackadd-group.png)
 
-&ensp;&ensp;&ensp;进入分组页面，可以查看三台集群服务器信息。
+&ensp;&ensp;&ensp;Go to the grouping page to view three cluster server information.
 
 ![Humpback Group](_media/humpback-group.png)
 
-- [如何创建容器](single-create-container.md)
+- [How to create a container](single-create-container.md)
 
-- [如何管理容器](single-manage-container.md)
+- [How to manage containers](single-manage-container.md)
 
-- [批量操作](single-batch-operate.md)
+- [Batch operation](single-batch-operate.md)
