@@ -4,7 +4,7 @@
 
 ## What is Humpback?
 
-&ensp;&ensp;&ensp;Humpback 可以帮助企业快速搭建轻量级的 Docker 容器云管理平台，若将你的 Docker 主机接入到 Humpback 平台中，就能够为你带来更快捷稳定的容器操作体验。 
+&ensp;&ensp;&ensp;Humpback can help companies quickly build lightweight Docker container cloud management platform. With your Docker host connected to the Humpback platform, Humpback will be able to bring you a faster and more stable container operation experience. 
 
 ![Humpback Group](_media/humpback-arch.png)
 
