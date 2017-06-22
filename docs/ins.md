@@ -26,7 +26,7 @@
 - `Cluster Mode`   
   Container cluster mode, to achieve create containers in bulk by number of instances and container scheduling, bulk operation of the container, upgrades, migration and so on.
 
-&ensp;&ensp;&ensp;平台采用分组方式（Group）来管理多主机，多组之间权限操作隔离，同时也可以将一台主机加入到多个分组中交叉管理。The platform uses Group (Group) to manage multi-host. Multiple groups of permissions between the operation is isolated, you can also add a host to multiple groups of cross-management.
+&ensp;&ensp;&ensp;The platform uses Group (Group) to manage multi-host. Multiple groups of permissions between the operation is isolated, you can also add a host to multiple groups of cross-management.
 
 ![Humpback Group](_media/humpback-web.png)
 
