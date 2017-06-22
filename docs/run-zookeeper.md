@@ -4,7 +4,7 @@
 
 - Zookeeper download  
   
-  Example Using the `Zookeeper 3.4.6` version, make sure that the `java open jdk7` runtime environment is installed on the server, download `Zookeeper` and unzip it.
+Example Using the `Zookeeper 3.4.6` version, make sure that the `java open jdk7` runtime environment is installed on the server, download `Zookeeper` and unzip it.
 
 ```bash
 $ cd /opt/app
