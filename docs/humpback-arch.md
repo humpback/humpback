@@ -1,30 +1,30 @@
-# Humpback架构
+# Humpback Architecture
 
-![架构图](./_media/humpback-arch.png)
+![Architecture diagram](./_media/humpback-arch.png)
 
-## 系统角色
+## System role
 
 - `Humpback Website`  
-   Humpback 管理站点，主要提供系统可视化管理，功能为分组管理，权限管理，仓库镜像查询，集群管理。
+   Humpback management site mainly provides system visual management, it has group management, rights management, registry image query, cluster management functions.
 
 - `Humpback Center`  
-   Humpback 集群中心，通过调度策略对集群实施容器批量创建、操作、删除、升级、故障迁移、实例调整等功能；同时负责集群节点的发现与管理。   
+   Humpback cluster center, which through the scheduling strategy to implement the container volume creation, operation, delete, upgrade, fault migration, instance adjustment and other functions for cluster; also responsible for cluster node discovery and management.  
 
 - `Humpback Agent`   
-   Humpback 集群节点，集群中存在多个节点等待被调度，并在 `Humpback Center` 中被分组管理，通过节点发现模块注册到集群中心并维持心跳。    
+   Humpback cluster nodes, multiple nodes in the cluster waiting to be scheduled and managed in the `Humpback Center` group, registered to the cluster center through the node discovery module and maintain heartbeat.    
    
-   在管理分组时可以将 `Humpback Agent` 节点对应的 IP 地址加入到多个分组中，当发生容器调度时，组与组之间容器相互隔离互不影响。
+   When the packet is managed, the IP address corresponding to the `Humpback Agent` node can be added to multiple packets. When the container is scheduled, the containers between groups and groups are not isolated from each other.
 
-## 工具集  
+## Toolset  
    
 - `Zookeeper`   
 
-   Humpback 默认选用 `Zookeeper` 来进行集群节点的注册和发现，后端需要具备一个 `Zookeeper` 集群。   
+   Humpback defaults to `Zookeeper` for cluster node registration and discovery, and the backend needs to have a `Zookeeper` cluster.   
    
-   默认版本 `3.4.6`，下載 <a href="http://apache.org/dist/zookeeper/zookeeper-3.4.6/zookeeper-3.4.6.tar.gz">`zookeeper-3.4.6.tar.gz`</a>
+   Default version `3.4.6`, download <a href="http://apache.org/dist/zookeeper/zookeeper-3.4.6/zookeeper-3.4.6.tar.gz">`zookeeper-3.4.6.tar.gz`</a>
    
 - `Docker Images Repository`   
  
-   Humpack 选用 `Docker` 官方私有镜像仓库 `distribution` 来提供镜像存储服务，`Humpback Website` 通过访问 `distribution` API 来提供仓库镜像查询功能。   
+  Humpack uses `Docker` official private image registry `distribution` to provide image storage services, `Humpback Website` provides access to the registry image query by visiting the `distribution` API.   
       
-   默认版本 `2.5.1` 或更高，更多参见 <a href="https://github.com/docker/distribution/blob/master/README.md">`Docker Distribution`</a>
+  Default version of `2.5.1` or higher, see more <a href="https://github.com/docker/distribution/blob/master/README.md">`Docker Distribution`</a>
