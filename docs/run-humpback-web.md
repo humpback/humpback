@@ -24,6 +24,6 @@ $ docker run -d --net=host --restart=always \
 
 ![Humpback Web](_media/humpback-web.png)
 
-&ensp;&ensp;&ensp;以管理员身份登录 Humpback Web 站点，展开左侧 `Manage` 功能点击 `System Config`，进入系统配置界面，将 `Enabel Private Registry` 勾选，并填入先前部署的私有仓库服务地址 `http://192.168.2.80:5000` Save 即可。 
+&ensp;&ensp;&ensp;Log in to Humpback as an administrator and expand the left `Manage` and click `System Config`. Enter the system configuration interface, check the `Enable Private Registry`, and fill in the previously deployed private registry service address `http: //192.168.2.80: 5000` and `Save`. 
 
 ![Humpback Web Registry Bind](_media/humpback-web-registry-bind.png)
