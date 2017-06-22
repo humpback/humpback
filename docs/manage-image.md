@@ -1,29 +1,29 @@
-# 管理镜像
+# Manage The Image
 
-> 私有仓库地址设置 [私有仓库搭建](build-registry.md)
+> Private registry address setting [Private registry structures](build-registry.md)
 
 ![Setting Private Registry](_media/setting-private-registry.png)
 
-> 浏览镜像列表
+> Browse the image list
 
 ![Image List](_media/image-list.png)
 
-查看仓库里面的docker镜像，点击`View Detail`可以查看镜像描述、Tag、Dockerfile等信息，其中描述和Dockerfile需要自行维护
+View the docker image inside the registry, click `View Detail` to view the image description, Tag, Dockerfile and other information, which describes and Dockerfile need to maintain
 
-> 镜像描述
+> Image description
 
 ![Image Description](_media/image-description.png)
 
 使用Markdown维护，主要用户描述镜像用途
 
-> Tag列表
+> Tag list
 
 ![Image Tags](_media/image-tags.png)
 
-由于Docker官方提供的私有仓库能读取到的镜像信息有限，所以目前只展示了tag
+As Docker official private registry can read the image information is limited, so only show the tag
 
 > Dockerfile
 
 ![Image Dockerfile](_media/image-dockerfile.png)
 
-维护构建镜像是所使用的Dockerfile，方便使用者查看镜像的构建步骤
+Maintain the build image using Dockerfile to make it easier for users to view the constructing steps
