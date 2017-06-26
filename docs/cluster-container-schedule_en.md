@@ -4,11 +4,11 @@
 
 ##  Cluster mode
 
-&ensp;&ensp;&ensp;在使用 Humpback 来管理 Group 时，根据业务需要可选择性将 Group 设置为 `ClusterMode` 模式，一但设置为集群模式后，此时 Group 下的所有服务器节点 Humpback Agnet 会接受 humpback Center 服务管理调度。   
+&ensp;&ensp;&ensp;When using Humpback to manage the group, the Group can be set to `ClusterMode` mode according to the business needs. Once set to cluster mode, all the server nodes Humpback Agent under the group will accept the humpback center service management schedule.
 
-&ensp;&ensp;&ensp;所有被管理的 Humpback Agent 节点都以心跳方式注册到集群中，然后 Humpback Center 再根据节点发现模块发现节点并构建在内部 `EnginesPool` 中进行状态管理，同一个 Humpback Agent 节点可以通过 Humpback 站点同时部署到多个 Group 中。   
+&ensp;&ensp;&ensp;All managed Humpback Agent nodes are registered in the cluster with heartbeat, and then the Humpback Center will discover the modules and nodes according to the node and is built in the internal `EnginesPool` for state management. The same Humpback Agent node can be deployed at the same time through the Humpback site to multiple groups.   
 
-&ensp;&ensp;&ensp;Humpback Center 只是一个调度器而本身不运行容器，只会接受 API 请求，通过调度策略选择 Group 中合适的 Engine 来处理本地 Containers。这意味着即使 Humpback Center 由于某些原因出现宕机或关机， 已经运行起来的容器短时间内不会有任何影响。
+&ensp;&ensp;&ensp;Humpback Center is just a scheduler and does not run the container itself, only accept API requests, through the scheduling strategy to select the appropriate Engine in the group to deal with local Containers. This means that even if the Humpback Center is down or shut down for some reason, the containers that are already running will not have any effect for a short period of time.
 
 ## How to start the cluster center service   
 
@@ -87,15 +87,15 @@ b1ac4a82c2dd    humpbacks/humpback-agent:1.0.0   "./humpback-agent"   3 minutes 
 
 - `Node Filtering`：Node filtering, finally, according to Filter filter the node that has been allocated or assigned but failed to schedule.   
 
-&ensp;&ensp;&ensp;如果在经过以上三个阶段裁决后，都还不能分配出效节点（实例数>集群服务器数），调度器会在已经分配过了的节点中随机选择一个节点，在这种情况下往往是以 `--net=host` 主机模式或指定固定 Port 启动的容器会调度失败，此时会进入 Humpback 的报警流程进行邮件通知。   
+&ensp;&ensp;&ensp;If the number of instances (number of instances> cluster servers) can not be assigned after the above three-stage decision, the scheduler randomly selects a node in the node that has been allocated, and in this case, `--net = host` Host mode or specify a fixed port to start the container will be usually scheduled to fail, then enter the Humpback alarm process for e-mail notification.   
 
-&ensp;&ensp;&ensp;目前只固化了这一种调度策略算法，目的是尽量将容器分散在集群中，这样做的好处就是如果有节点坏掉不会损失太多的 Container ，同时能起到部分负载均衡的作用。   
+&ensp;&ensp;&ensp;At present, only this kind of scheduling strategy algorithm is cured, the purpose is to try to disperse the container in the cluster, the benefits of doing so is that if the node is broken will not lose too much Container, and can play a part of the role of load balancing.
 
 ## About the container   
 
 #### Container shrink  
 
-&ensp;&ensp;&ensp;关于容器收缩，此情况一般是在修改集群容器实例数时发生，将实例数由大改小时，调度策略会每次选择所有有效节点，比较容器数量最多的节点并倒序排列，最终调度一个本地容器数最多的节点来删除容器，目的也是尽量保持容器分散。
+&ensp;&ensp;&ensp;In the case of container shrinkage, this situation usually occurs when the number of instances of the cluster container is modified. When the number of instances is changed from large to small, the scheduling policy selects all the valid nodes every time, compares the nodes with the largest number of containers and arranges them in the reverse order. and eventually dispatches a node with the largest number of local containers to delete the container, the purpose is to try to keep the container dispersed.
 
 #### Container migration   
 
@@ -107,7 +107,7 @@ b1ac4a82c2dd    humpbacks/humpback-agent:1.0.0   "./humpback-agent"   3 minutes 
 
 ## About WebHook   
 
-&ensp;&ensp;&ensp;WebHook 功能用于回调通知集群容器实例或状态发生改变，同时可以得知容器被分配的目标宿主机IP地址和名称，在创建 Container 时可以设置多个WebHook，若不设置系统在处理容器后则放弃通知。
+&ensp;&ensp;&ensp;The WebHook function is used to call back to notify the cluster container instance or state to change. At the same time, you can know the IP address and name of the target host to be assigned. When you create a Container, you can set up multiple WebHooks. If you do not set up, the system will abandon the notification after handling the container.
 
 &ensp;&ensp;&ensp;WebHook event description:
 ```
