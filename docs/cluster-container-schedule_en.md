@@ -71,7 +71,7 @@ b1ac4a82c2dd    humpbacks/humpback-agent:1.0.0   "./humpback-agent"   3 minutes 
 
 ## How to exit the cluster     
 
-&ensp;&ensp;&ensp;在 Humpback 站点将 Group 的 ClusterMode 选项关闭，此时 Group 中所有服务将退出集群管理模式，不需要重启 Humpback Agent 容器即可，若要彻底退出集群避免心跳，可以将 Humpback Agent 容器停止后删除重建，重建时将 `DOCKER_CLUSTER_ENABLED` 环境变量设置为false即可。需要注意：一但对出集群，与该 Group 相关所有之前受集群调度的容器将会被统一删除。 When the ClusterMode option of Group is closed on the Humpback site, all services in the group will exit the cluster management mode and do not need to restart the Humpback Agent. To completely exit the cluster to avoid heartbeat, you can remove the rebuild after stopping the Humpback Agent container, when rebuilding, set the `DOCKER_CLUSTER_ENABLED` environment variable to false.
+&ensp;&ensp;&ensp;When the ClusterMode option of Group is closed on the Humpback site, all services in the group will exit the cluster management mode and do not need to restart the Humpback Agent. To completely exit the cluster to avoid heartbeat, you can remove the rebuild after stopping the Humpback Agent container, when rebuilding, set the `DOCKER_CLUSTER_ENABLED` environment variable to false. Note: Once the cluster is exited, all containers that were previously affected by the cluster will be deleted.
 
 ## Scheduling strategy   
 
