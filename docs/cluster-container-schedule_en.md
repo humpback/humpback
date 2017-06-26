@@ -67,7 +67,7 @@ b1ac4a82c2dd    humpbacks/humpback-agent:1.0.0   "./humpback-agent"   3 minutes 
 
    - /opt/app/humpback-center/logs System log directory。  
 
-&ensp;&ensp;&ensp;当 Humpback Agent After successful startup, you can modify the Group attribute at the Humpback site and open the ClusterMode mode option. At this point, all the servers under the Group will switch to cluster scheduling mode.
+&ensp;&ensp;&ensp;After successful startup of Humpback Agent, you can modify the Group attribute at the Humpback site and open the ClusterMode mode option. At this point, all the servers under the Group will switch to cluster scheduling mode.
 
 ## How to exit the cluster     
 
