@@ -82,7 +82,7 @@ c1bfc2be7117: Pushed
 
 ## Make a image with `Dockfile`   
 
-&ensp;&ensp;&ensp;使用 `docker commit` 命令很容易基于现有的容器创建新的扩展，除此之外我们还可以通过 `docker build` 来从零开始构建一个镜像，特别是基于一些基础镜像来构建我们自己的应用镜像，使用 `Dockerfile` 和 `docker build` 命令来构建镜像操作更灵活、过程可重复，因此也更推荐使用这种方式来构建镜像。Using the `docker commit` command makes it easy to create new extensions based on existing containers. In addition, we can build a mirror from scratch at `docker build`, especially based on some basic mirroring to build our own application mirroring, and use the` Dockerfile` and `docker build` commands to build mirror operations more flexible , The process can be repeated, so it is recommended to use this way to build the mirror.   
+&ensp;&ensp;&ensp;使用 `docker commit` 命令很容易基于现有的容器创建新的扩展，除此之外我们还可以通过 `docker build` 来从零开始构建一个镜像，特别是基于一些基础镜像来构建我们自己的应用镜像，使用 `Dockerfile` 和 `docker build` 命令来构建镜像操作更灵活、过程可重复，因此也更推荐使用这种方式来构建镜像。Using the `docker commit` command makes it easy to create new extensions based on existing containers. In addition, we can build a image from scratch at `docker build`, especially based on some basic mirroring to build our own application mirroring, and use the` Dockerfile` and `docker build` commands to build mirror operations more flexible , The process can be repeated, so it is recommended to use this way to build the mirror.   
 
 &ensp;&ensp;&ensp;`Dockerfile` builds the `Docker` image based on the `DSL (Domain Specific Language)` language. After the `Dockerfile` is written, you can use the `docker build` command to build a new image.
 
