@@ -14,7 +14,7 @@ View the docker image inside the registry, click `View Detail` to view the image
 
 ![Image Description](_media/image-description.png)
 
-使用Markdown维护，主要用户描述镜像用途
+Use Markdown maintenance, mainly used to describe the image use
 
 > Tag list
 
