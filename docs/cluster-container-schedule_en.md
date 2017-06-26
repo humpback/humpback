@@ -103,7 +103,7 @@ b1ac4a82c2dd    humpbacks/humpback-agent:1.0.0   "./humpback-agent"   3 minutes 
 
 #### Container recovery   
 
-&ensp;&ensp;&ensp;Humpback Center 启动后会定期默认120s对集群所有 Group 进行一次容器实例数扫描，目的是为了将实例数不足的容器恢复出来，这种情况一般出现在分配失败或直接手动删除docker deamon上的容器实例时发生，容器恢复算法也按照调度策略来进行计算。
+&ensp;&ensp;&ensp;Humpback Center will periodically scan the number of container instances for all groups of clusters, once per 120s by default, in order to recover the number of container instances. This situation generally occurs when the allocation fails or container instance of docker daemon is deleted manually, and the container recovery algorithm is also calculated according to the scheduling strategy.
 
 ## About WebHook   
 
