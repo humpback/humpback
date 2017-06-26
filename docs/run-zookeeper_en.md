@@ -41,7 +41,7 @@ mkdir -p /opt/app/zookeeper/zkdata
 mkdir -p /opt/app/zookeeper/logs
 ```
 
-&ensp;&ensp;&ensp;以上安装流程三台服务器都照执行，接下来开始创建 `zookeeper` 集群并启动。   
+&ensp;&ensp;&ensp;Three servers follow the above installation process, and then start creating the zookeeper cluster and starting.   
 
 - Create a Zookeeper node identification file `myid`   
 
