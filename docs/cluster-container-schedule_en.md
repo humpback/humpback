@@ -71,7 +71,7 @@ b1ac4a82c2dd    humpbacks/humpback-agent:1.0.0   "./humpback-agent"   3 minutes 
 
 ## How to exit the cluster     
 
-&ensp;&ensp;&ensp;在 Humpback 站点将 Group 的 ClusterMode 选项关闭，此时 Group 中所有服务将退出集群管理模式，不需要重启 Humpback Agent 容器即可，若要彻底退出集群避免心跳，可以将 Humpback Agent 容器停止后删除重建，重建时将 `DOCKER_CLUSTER_ENABLED` 环境变量设置为false即可。需要注意：一但对出集群，与该 Group 相关所有之前受集群调度的容器将会被统一删除。   
+&ensp;&ensp;&ensp;在 Humpback 站点将 Group 的 ClusterMode 选项关闭，此时 Group 中所有服务将退出集群管理模式，不需要重启 Humpback Agent 容器即可，若要彻底退出集群避免心跳，可以将 Humpback Agent 容器停止后删除重建，重建时将 `DOCKER_CLUSTER_ENABLED` 环境变量设置为false即可。需要注意：一但对出集群，与该 Group 相关所有之前受集群调度的容器将会被统一删除。 When the ClusterMode option of Group is closed on the Humpback site, all services in the group will exit the cluster management mode and do not need to restart the Humpback Agent. To completely exit the cluster to avoid heartbeat, you can remove the rebuild after stopping the Humpback Agent container, when rebuilding, set the `DOCKER_CLUSTER_ENABLED` environment variable to false.
 
 ## Scheduling strategy   
 
@@ -99,7 +99,7 @@ b1ac4a82c2dd    humpbacks/humpback-agent:1.0.0   "./humpback-agent"   3 minutes 
 
 #### Container migration   
 
-&ensp;&ensp;&ensp;容器迁移发生在节点宕机或关闭 Humpback Agent 时，目的是按集群容器实例数进行逐步创建恢复，此时调度器会将故障节点上的所有需要被调度的容器进行重新分配，Humpback Center 在检测到节点异常时不会立即触发迁移，而是给出了延时处理（默认为45s），一但超出这个阈值后若节点还未及时恢复上线，此时容器迁移立即触发。这样做的主要目的是为了防止节点抖动导致容器服务间隙中断。
+&ensp;&ensp;&ensp;Container migration occurs when the node is down or off the Humpback Agent. The purpose is to create a recovery step by step based on the number of cluster container instances. The scheduler reallocates all the containers that need to be scheduled on the failed node. Humpback Center does not immediately trigger the migration when a node exception is detected, but gives a delay processing (defaults to 45s). Once this threshold is exceeded, the container migration immediately triggers if the node has not resumed the line in time. The main purpose of this is to prevent the node from jitter and cause the cluster container service gap to be interrupted.
 
 #### Container recovery   
 
