@@ -61,7 +61,7 @@ b1ac4a82c2dd    humpbacks/humpback-agent:1.0.0   "./humpback-agent"   3 minutes 
 
 &ensp;&ensp;&ensp;`DOCKER_API_VERSION=v1.21` must be consistent with the above version number.   
 
-&ensp;&ensp;&ensp;`DOCKER_CLUSTER_ENABLED=true` 如果当前 Agent 需要被集群模式调度， 那么 `Cluster Mode` 模式请设置为 `true`，否则关闭集群调度该节点为 `Single Mode` 模式。If the current agent needs to be scheduled by cluster mode, set the cluster mode to true.    
+&ensp;&ensp;&ensp;`DOCKER_CLUSTER_ENABLED=true`If the current agent needs to be scheduled by cluster mode, set the cluster mode to true, otherwise, close the node of cluster scheduling to `Single Mode` mode.    
 
 &ensp;&ensp;&ensp;`DOCKER_CLUSTER_URIS=zk://192.168.2.80:2181,192.168.2.81:2181,192.168.2.82:2181` is the previously configured` Zookeeper` cluster address information.   
 
