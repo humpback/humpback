@@ -1,10 +1,10 @@
-# 用户列表
+# User List
 
-*仅限用户**管理员**权限的用户访问*
+*User only **Administrator** Permissions for user access*
 
 ![User Manage](_media/user_manage.png)
 
-> 说明
+> Description
 
-- 添加用户请点击页面上方的`Add User`按钮
-- 表格最后一列的三个图标分别表示`编辑用户信息`、`重置用户密码`、`删除用户`
+- To add a user, click the `Add User` button at the top of the page
+- The three icons in the last column of the table represent `edit user information`, `reset user password`, `delete user '

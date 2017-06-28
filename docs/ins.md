@@ -2,31 +2,31 @@
 
 ![Humpback](_media/logo.png)
 
-## 什么是 Humpback?
+## What is Humpback?
 
-&ensp;&ensp;&ensp;Humpback 可以帮助企业快速搭建轻量级的 Docker 容器云管理平台，若将你的 Docker 主机接入到 Humpback 平台中，就能够为你带来更快捷稳定的容器操作体验。 
+&ensp;&ensp;&ensp;Humpback can help companies quickly build lightweight Docker container cloud management platform. With your Docker host connected to the Humpback platform, Humpback will be able to bring you a faster and more stable container operation experience. 
 
 ![Humpback Group](_media/humpback-arch.png)
 
-## Humpback 功能特点
+## Humpback features
 
-- Web操作，简单易用
-- 权限分组隔离
-- 容器升级与克隆
-- 容器监控
-- 容器日志
-- 集群容器调度
-- 集群弹性伸缩
-- 私有仓库
+- Web operation, easy to use
+- Permission grouping isolation
+- Container upgrades and clones
+- Container monitoring
+- Container log
+- Cluster container scheduling
+- Clustering flexibility
+- Private registry
 
-## Humpback 模式介绍
+## Humpback mode introduction
 - `Single Mode`   
-  单一模式，对单组主机实现容器管理，提供容器创建，容器操作，容器重命名，容器升级与克隆，容器监控，容器日志输出等功能。   
+  Single mode is a container management for a single set of hosts. It provides container creation, container operation, container renaming, container upgrades and cloning, container monitoring, container log output and other functions.   
 
 - `Cluster Mode`   
-  容器集群模式，实现按实例数批量创建容器，容器调度，批量操作容器，升级和迁移等。 
+  Container cluster mode, to achieve create containers in bulk by number of instances and container scheduling, bulk operation of the container, upgrades, migration and so on.
 
-&ensp;&ensp;&ensp;平台采用分组方式（Group）来管理多主机，多组之间权限操作隔离，同时也可以将一台主机加入到多个分组中交叉管理。
+&ensp;&ensp;&ensp;The platform uses Group (Group) to manage multi-host. Multiple groups of permissions between the operation is isolated, you can also add a host to multiple groups of cross-management.
 
 ![Humpback Group](_media/humpback-web.png)
 
@@ -52,15 +52,15 @@ Container Detail
 
 ![Humpback Group](_media/container-cluster-info.png)
 
-&ensp;&ensp;&ensp;项目地址：<a href="https://humpback.github.io/humpback">https://humpback.github.io/humpback</a> 
+&ensp;&ensp;&ensp;Project address:<a href="https://humpback.github.io/humpback">https://humpback.github.io/humpback</a> 
 
-&ensp;&ensp;&ensp;Docker版本：Docker 1.8.3 或更高
+&ensp;&ensp;&ensp;Docker version: Docker 1.8.3 or higher
 
-&ensp;&ensp;&ensp;开发授权协议: Apache 2.0   
+&ensp;&ensp;&ensp;Development License Agreement: Apache 2.0   
 
-&ensp;&ensp;&ensp;开发语言: Angular2、Golang   
+&ensp;&ensp;&ensp;Development language: Angular2, Golang   
 
-&ensp;&ensp;&ensp;操作系统: 跨平台
+&ensp;&ensp;&ensp;Operating system: cross platform
 
 
 
