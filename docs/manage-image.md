@@ -14,7 +14,7 @@
 
 ![Image Description](_media/image-description.png)
 
-使用Markdown维护，主要用户描述镜像用途
+使用Markdown维护，主要用于描述镜像用途
 
 > Tag列表
 

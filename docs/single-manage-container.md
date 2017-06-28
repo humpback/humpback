@@ -11,7 +11,7 @@
 
 ![Container Detail](_media/single-container-detail.png)
 
-相比`容器列表`，这里会展现出更详细容器的信息，包括Pid、端口、卷标等内容，除了基本的（Start/Stop/Restart/Pause/UnPause/Delete）等功能外以外，，还有`Rename`、`Upgrade`等功能
+相比`容器列表`，这里会展现出更详细容器的信息，包括Pid、端口、卷标等内容，除了基本的（Start/Stop/Restart/Pause/UnPause/Delete）等功能外，还有`Rename`、`Upgrade`等功能
 
 - `Rename`：修改容器名称
 - `Upgrade`：升/降级容器所使用的镜像，可以对当前组内的服务器进行批量操作，前提是容器名称需要一致

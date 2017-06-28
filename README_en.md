@@ -5,16 +5,16 @@
 </p>
 
 <p align="center">
-  帮助企业快速搭建轻量级的Docker容器云管理平台。
+  To help enterprises quickly build lightweight Docker container cloud management platform.
 </p>
 
 ## Feature
 
-* 容器调度
-* 多集群管理，权限隔离
-* 弹性伸缩
-* 私有仓库
-* 全界面操作
+* Container dispatch
+* Multi - cluster management,Permission isolation
+* Elastic telescopic
+* Private repository
+* Full interface operation
 
 ## Components
 
