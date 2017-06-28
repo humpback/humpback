@@ -1,6 +1,6 @@
 # 管理镜像
 
-> 私有仓库地址设置 [私有仓库搭建](build-registry.md)
+> 私有仓库地址设置 [私有仓库搭建](zh-cn/build-registry.md)
 
 ![Setting Private Registry](_media/setting-private-registry.png)
 

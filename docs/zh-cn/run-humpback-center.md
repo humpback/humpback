@@ -41,6 +41,6 @@ a1640bf8c956    humpbacks/humpback-center:1.0.0  "./humpback-center"     15 minu
 
 &ensp;&ensp;&ensp;`-v /opt/app/humpback-center/logs` 系统日志目录。
 
-- [集群模式如何创建容器](cluster-create-container.md)
+- [集群模式如何创建容器](zh-cn/cluster-create-container.md)
 
-- [集群调度策略](cluster-container-schedule.md)
+- [集群调度策略](zh-cn/cluster-container-schedule.md)

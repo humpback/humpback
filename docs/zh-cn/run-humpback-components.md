@@ -40,23 +40,23 @@ SERVER03：192.168.2.82
 
 > Zookeeper 集群
 
-&ensp;&ensp;&ensp;[如何 Zookeeper 集群搭建](run-zookeeper.md) 
+&ensp;&ensp;&ensp;[如何 Zookeeper 集群搭建](zh-cn/run-zookeeper.md) 
 
 > Docker Registry 私有仓库
 
-&ensp;&ensp;&ensp;[如何部署 Docker Registry](run-registry.md)
+&ensp;&ensp;&ensp;[如何部署 Docker Registry](zh-cn/run-registry.md)
 
 > Humpback Web 站点
 
-&ensp;&ensp;&ensp;[如何部署 Humpback 站点](run-humpback-web.md)
+&ensp;&ensp;&ensp;[如何部署 Humpback 站点](zh-cn/run-humpback-web.md)
 
 > Humpback Agent
 
-&ensp;&ensp;&ensp;[如何部署 Humpback Agent](run-humpback-agent.md)
+&ensp;&ensp;&ensp;[如何部署 Humpback Agent](zh-cn/run-humpback-agent.md)
 
 > Humpback Center
 
-&ensp;&ensp;&ensp;[如何部署 Humpback Center](run-humpback-center.md)
+&ensp;&ensp;&ensp;[如何部署 Humpback Center](zh-cn/run-humpback-center.md)
 
 
 
