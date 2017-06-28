@@ -1,21 +1,22 @@
-# 创建镜像
+# Create a image
 
-&ensp;&ensp;&ensp;在 Humpback 系统中我们虽然可以使用一些公网镜像，但是总有不尽人意的地方，比如镜像拉取耗时或容器配置差异化等因素，此时我们就需要自己定制镜像，并提交到私有镜像仓库中保存，目前有2种方式可以创建镜像。   
+&ensp;&ensp;&ensp;In the Humpback system, although we can use some public network images, but there are always unsatisfactory places, such as taking the image time-consuming long or container configuration differentiation and other factors, then we need to customize the image, and submitted to the private image registry to store, There are currently two ways to create a mirror.  
 
-- 可以更新现有容器创建提交一个新镜像   
+- You can update an existing container to create a new image   
 
-- 通过 `Dockfile` 来创建一个全新的镜像
+- Create a brand new image with `Dockfile`
 
-## 更新现有容器创建提交一个新镜像   
+## update an existing container to create a new image   
 
-&ensp;&ensp;&ensp;该方式实质是调整现有正在运行的 `Container`，修改其中的配置或相关运行环境，然后固化为一个新版本的 `Image` 到本地。   
+&ensp;&ensp;&ensp;This way is to adjust the existing running `Container`, modify the configuration or the associated runtime environment, and then solidify it into a new version of `Image` to the local.   
 
-&ensp;&ensp;&ensp;首先我们将要更新的 `Image` 成功运行起来成为一个 `Container`，以官方基础镜像 `alpine:3.5` 为例：
+&ensp;&ensp;&ensp;First we run the `Image` to be updated successfully, making it a `Container`, with the official base mirror like 'alpine: 3.5`:
 
 ```bash
 $ docker run -t -i --name=alpine alpine:3.5 /bin/ash
 ```
-&ensp;&ensp;&ensp;然后我们就可以修改这个容器了，比如给容器安装一个 `postgresql-dev` 环境，目的是制作一个基于 `alpine` 的 `postgresql` 基础镜像:   
+&ensp;&ensp;&ensp;And then we can modify the container, such as install a `postgresql-dev` environment for the container, The purpose is to make a `postgresql` base image based on 'alpine`:
+
 ```bash
 / # apk add --no-cache postgresql-dev
 fetch http://dl-cdn.alpinelinux.org/alpine/v3.5/main/x86_64/APKINDEX.tar.gz
@@ -32,16 +33,16 @@ fetch http://dl-cdn.alpinelinux.org/alpine/v3.5/community/x86_64/APKINDEX.tar.gz
 Executing busybox-1.25.1-r0.trigger
 OK: 29 MiB in 20 packages
 ```   
-&ensp;&ensp;&ensp;执行 `exit` 退出这个容器，然后可以通过 `docker commit` 命令来将当前 `alpine` 容器固化为一个新的镜像了。   
+&ensp;&ensp;&ensp;Execute `exit` to exit this container and then use the `docker commit` command to solidify the current `alpine` container to a new image.   
 
-&ensp;&ensp;&ensp;退出容器后如下所示，查看被更新后的容器编号为 `b1ac4a82c2dd`
+&ensp;&ensp;&ensp;After exiting the container, the results are shown below. View the updated container number `b1ac4a82c2dd`
 ```bash
 / # exit
 $ docker ps -a
 CONTAINER ID    IMAGE         COMMAND       CREATED          STATUS                   PORTS      NAMES
 b1ac4a82c2dd    alpine:3.5    "/bin/ash"    "5 minutes ago"  Exit (0) 5 seconds ago              alpine
 ```
-&ensp;&ensp;&ensp;执行 `docker commit` 命令将容器 `b1ac4a82c2dd` 固化为新镜像:   
+&ensp;&ensp;&ensp;Execute the `docker commit` command to solidify the container `b1ac4a82c2dd` as a new image:   
 
 ```bash
 $ docker commit -m "add postgresql" -a "bobliu" b1ac4a82c2dd 192.168.1.10:5000/postgresql:9.6.2
@@ -51,25 +52,25 @@ REPOSITORY                      TAG           IMAGE ID          CREATED         
 alpine                          3.5           1bb3a95866d7      15 minutes ago   3.987MB
 192.168.1.10:5000/postgresql    9.6.2         b1ac4a82c2dd      45 seconds ago   27.59MB
 ```
-&ensp;&ensp;&ensp;注意 `docker commit` 命令格式如下：
+&ensp;&ensp;&ensp;Note that the `docker commit` command has the following format:
 ```bash
 docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]
 ```
-&ensp;&ensp;&ensp;主要选项(OPTIONS)如下：   
-- -a, --author - {string}, 作者（如："John Hannibal Smith "）
-- -c, --change - {list}, 使用Dockerfile指令来创建镜像（默认 []）
-- -m, --message - {string}, 提交备注信息
-- -p, --pause - {string}, 提交时暂停容器（默认 true）
+&ensp;&ensp;&ensp;The main options (OPTIONS) are as follows:   
+- -a, --author - {string}, The author（如："John Hannibal Smith "）
+- -c, --change - {list}, Use the Dockerfile directive to create a image (default [])
+- -m, --message - {string}, Submit a note message
+- -p, --pause - {string}, Suspended container when submitting (default true)
 
-&ensp;&ensp;&ensp;紧接 `CONTAINER` 是被固化的容器ID `b1ac4a82c2dd`。   
+&ensp;&ensp;&ensp;Immediately after `CONTAINER` is the solidified container ID `b1ac4a82c2dd`.  
 
-&ensp;&ensp;&ensp;最后 `[REPOSITORY[:TAG]]` 是新镜像名称与 tag: `9.6.2`，示例中`192.168.1.10:5000` 为私有仓库地址。
+&ensp;&ensp;&ensp;Finally `[REPOSITORY [: TAG]]` is the new image name with tag: `9.6.2`, the example` 192.168.1.10: 5000` is the private registry address.
 
 ```bash
 192.168.1.10:5000/postgresql:9.6.2
 ```
 
-&ensp;&ensp;&ensp;最后将镜像提交到私有仓库 `192.168.1.10:5000`   
+&ensp;&ensp;&ensp;Finally, the image will be submitted to the private registry `192.168.1.10: 5000` 
 
 ```bash
 $ docker push 192.168.1.10:5000/postgresql:9.6.2
@@ -79,15 +80,15 @@ c1bfc2be7117: Pushed
 9.6.2: digest: sha256:afcf3f596e42837ded618f4694e6ff9928034ce20e860b75125992c3dc1ba501 size: 739
 ```
 
-## 通过 `Dockfile` 制作镜像   
+## Make a image with `Dockfile`   
 
-&ensp;&ensp;&ensp;使用 `docker commit` 命令很容易基于现有的容器创建新的扩展，除此之外我们还可以通过 `docker build` 来从零开始构建一个镜像，特别是基于一些基础镜像来构建我们自己的应用镜像，使用 `Dockerfile` 和 `docker build` 命令来构建镜像操作更灵活、过程可重复，因此也更推荐使用这种方式来构建镜像。   
+&ensp;&ensp;&ensp;Using the `docker commit` command makes it easy to create new extensions based on existing containers. In addition, we can build a image from scratch at `docker build`, especially based on some basic image to build our own application image, and use the` Dockerfile` and `docker build` commands to build image operations more flexible , The process can be repeated, so it is recommended to use this way to build the image.   
 
-&ensp;&ensp;&ensp; `Dockerfile` 基于 `DSL (Domain Specific Language)` 语言构建 `Docker` 镜像，`Dockerfile` 编写完成后，就可以使用 `docker build` 命令来构建一个新镜像。
+&ensp;&ensp;&ensp;`Dockerfile` builds the `Docker` image based on the `DSL (Domain Specific Language)` language. After the `Dockerfile` is written, you can use the `docker build` command to build a new image.
 
-&ensp;&ensp;&ensp;首先创建一个文件夹，取名为 `postgresql`，这个目录就是我们的构建环境，在 Docker 中，将这个环境称为上下文（content）或者构建上下文（build content），构建镜像时 Docker 会将构建环境中的文件和目录传递给守护进程，这样守护进程就访问到用户想在镜像中存储的任何代码、文件或其它数据。   
+&ensp;&ensp;&ensp;First create a folder, named `postgresql`, this directory is our build environment, in the Docker, this environment will be called content or build content. When building a image, the Docker passes the files and directories in the build environment to the daemons so that the daemon accesses any code, files, or other data that the user wants to store in the image.   
 
-&ensp;&ensp;&ensp;在目录内创建一个 `Dockerfile` 文件：
+&ensp;&ensp;&ensp;Create a `Dockerfile` file in the directory:
 
 ```bash
 $ mkdir postgresql
@@ -95,7 +96,7 @@ $ cd postgresql
 $ touch Dockerfile
 ```
 
-&ensp;&ensp;&ensp;然后编辑这个 `Dockerfile` 文件，同样以官方 `alpine:3.5` 基础镜像。     
+&ensp;&ensp;&ensp;Then edit the `Dockerfile` file, again, with the official `alpine: 3.5` as the base image.  
 
 ```bash
 # This is a comment
@@ -104,11 +105,11 @@ MAINTAINER bobliu <bobliu@example.com>
 RUN apk add --no-cache postgresql-dev
 ```
 
-&ensp;&ensp;&ensp;如何使用 `Dockerfile` 内部相关命令，请参考官方：<a href="https://docs.docker.com/engine/reference/builder/">`Dockerfile Reference`</a>    
+&ensp;&ensp;&ensp;How to use `Dockerfile` internal related commands, please refer to the official:<a href="https://docs.docker.com/engine/reference/builder/">`Dockerfile Reference`</a>    
 
-&ensp;&ensp;&ensp;如何书写 `Dockerfile` 请参考官方：<a href="https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/">`Best practices for writing Dockerfiles`</a>   
+&ensp;&ensp;&ensp;How to write `Dockerfile`, please refer to the official:<a href="https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/">`Best practices for writing Dockerfiles`</a>   
 
-&ensp;&ensp;&ensp;接下来通过 `docker build` 命令来构建 `postgresql` 镜像:    
+&ensp;&ensp;&ensp;Then through the `docker build` command to build `postgresql` image:    
 
 ```bash
 $ docker build -t 192.168.1.10:5000/postgresql:9.6 ./postgresql
@@ -144,7 +145,7 @@ Removing intermediate container 2948f616151f
 Successfully built c3e27ed7f727
 ```  
 
-&ensp;&ensp;&ensp;构建成功后，最后将镜像提交到私有仓库 `192.168.1.10:5000`   
+&ensp;&ensp;&ensp;After the build is successful, you will eventually submit the image to the private registry `192.168.1.10: 5000`  
 
 ```bash
 $ docker push 192.168.1.10:5000/postgresql:9.6

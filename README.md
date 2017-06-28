@@ -11,9 +11,9 @@
 ## Feature
 
 * Container dispatch
-* Multi - cluster management,Permission isolation
+* Multi - cluster management, Permission isolation
 * Elastic telescopic
-* Private repository
+* Private registry
 * Full interface operation
 
 ## Components

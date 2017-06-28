@@ -1,12 +1,12 @@
-# 部署 Humpback Center 
+# Deploy Humpback Center
 
 > Humpback Center  
 
-&ensp;&ensp;&ensp;Humpback Center 主要为 Humpback 平台提供集群容器调度服务，以集群中心角色实现各个 Group 的容器分配管理。   
+&ensp;&ensp;&ensp;Humpback Center mainly provides the cluster container scheduling service for the Humpback platform, and as a cluster center role to achieve the various groups of container distribution management.
 
-&ensp;&ensp;&ensp;需要集群调度的 `Group` 要在设置中将 `Cluster Mode` 开关打开即可。
+&ensp;&ensp;&ensp;Need cluster scheduling `Group`, you can open the` Cluster Mode` switch in the settings.
 
-- 启动 Humpback Center
+- Start the Humpback Center
 
 ```bash 
 $ docker pull humpbacks/humpback-center:1.0.0
@@ -25,22 +25,22 @@ CONTAINER ID    IMAGE                           COMMAND                  CREATED
 a1640bf8c956    humpbacks/humpback-center:1.0.0  "./humpback-center"     15 minutes ago  45 seconds ago              humpback-center
 ```
 
-- 环境变量与参数
+- Environment variables and parameters
 
-&ensp;&ensp;&ensp;`HUMPBACK_SITEAPI=http://192.168.2.80:8012/api` Humpback-Web 站点地址，注意要带上 `/api`。   
+&ensp;&ensp;&ensp;`HUMPBACK_SITEAPI=http://192.168.2.80:8012/api` Humpback-Web site address, pay attention to bring `/ api`.   
 
-&ensp;&ensp;&ensp;`CENTER_LISTEN_PORT=:8589` Humpback Center 的 API 默认端口为：8589。   
+&ensp;&ensp;&ensp;`CENTER_LISTEN_PORT=:8589` The default port for the Humpback Center API is: 8589.   
 
-&ensp;&ensp;&ensp;`CENTER_API_ENABLECORS=true` Humpback Center API 是否支持跨域访问。
+&ensp;&ensp;&ensp;`CENTER_API_ENABLECORS=true`Whether the Humpback Center API supports cross-domain access.
 
-&ensp;&ensp;&ensp;`DOCKER_CLUSTER_URIS=zk://192.168.2.80:2181,192.168.2.81:2181,192.168.2.82:2181` 为先前配置的 `Zookeeper` 集群地址信息。
+&ensp;&ensp;&ensp;`DOCKER_CLUSTER_URIS=zk://192.168.2.80:2181,192.168.2.81:2181,192.168.2.82:2181` is the previously configured `Zookeeper` cluster address information.
 
-&ensp;&ensp;&ensp;`DOCKER_CLUSTER_NAME=humpback/center` 集群名称，要与 `Humpback Agnet` 配置一致。   
+&ensp;&ensp;&ensp;`DOCKER_CLUSTER_NAME=humpback/center` The cluster name. It is consistent with the `Humpback Agent` configuration.   
 
-&ensp;&ensp;&ensp;`-v /opt/app/humpback-center/cache` 集群容器信息持久化目录，建议不要手动更改与删除。   
+&ensp;&ensp;&ensp;`-v /opt/app/humpback-center/cache` Cluster container information persistence directory. It is recommended that you do not manually change and delete.   
 
-&ensp;&ensp;&ensp;`-v /opt/app/humpback-center/logs` 系统日志目录。
+&ensp;&ensp;&ensp;`-v /opt/app/humpback-center/logs` System log directory.
 
-- [集群模式如何创建容器](cluster-create-container.md)
+- [How to create a container in cluster mode](cluster-create-container.md)
 
-- [集群调度策略](cluster-container-schedule.md)
+- [Cluster scheduling strategy](cluster-container-schedule.md)

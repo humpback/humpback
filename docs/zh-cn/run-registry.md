@@ -1,10 +1,10 @@
-# Deploy a private registry
+# 部署私有仓库
 
 > Docker Registry
 
-- Take the Docker official registry image   
+- 拉取 Docker 官方仓库镜像   
 
-&ensp;&ensp;&ensp;The following selection of `192.168.2.80` as Humpback private registry server.
+&ensp;&ensp;&ensp;以下选用 `192.168.2.80` 作为 Humpback 私有仓库服务器。
 
 ```bash
 192.168.2.80
@@ -12,11 +12,11 @@ $ mkdir -p /var/lib/registry
 $ docker pull registry:2.5.1
 ```
 
-- Start the registry service
+- 启动仓库服务
 
-&ensp;&ensp;&ensp;Please copy the configuration file to /etc/docker/registry/config.yml. For registry configuration instructions, see <a href="https://github.com/docker/distribution/blob/master/docs/configuration.md">`configuration.md` </a>
+&ensp;&ensp;&ensp;请将配置文件拷贝到 /etc/docker/registry/config.yml，关于仓库配置说明请参见 <a href="https://github.com/docker/distribution/blob/master/docs/configuration.md">`configuration.md` </a>
 
-&ensp;&ensp;&ensp;Registry To support cross-domain access, change the `http` entry in` config.yml` as follows:  
+&ensp;&ensp;&ensp;仓库若要支持跨域访问，请将 `config.yml` 中 `http` 项改为如下：   
 
 ```bash
 http:
@@ -28,7 +28,7 @@ http:
     Access-Control-Allow-Origin: ['*']
     Access-Control-Allow-Methods: ['GET,POST,PUT,DELETE']
 ```
-&ensp;&ensp;&ensp;Start the registry 
+&ensp;&ensp;&ensp;启动仓库   
 
 ```bash
 $ docker run -d -p 5000:5000 --restart=always \
@@ -37,7 +37,7 @@ $ docker run -d -p 5000:5000 --restart=always \
  --name registry \
  registry:2.5.1
 ```
-- Check the start state, if the `_catalog` interface can be normal access to prove that the registry started successfully.    
+- 检查启动状态，若 `_catalog` 接口能正常访问，证明仓库启动成功。    
 
 ```bash
 $ docker ps -a

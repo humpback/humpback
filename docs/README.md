@@ -1,11 +1,11 @@
 # Humpback
 
-> 帮助企业快速搭建轻量级的Docker容器云管理平台。
+> To help enterprises quickly build lightweight Docker container cloud management platform.
 
-## 核心功能
+## Core functions
 
-* 容器调度
-* 多集群管理，权限隔离
-* 弹性伸缩
-* 私有仓库
-* 全界面操作，简单易用
+* Container dispatch
+* Multi - cluster management, Permission isolation
+* Elastic telescopic
+* Private registry
+* Full interface operation, Easy to use

@@ -1,29 +1,29 @@
-# 容器管理
+# Container Management
 
-> 容器列表
+> Container list
 
 ![Container List](_media/single-container-list.png)
 
-通过列表可以查看当前服务器上运行的所有容器，可以对其进行类似启停、删除的操作，也可以快捷跳转到容器监控和日志查看页面    
-*根据屏幕分辨率不同，列表展示的数据可能会有些不同*
+Through the list can view all the containers running on the current server, You can do some operations such as starting, stopping and deleting it, you can quickly jump to the container monitoring and log viewing page
+*Depending on the screen resolution, the data displayed by the list may be slightly different*
 
-> 容器详细信息
+> Container details
 
 ![Container Detail](_media/single-container-detail.png)
 
-相比`容器列表`，这里会展现出更详细容器的信息，包括Pid、端口、卷标等内容，除了基本的（Start/Stop/Restart/Pause/UnPause/Delete）等功能外，还有`Rename`、`Upgrade`等功能
+Compared to the `container list`, there will be more detailed container information, including Pid, port, volume and other content, in addition to the basic (Start / Stop / Restart / Pause / UnPause / Delete) and other functions, there are `Rename` , `Upgrade` and other functions
 
-- `Rename`：修改容器名称
-- `Upgrade`：升/降级容器所使用的镜像，可以对当前组内的服务器进行批量操作，前提是容器名称需要一致
+- `Rename`：Modify the container name
+- `Upgrade`：Up / down the using image of container, the current group of servers can be batch operation, provided that the container name needs to be consistent
 
-> 容器监控
+> Container monitoring
 
 ![Container Monitor](_media/container-monitor.png)
 
-提供对容器CPU和内存的监控
+Provides monitoring of container CPU and memory
 
-> 容器日志
+> Container log
 
 ![Container Logs](_media/single-container-logs.png)
 
-可以根据Tail值确定显示多少条
+You can determine how many bars to display based on the Tail value
