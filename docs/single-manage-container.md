@@ -4,17 +4,17 @@
 
 ![Container List](_media/single-container-list.png)
 
-Through the list can view all the containers running on the current server, You can do some operations such as starting, stopping and deleting it, you can quickly jump to the container monitoring and log viewing page
+The list show all the containers running on the current server. You can do some operations such as starting, stopping and deleting it, you can quickly jump to the container monitoring and log viewing page
 *Depending on the screen resolution, the data displayed by the list may be slightly different*
 
 > Container details
 
 ![Container Detail](_media/single-container-detail.png)
 
-Compared to the `container list`, there will be more detailed container information, including Pid, port, volume and other content, in addition to the basic (Start / Stop / Restart / Pause / UnPause / Delete) and other functions, there are `Rename` , `Upgrade` and other functions
+There are more detailed container information than `container list`, including Pid, port, volume and other content. You can do `Rename`, `Upgrade`  and other actions here. 
 
 - `Rename`：Modify the container name
-- `Upgrade`：Up / down the using image of container, the current group of servers can be batch operation, provided that the container name needs to be consistent
+- `Upgrade`：Replace current container with a new one using same images but different tag. The operation can be batch to other servers in current group.
 
 > Container monitoring
 

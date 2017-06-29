@@ -1,30 +1,30 @@
-- Getting started
-  - [Humpback architecture](humpback-arch.md)
-  - [Build a private registry](build-registry.md)
-  - [Run the Humpback component](run-humpback-components.md)
-    - [Deploy zookeeper cluster](run-zookeeper.md)
-    - [Deploy private registry](run-registry.md)
+- Getting Started
+  - [Humpback Architecture](humpback-arch.md)
+  - [Build Private Registry](build-registry.md)
+  - [Run the Humpback Component](run-humpback-components.md)
+    - [Deploy Zookeeper Cluster](run-zookeeper.md)
+    - [Deploy Private Registry](run-registry.md)
     - [Deploy Humpback Web](run-humpback-web.md)
     - [Deploy Humpback Agent](run-humpback-agent.md)
     - [Deploy Humpback Center](run-humpback-center.md)
-- Use Docker private registry
-  - [Build image](build-image.md)
-  - [Manage image](manage-image.md)
+- Use Docker Private Registry
+  - [Build Image](build-image.md)
+  - [Manage Image](manage-image.md)
 
-- Group management
-  - [Create group](create-group.md)
-  - [Edit group](edit-group.md)
+- Group Management
+  - [Create Group](create-group.md)
+  - [Edit Group](edit-group.md)
   
-- User management
-  - [User list](user-manage.md)
-  - [Add user](add-user.md)
-  - [Edit user](edit-user.md)
+- User Management
+  - [User List](user-manage.md)
+  - [Add User](add-user.md)
+  - [Edit User](edit-user.md)
 
-- Manage containers in Single mode
-  - [How to create a container](single-create-container.md)
-  - [Container management](single-manage-container.md)
-  - [Batch operation](single-batch-operate.md)
+- Run Container in Single Mode
+  - [How to Create a Container](single-create-container.md)
+  - [Container Management](single-manage-container.md)
+  - [Batch Operation](single-batch-operate.md)
 
-- Manage containers in Cluster mode
-  - [How to create a container](cluster-create-container.md)
-  - [Container scheduling strategy](cluster-container-schedule.md)
+- Run Container in Cluster Mode
+  - [How to Create a Container](cluster-create-container.md)
+  - [Container Scheduling Strategy](cluster-container-schedule.md)

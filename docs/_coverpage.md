@@ -2,13 +2,13 @@
 
 # Humpback <small>3.0</small>
 
-> To help enterprises quickly build lightweight Docker container cloud management platform.
+> Quickly build lightweight docker cloud for enterprise user.
 
-* Container dispatch
-* Multi - cluster management, Permission isolation
-* Elastic telescopic
-* Private registry
-* Full interface operation
+* Container Scheduling
+* Supporting Multiple Cluster
+* Elasticity Cluster
+* Private Registry
+* Web UI Supporting
 
 
 [GitHub](https://github.com/humpback/humpback)

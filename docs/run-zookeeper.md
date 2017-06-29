@@ -1,10 +1,10 @@
 # Zookeeper Cluster Deployment
 
-> `Zookeeper` cluster build   
+> build `Zookeeper` cluster   
 
-- Zookeeper download  
+- Download Zookeeper  
   
-Example Using the `Zookeeper 3.4.6` version, make sure that the `java open jdk7` runtime environment is installed on the server, download `Zookeeper` and unzip it.
+Using the `Zookeeper 3.4.6` as example. Please make sure the `java open jdk7` runtime environment is installed on the server. 
 
 ```bash
 $ cd /opt/app
@@ -20,7 +20,7 @@ $ cp conf/zoo_sample.cfg conf/zoo.cfg
 $ vim conf/zoo.cfg
 ```
 
-- The configuration file is modified as follows 
+- The configuration file is modified as below 
 
 ```
 tickTime=2000
@@ -34,18 +34,20 @@ server.2=192.168.2.81:2888:3888
 server.3=192.168.2.82:2888:3888
 ```
 
-- Create a data directory   
+- Create a data folder   
 
 ```bash
 mkdir -p /opt/app/zookeeper/zkdata
 mkdir -p /opt/app/zookeeper/logs
 ```
 
-&ensp;&ensp;&ensp;Three servers follow the above installation process, and then start creating the zookeeper cluster and starting.   
+Do the same installation to the other servers which need install zookeeper. 
+
+Next we will build `zookeeper` cluster.
 
 - Create a Zookeeper node identification file `myid`   
 
-&ensp;&ensp;&ensp;Create `myid` number, one by one execution on each server, pay attention to each server` myid` to correspond to the correct number.
+Create `myid` number, execution on each server, pay attention to each server` myid` to correspond to the correct number.
 
 ```bash
 192.168.2.80
@@ -85,10 +87,10 @@ $ /opt/app/zookeeper/bin/zkServer.sh start
 192.168.2.80
 $ /opt/app/zookeeper/bin/zkServer.sh status
 ```
-&ensp;&ensp;&ensp;If the Zookeeper fails or is reported, there are several reasons:   
+If the Zookeeper start failed, please check the below reasons:   
 
-&ensp;&ensp;&ensp;2、`Zoo.cfg` file configuration error: dataLogDir specified directory is not created.   
+1、`Zoo.cfg` file configuration error: dataLogDir specified directory is not created.   
 
-&ensp;&ensp;&ensp;3、The integer in the `myid` file is not formatted correctly or does not correspond to the server integer in` zoo.cfg`.   
+2、The integer in the `myid` file is not formatted correctly or does not correspond to the server integer in` zoo.cfg`.   
 
-&ensp;&ensp;&ensp;4、The firewall does not open the Zookeeper service port, such as `2888` and` 3888`.  
+3、The firewall does not open the Zookeeper service port, such as `2888` and` 3888`.  

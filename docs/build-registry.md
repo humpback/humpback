@@ -1,6 +1,6 @@
 # Private Registry
 
-&ensp;&ensp;&ensp;The private registry provides the image storage infrastructure for Humpback, Humpback involves image searching, container building, and so on, all dependent on private registry services.   
+The private registry provides the image storage and searching for Humpback.
 
 ##  Prerequisites   
 
@@ -10,16 +10,16 @@
 
 ##  Start the Registry
 
-&ensp;&ensp;&ensp;This section focuses on building and running Docker private registries in containers, using the `2.5.1` version as an example.  
+Using the `2.5.1` version as an example to show how to run docker registry.
 
-&ensp;&ensp;&ensp;The image name of Docker official registry `Distribution` at hub.docker.com is <a href="https://hub.docker.com/r/library/registry/">`registry` </a>
+The image name of Docker official registry `Distribution` at hub.docker.com is <a href="https://hub.docker.com/r/library/registry/">`registry` </a>
 
-&ensp;&ensp;&ensp;1、Pull the registry image to the local
+1、Pull the registry image to the local
 
 ```bash
 $ docker pull registry:2.5.1
 ```
-&ensp;&ensp;&ensp;2、Start the registry service   
+2、Start the registry service   
 
 ```bash
 $ docker run -d -p 5000:5000 --restart=always \
@@ -28,21 +28,21 @@ $ docker run -d -p 5000:5000 --restart=always \
   --name registry \
   registry:2.5.1
 ```
-&ensp;&ensp;&ensp;Refer to the registry configuration instructions <a href="https://github.com/docker/distribution/blob/master/docs/configuration.md">`configuration.md` </a>
+Refer to the registry configuration instructions <a href="https://github.com/docker/distribution/blob/master/docs/configuration.md">`configuration.md` </a>
 
-&ensp;&ensp;&ensp;3、Verify the registry service 
+3、Verify the registry service 
 
 ```bash
 $ curl http://localhost:5000/v2/_catalog
 {"repositories":[]}
 ```
-&ensp;&ensp;&ensp;If you can normally access the `registry` interface `_catalog`, the service starts successfully. 
+If you can access the `registry` interface `_catalog`, the service starts successfully. 
 
 ##  Configure the Docker  
 
-&ensp;&ensp;&ensp;If you want the Docker daemon to `pull` or` push` image from the registry smoothly, you need to modify the Docker configuration.
+You need to modify the Docker configuration before ```pull``` and ```push``` images.
 
-&ensp;&ensp;&ensp;In the following configuration instructions, `<registry_server>` is the IP address or host domain name of the registry server.  
+In the following configuration instructions, `<registry_server>` is the IP address or host domain name of the registry server.  
 
 - CentOS 6   
 
@@ -56,9 +56,9 @@ $ curl http://localhost:5000/v2/_catalog
 
   In the `CentOS 7` system, first see if there is a` EnvironmentFile` configuration in /usr/lib/systemd/system/docker.service.
 
-&ensp;&ensp;&ensp;&ensp;&ensp;![C6配置](./_media/centos7_docker_etc.jpg)   
+![C6配置](./_media/centos7_docker_etc.jpg)   
   
-&ensp;&ensp;&ensp;&ensp;&ensp;File content may be slightly different, just pay attention to the `EnvironmentFile` and` ExecStart` part in the red box, make sure to link to the configuration file path and the relevant environment variable `INSECURE_REGISTRY`.
+File content may be slightly different, just pay attention to the `EnvironmentFile` and` ExecStart` part in the red box, make sure to link to the configuration file path and the relevant environment variable `INSECURE_REGISTRY`.
 
 - Ubuntu
 
@@ -66,7 +66,7 @@ $ curl http://localhost:5000/v2/_catalog
 
   Find the `INSECURE_REGISTRY` option and change to: INSECURE_REGISTRY =" `<registry_server>`: 5000 "
 
-&ensp;&ensp;&ensp;&ensp;After the configuration, restart the Docker local service and check whether the configuration takes effect. If the process appears, the `--insecure-registry` parameter indicates that the configuration takes effect.
+Restart the Docker local service after the configuration, and check whether the configuration takes effect. If the process appears, the `--insecure-registry` parameter indicates that the configuration takes effect.
 
 ```bash
 $ service docker restart
@@ -74,8 +74,8 @@ $ ps aux | grep docker
 root   5003  1.8  2.0  520284  42360 ?  Ssl  15:59  0:00  /usr/bin/dockerd -H fd:// --insecure-registry 192.168.1.10:5000
 ```
 
-##  Access to Humpback
+##  Add Registry to Humpback
 
 ![C6配置](./_media/system_config.png)    
 
-&ensp;&ensp;&ensp;Log in to Humpback as an administrator and expand the left `Manage` and click `System Config`. Enter the system configuration interface, check the `Enable Private Registry`, and fill in the private registry service address and `Save`.
+Log in to Humpback as an administrator and expand the left `Manage` and click `System Config`. Enter the system configuration interface, check the `Enable Private Registry`, and fill in the private registry service address and `Save`.

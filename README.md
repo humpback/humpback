@@ -5,16 +5,16 @@
 </p>
 
 <p align="center">
-  To help enterprises quickly build lightweight Docker container cloud management platform.
+  Quickly build lightweight docker cloud for enterprise user.
 </p>
 
 ## Feature
 
-* Container dispatch
-* Multi - cluster management, Permission isolation
-* Elastic telescopic
-* Private registry
-* Full interface operation
+* Container Scheduling
+* Supporting Multiple Cluster
+* Elasticity Cluster
+* Private Registry
+* Web UI Supporting
 
 ## Components
 

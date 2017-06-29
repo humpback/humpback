@@ -2,9 +2,9 @@
 
 > Docker Registry
 
-- Take the Docker official registry image   
+- Pull the Docker official registry image   
 
-&ensp;&ensp;&ensp;The following selection of `192.168.2.80` as Humpback private registry server.
+We use `192.168.2.80` as Humpback private registry server.
 
 ```bash
 192.168.2.80
@@ -14,9 +14,9 @@ $ docker pull registry:2.5.1
 
 - Start the registry service
 
-&ensp;&ensp;&ensp;Please copy the configuration file to /etc/docker/registry/config.yml. For registry configuration instructions, see <a href="https://github.com/docker/distribution/blob/master/docs/configuration.md">`configuration.md` </a>
+Please copy the configuration file to /etc/docker/registry/config.yml. For registry configuration instructions, see <a href="https://github.com/docker/distribution/blob/master/docs/configuration.md">`configuration.md` </a>
 
-&ensp;&ensp;&ensp;Registry To support cross-domain access, change the `http` entry in` config.yml` as follows:  
+If registry need to support CORS, change the `http` entry in` config.yml` as follows:  
 
 ```bash
 http:
@@ -28,7 +28,7 @@ http:
     Access-Control-Allow-Origin: ['*']
     Access-Control-Allow-Methods: ['GET,POST,PUT,DELETE']
 ```
-&ensp;&ensp;&ensp;Start the registry 
+Start the registry 
 
 ```bash
 $ docker run -d -p 5000:5000 --restart=always \
@@ -37,7 +37,7 @@ $ docker run -d -p 5000:5000 --restart=always \
  --name registry \
  registry:2.5.1
 ```
-- Check the start state, if the `_catalog` interface can be normal access to prove that the registry started successfully.    
+- Check the registry state. Check the `_catalog` API as below:  
 
 ```bash
 $ docker ps -a

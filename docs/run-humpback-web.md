@@ -2,11 +2,11 @@
 
 > Humpback Web    
 
-&ensp;&ensp;&ensp;With 192.168.2.80 as the Humpback Web site server to start, set the port: 8012.
+We will use `192.168.2.80:8012` as the Humpback Web site.
 
-&ensp;&ensp;&ensp;Site default access port: 80, if you want to customize the port, please specify `-e HUMPBACK_LISTEN_PORT = XXXX` when the container is created.   
+Site default port: 80, if you want to customize the port, please specify `-e HUMPBACK_LISTEN_PORT = XXXX` when the container is created.   
 
-&ensp;&ensp;&ensp;`/opt/app/humpback-web/dbFiles` file for the Humpback system persistent data files, will store site management and grouping information, please save after the start.
+`/opt/app/humpback-web/dbFiles` is the Humpback system persistent data files, will store site management and grouping information.
 
 ```bash
 $ ssh root@192.168.2.80
@@ -18,12 +18,12 @@ $ docker run -d --net=host --restart=always \
  humpbacks/humpback-web:1.0.0
 ```
 
-&ensp;&ensp;&ensp;Access the site, open the browser input: http://192.168.2.80:8012    
+Open browser: http://192.168.2.80:8012    
 
-&ensp;&ensp;&ensp;Default Account: admin Password: 123456   
+Default Account: admin Password: 123456   
 
 ![Humpback Web](_media/humpback-web.png)
 
-&ensp;&ensp;&ensp;Log in to Humpback as an administrator and expand the left `Manage` and click `System Config`. Enter the system configuration interface, check the `Enable Private Registry`, and fill in the previously deployed private registry service address `http: //192.168.2.80: 5000` and `Save`. 
+Log in to Humpback as an administrator and expand the left `Manage` and click `System Config`. Check the `Enable Private Registry`, and fill in the previously deployed private registry service address `http: //192.168.2.80: 5000` and `Save`. 
 
 ![Humpback Web Registry Bind](_media/humpback-web-registry-bind.png)

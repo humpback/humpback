@@ -5,7 +5,7 @@
 > Description
 
 - `UserID`: 4-6-bit string for user login, such as zs18
-- `FullName`: Full name of the user, such as zhang san
-- `Department`: Optional, the department
+- `FullName`: Full name of the user.
+- `Department`: Optional
 - `Email`: Optional, contact email
-- `Own administrator privileges`: Do you have `administrator 'permissions?
+- `Own administrator privileges`: `administrator 'permissions
