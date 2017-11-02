@@ -50,6 +50,7 @@ $ docker pull humpbacks/humpback-agent:1.1.2
 $ docker run -d -ti --net=host --restart=always \
  --name=humpback-agent \
  -e DOCKER_API_VERSION=v1.21 \
+ -e DOCKER_CLUSTER_ENABLED=false \
  -v /var/run/:/var/run/:rw \
  humpbacks/humpback-agent:1.1.2
 $ docker ps -a
