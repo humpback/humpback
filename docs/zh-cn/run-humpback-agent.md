@@ -31,36 +31,39 @@ Server:
 
 &ensp;&ensp;&ensp; 1、集群模式启动
 ```bash 
-$ docker pull humpbacks/humpback-agent:1.1.2
+$ docker pull humpbacks/humpback-agent:1.2.5
 $ docker run -d -ti --net=host --restart=always \
  --name=humpback-agent \
  -e DOCKER_API_VERSION=v1.21 \
+ -e DOCKER_AGENT_IPADDR=0.0.0.0 \
  -e DOCKER_CLUSTER_ENABLED=true \
  -e DOCKER_CLUSTER_URIS=zk://192.168.2.80:2181,192.168.2.81:2181,192.168.2.82:2181 \
  -e DOCKER_CLUSTER_NAME=humpback/center \
  -v /var/run/:/var/run/:rw \
- humpbacks/humpback-agent:1.1.2
+ humpbacks/humpback-agent:1.2.5
 $ docker ps -a
 CONTAINER ID    IMAGE                           COMMAND               CREATED        STATUS         PORTS         NAMES
-b1ac4a82c2dd    humpbacks/humpback-agent:1.1.2   "./humpback-agent"   3 minutes ago  20 seconds ago               humpback-agent
+b1ac4a82c2dd    humpbacks/humpback-agent:1.2.5   "./humpback-agent"   3 minutes ago  20 seconds ago               humpback-agent
 ```
 &ensp;&ensp;&ensp; 2、非集群模式启动
 ```bash 
-$ docker pull humpbacks/humpback-agent:1.1.2
+$ docker pull humpbacks/humpback-agent:1.2.5
 $ docker run -d -ti --net=host --restart=always \
  --name=humpback-agent \
  -e DOCKER_API_VERSION=v1.21 \
  -e DOCKER_CLUSTER_ENABLED=false \
  -v /var/run/:/var/run/:rw \
- humpbacks/humpback-agent:1.1.2
+ humpbacks/humpback-agent:1.2.5
 $ docker ps -a
 CONTAINER ID    IMAGE                           COMMAND               CREATED        STATUS         PORTS         NAMES
-b1ac4a82c2dd    humpbacks/humpback-agent:1.1.2   "./humpback-agent"   3 minutes ago  20 seconds ago               humpback-agent
+b1ac4a82c2dd    humpbacks/humpback-agent:1.2.5   "./humpback-agent"   3 minutes ago  20 seconds ago               humpback-agent
 ```
 
 - 环境变量与参数
 
 &ensp;&ensp;&ensp;`DOCKER_API_VERSION=v1.21` 一定要与上面的版本号对应一致。   
+
+&ensp;&ensp;&ensp;`DOCKER_AGENT_IPADDR=0.0.0.0` 启动容器时，集群模式下节点注册到集群的本地网络地址，默认为：`0.0.0.0` 随机选择一个有效本地地址，若本地为双网卡则需选择一个IP地址。   
 
 &ensp;&ensp;&ensp;`DOCKER_CLUSTER_ENABLED=true` 如果当前 Agent 需要被集群模式调度， 那么 `Cluster Mode` 模式请设置为 `true`，否则关闭集群调度该节点为 `Single Mode` 模式。   
 

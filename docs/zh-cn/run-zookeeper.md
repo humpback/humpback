@@ -4,13 +4,13 @@
 
 - Zookeeper 下载   
   
-  示例采用 `Zookeeper 3.4.6` 版本，请确保在服务器上安装了 `java open jdk7` 运行环境，下载 `Zookeeper` 并解压。
+  示例采用 `Zookeeper 3.4.11` 版本，请确保在服务器上安装了 `java open jdk7` 运行环境，下载 `Zookeeper` 并解压。
 
 ```bash
 $ cd /opt/app
-$ wget http://mirror.bit.edu.cn/apache/zookeeper/zookeeper-3.4.6/zookeeper-3.4.6.tar.gz
-$ tar -xzvf zookeeper-3.4.6.tar.gz
-$ mv zookeeper-3.4.6 zookeeper
+$ wget http://mirror.bit.edu.cn/apache/zookeeper/zookeeper-3.4.11/zookeeper-3.4.11.tar.gz
+$ tar -xzvf zookeeper-3.4.11.tar.gz
+$ mv zookeeper-3.4.11 zookeeper
 $ cd zookeeper
 ```
 - 修改配置文件   

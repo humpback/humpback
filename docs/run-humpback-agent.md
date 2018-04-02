@@ -31,36 +31,39 @@ Server:
 
  1、Start in cluster mode 
 ```bash 
-$ docker pull humpbacks/humpback-agent:1.1.2
+$ docker pull humpbacks/humpback-agent:1.2.5
 $ docker run -d -ti --net=host --restart=always \
  --name=humpback-agent \
  -e DOCKER_API_VERSION=v1.21 \
+ -e DOCKER_AGENT_IPADDR=0.0.0.0 \
  -e DOCKER_CLUSTER_ENABLED=true \
  -e DOCKER_CLUSTER_URIS=zk://192.168.2.80:2181,192.168.2.81:2181,192.168.2.82:2181 \
  -e DOCKER_CLUSTER_NAME=humpback/center \
  -v /var/run/:/var/run/:rw \
- humpbacks/humpback-agent:1.1.2
+ humpbacks/humpback-agent:1.2.5
 $ docker ps -a
 CONTAINER ID    IMAGE                           COMMAND               CREATED        STATUS         PORTS         NAMES
-b1ac4a82c2dd    humpbacks/humpback-agent:1.1.2   "./humpback-agent"   3 minutes ago  20 seconds ago               humpback-agent
+b1ac4a82c2dd    humpbacks/humpback-agent:1.2.5   "./humpback-agent"   3 minutes ago  20 seconds ago               humpback-agent
 ```
  2、Start in single mode
 ```bash 
-$ docker pull humpbacks/humpback-agent:1.1.2
+$ docker pull humpbacks/humpback-agent:1.2.5
 $ docker run -d -ti --net=host --restart=always \
  --name=humpback-agent \
  -e DOCKER_API_VERSION=v1.21 \
  -e DOCKER_CLUSTER_ENABLED=false \
  -v /var/run/:/var/run/:rw \
- humpbacks/humpback-agent:1.1.2
+ humpbacks/humpback-agent:1.2.5
 $ docker ps -a
 CONTAINER ID    IMAGE                           COMMAND               CREATED        STATUS         PORTS         NAMES
-b1ac4a82c2dd    humpbacks/humpback-agent:1.1.2   "./humpback-agent"   3 minutes ago  20 seconds ago               humpback-agent
+b1ac4a82c2dd    humpbacks/humpback-agent:1.2.5   "./humpback-agent"   3 minutes ago  20 seconds ago               humpback-agent
 ```
 
 - Environment variables
 
 `DOCKER_API_VERSION=v1.21` must be consistent with the above version number.   
+
+`DOCKER_AGENT_IPADDR=0.0.0.0` When the container is started, the node in the cluster mode registers with the local network address of the cluster. The default is: `0.0.0.0` randomly selects a valid local address. If the local is a dual network card, you need to select an IP address.   
 
 `DOCKER_CLUSTER_ENABLED=true`If the current agent needs to be scheduled by cluster mode, set the cluster mode to true, otherwise, close the node of cluster scheduling to `Single Mode` mode.    
 

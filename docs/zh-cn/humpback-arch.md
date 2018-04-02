@@ -21,7 +21,7 @@
 
    Humpback 默认选用 `Zookeeper` 来进行集群节点的注册和发现，后端需要具备一个 `Zookeeper` 集群。   
    
-   默认版本 `3.4.6`，下載 <a href="http://apache.org/dist/zookeeper/zookeeper-3.4.6/zookeeper-3.4.6.tar.gz">`zookeeper-3.4.6.tar.gz`</a>
+   默认版本 `3.4.11`，下載 <a href="http://apache.org/dist/zookeeper/zookeeper-3.4.11/zookeeper-3.4.11.tar.gz">`zookeeper-3.4.11.tar.gz`</a>
    
 - `Docker Images Repository`   
  

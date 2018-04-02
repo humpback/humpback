@@ -4,13 +4,13 @@
 
 - Download Zookeeper  
   
-Using the `Zookeeper 3.4.6` as example. Please make sure the `java open jdk7` runtime environment is installed on the server. 
+Using the `Zookeeper 3.4.11` as example. Please make sure the `java open jdk7` runtime environment is installed on the server. 
 
 ```bash
 $ cd /opt/app
-$ wget http://mirror.bit.edu.cn/apache/zookeeper/zookeeper-3.4.6/zookeeper-3.4.6.tar.gz
-$ tar -xzvf zookeeper-3.4.6.tar.gz
-$ mv zookeeper-3.4.6 zookeeper
+$ wget http://mirror.bit.edu.cn/apache/zookeeper/zookeeper-3.4.11/zookeeper-3.4.11.tar.gz
+$ tar -xzvf zookeeper-3.4.11.tar.gz
+$ mv zookeeper-3.4.11 zookeeper
 $ cd zookeeper
 ```
 - Modify the configuration file   

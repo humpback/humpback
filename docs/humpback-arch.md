@@ -19,7 +19,7 @@
 
    Humpback defaults use `Zookeeper` for node registration and discovery.   
    
-   Default version `3.4.6`, download <a href="http://apache.org/dist/zookeeper/zookeeper-3.4.6/zookeeper-3.4.6.tar.gz">`zookeeper-3.4.6.tar.gz`</a>
+   Default version `3.4.11`, download <a href="http://apache.org/dist/zookeeper/zookeeper-3.4.11/zookeeper-3.4.11.tar.gz">`zookeeper-3.4.11.tar.gz`</a>
    
 - `Docker Images Repository`   
  
