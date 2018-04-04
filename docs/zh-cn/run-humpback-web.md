@@ -15,7 +15,7 @@ $ docker run -d --net=host --restart=always \
  -e HUMPBACK_LISTEN_PORT=8012 \
  -v /opt/app/humpback-web/dbFiles:/humpback-web/dbFiles \
  --name humpback-web \
- humpbacks/humpback-web:1.0.0
+ humpbacks/humpback-web:1.3.0
 ```
 
 &ensp;&ensp;&ensp;访问站点，打开浏览器输入：http://192.168.2.80:8012    

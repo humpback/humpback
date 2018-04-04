@@ -9,7 +9,7 @@
 - 启动 Humpback Center
 
 ```bash 
-$ docker pull humpbacks/humpback-center:1.2.4
+$ docker pull humpbacks/humpback-center:1.3.0
 $ docker run -d -ti --net=host --restart=always \
  --name=humpback-center \
  -e HUMPBACK_SITEAPI=http://192.168.2.80:8012/api \
@@ -19,10 +19,10 @@ $ docker run -d -ti --net=host --restart=always \
  -e DOCKER_CLUSTER_NAME=humpback/center \
  -v /opt/app/humpback-center/cache:/opt/humpback-center/cache \
  -v /opt/app/humpback-center/logs:/opt/humpback-center/logs \
- humpbacks/humpback-center:1.2.4
+ humpbacks/humpback-center:1.3.0
 $ docker ps -a
 CONTAINER ID    IMAGE                           COMMAND                  CREATED         STATUS         PORTS         NAMES
-a1640bf8c956    humpbacks/humpback-center:1.2.4  "./humpback-center"     15 minutes ago  45 seconds ago              humpback-center
+a1640bf8c956    humpbacks/humpback-center:1.3.0  "./humpback-center"     15 minutes ago  45 seconds ago              humpback-center
 ```
 
 - 环境变量与参数
