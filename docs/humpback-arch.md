@@ -1,6 +1,6 @@
 # Humpback Architecture
 
-![Architecture diagram](/humpback/humpback-arch.png)
+![Architecture diagram](_media/humpback-arch.png)
 
 ## Components
 
