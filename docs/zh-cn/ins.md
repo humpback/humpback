@@ -1,12 +1,12 @@
 # Humpback
 
-![Humpback](_media/logo.png)
+![Humpback](../_media/logo.png)
 
 ## 什么是 Humpback?
 
 &ensp;&ensp;&ensp;Humpback 可以帮助企业快速搭建轻量级的 Docker 容器云管理平台，若将你的 Docker 主机接入到 Humpback 平台中，就能够为你带来更快捷稳定的容器操作体验。 
 
-![Humpback Group](_media/humpback-arch.png)
+![Humpback Group](../_media/humpback-arch.png)
 
 ## Humpback 功能特点
 
@@ -28,29 +28,29 @@
 
 &ensp;&ensp;&ensp;平台采用分组方式（Group）来管理多主机，多组之间权限操作隔离，同时也可以将一台主机加入到多个分组中交叉管理。
 
-![Humpback Group](_media/humpback-web.png)
+![Humpback Group](../_media/humpback-web.png)
 
 Single Mode
 
-![Humpback Group](_media/single-mode-ui.png)
+![Humpback Group](../_media/single-mode-ui.png)
 
 Cluster Mode
 
-![Humpback Group](_media/cluster-mode-ui.png)
+![Humpback Group](../_media/cluster-mode-ui.png)
 
 Container Monitor
 
-![Humpback Group](_media/container-monitor.png)
+![Humpback Group](../_media/container-monitor.png)
 
 Container Logs
 
-![Humpback Group](_media/container-logs.png)
+![Humpback Group](../_media/container-logs.png)
 
 Container Detail
 
-![Humpback Group](_media/container-single-info.png)
+![Humpback Group](../_media/container-single-info.png)
 
-![Humpback Group](_media/container-cluster-info.png)
+![Humpback Group](../_media/container-cluster-info.png)
 
 &ensp;&ensp;&ensp;项目地址：<a href="https://humpback.github.io/humpback">https://humpback.github.io/humpback</a> 
 
