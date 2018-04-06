@@ -77,11 +77,11 @@ b1ac4a82c2dd    humpbacks/humpback-agent:1.3.0   "./humpback-agent"   3 minutes 
 
 &ensp;&ensp;&ensp;并将三台节点服务器加入到该组中并点击 `Save` 即可。
 
-![Humpback Add Group](_media/humpbackadd-group.png)
+![Humpback Add Group](../_media/humpbackadd-group.png)
 
 &ensp;&ensp;&ensp;进入分组页面，可以查看三台集群服务器信息。
 
-![Humpback Group](_media/humpback-group.png)
+![Humpback Group](../_media/humpback-group.png)
 
 - [如何创建容器](zh-cn/single-create-container.md)
 
