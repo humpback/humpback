@@ -1,6 +1,6 @@
 # 创建容器
 
-![Create Container](_media/single-create-container.png)
+![Create Container](../_media/single-create-container.png)
 
 > 说明
 
