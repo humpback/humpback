@@ -1,6 +1,6 @@
 # 修改分组信息
 
-![Edit Group](_media/edit-group.png)
+![Edit Group](../_media/edit-group.png)
 
 > 重要
 
