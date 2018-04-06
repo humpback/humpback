@@ -1,6 +1,6 @@
 # 集群与调度   
 
-![集群模式](./_media/cluster-mode.png)
+![集群模式](../_media/cluster-mode.png)
 
 ##  集群模式
 
