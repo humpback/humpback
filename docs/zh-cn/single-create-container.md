@@ -19,3 +19,4 @@
 - `Volumes Binding`: 容器卷标映射
 - `Environment Variables`: 设置容器环境变量，如 "VAR=value".
 - `Links`:  容器与容器之间的链接，如 container_name:alias
+- `Log Config`:  日志配置，有`Driver`和`Opts`两个属性。默认值为`Driver：json-file`, `Opts: {max-size=10m, max-file=3}`
