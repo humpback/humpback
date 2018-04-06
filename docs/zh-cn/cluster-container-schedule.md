@@ -78,7 +78,7 @@ b1ac4a82c2dd    humpbacks/humpback-agent:1.3.0   "./humpback-agent"   3 minutes 
 
 &ensp;&ensp;&ensp;目前 ClusterMode 只内置了一种调度策略，策略会根据每台节点的 CPU，Memory 可用量以及 Containers 的数量来给各个节点权重分级，而节点的这些基础信息会在首次启动注册时提交到集群中。      
 
-![调度策略](./_media/humpback-schduler.png)   
+![调度策略](../_media/humpback-schduler.png)   
 
 &ensp;&ensp;&ensp;调度容器时，策略按先后顺序分为如下三个阶段：   
 
