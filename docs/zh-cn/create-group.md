@@ -1,6 +1,6 @@
 # 创建分组
 
-![Create Group](_media/create-group.png)
+![Create Group](../_media/create-group.png)
 
 > 说明
 
