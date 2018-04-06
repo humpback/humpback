@@ -22,8 +22,8 @@ $ docker run -d --net=host --restart=always \
 
 &ensp;&ensp;&ensp;默认账户：admin  密码：123456   
 
-![Humpback Web](_media/humpback-web.png)
+![Humpback Web](../_media/humpback-web.png)
 
 &ensp;&ensp;&ensp;以管理员身份登录 Humpback Web 站点，展开左侧 `Manage` 功能点击 `System Config`，进入系统配置界面，将 `Enabel Private Registry` 勾选，并填入先前部署的私有仓库服务地址 `http://192.168.2.80:5000` Save 即可。 
 
-![Humpback Web Registry Bind](_media/humpback-web-registry-bind.png)
+![Humpback Web Registry Bind](../_media/humpback-web-registry-bind.png)
