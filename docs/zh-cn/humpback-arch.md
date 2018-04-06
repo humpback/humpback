@@ -1,6 +1,6 @@
 # Humpback架构
 
-![架构图](./_media/humpback-arch.png)
+![架构图](../_media/humpback-arch.png)
 
 ## 系统角色
 
