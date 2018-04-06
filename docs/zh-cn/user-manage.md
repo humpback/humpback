@@ -2,7 +2,7 @@
 
 *仅限用户**管理员**权限的用户访问*
 
-![User Manage](_media/user_manage.png)
+![User Manage](../_media/user_manage.png)
 
 > 说明
 
