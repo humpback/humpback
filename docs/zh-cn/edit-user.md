@@ -1,6 +1,6 @@
 # 编辑用户
 
-![Edit User](_media/edit-user.png)
+![Edit User](../_media/edit-user.png)
 
 > 说明
 
