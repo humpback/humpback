@@ -2,7 +2,7 @@
 
 > 私有仓库地址设置 [私有仓库搭建](zh-cn/build-registry.md)
 
-![Setting Private Registry](_media/setting-private-registry.png)
+![Setting Private Registry](../_media/setting-private-registry.png)
 
 > 浏览镜像列表
 
