@@ -56,7 +56,7 @@ $ curl http://localhost:5000/v2/_catalog
 
   在 `CentOS 7` 系统中，首先查看 /usr/lib/systemd/system/docker.service 中是否存在 `EnvironmentFile` 配置。
 
-&ensp;&ensp;&ensp;&ensp;&ensp;![C6配置](./_media/centos7_docker_etc.jpg)   
+&ensp;&ensp;&ensp;&ensp;&ensp;![C6配置](../_media/centos7_docker_etc.jpg)   
   
 &ensp;&ensp;&ensp;&ensp;&ensp;文件内容可能略有不同，只需要注意红框中的 `EnvironmentFile` 和 `ExecStart` 部分，确保链接到配置文件路径和相关环境变量 `INSECURE_REGISTRY`。
 
@@ -76,6 +76,6 @@ root   5003  1.8  2.0  520284  42360 ?  Ssl  15:59  0:00  /usr/bin/dockerd -H fd
 
 ##  接入到Humpback
 
-![C6配置](./_media/system_config.png)    
+![C6配置](../_media/system_config.png)    
 
 &ensp;&ensp;&ensp;以管理员身份登录 Humpback，展开左侧 `Manage` 点击 `System Config`，进入系统配置界面，将 `Enabel Private Registry` 勾选，并填入私有仓库服务地址 `Save` 即可。    
