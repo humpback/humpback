@@ -1,6 +1,6 @@
 # 添加用户
 
-![Add User](_media/add-user.png)
+![Add User](../_media/add-user.png)
 
 > 说明
 
