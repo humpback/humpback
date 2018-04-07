@@ -10,7 +10,7 @@
 * 私有仓库
 * 全界面操作，简单易用
 
-
+[Gitee](https://gitee.com/humpbacks/humpback)
 [GitHub](https://github.com/humpback/humpback)
 [Get Started](#Humpback)
 

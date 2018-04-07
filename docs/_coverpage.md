@@ -10,7 +10,7 @@
 * Private Registry
 * Web UI Supporting
 
-
+[Gitee](https://gitee.com/humpbacks/humpback)
 [GitHub](https://github.com/humpback/humpback)
 [Get Started](#Humpback)
 
