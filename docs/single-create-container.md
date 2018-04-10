@@ -19,3 +19,4 @@
 - `Volumes Binding`: Container volume mapping
 - `Environment Variables`: Set container environment variables, such as "VAR=value"
 - `Links`:  A link between containers, such as container_name:alias
+- `Log Config`: Log configuration, there are two properties Driver and Opts. The default value is Driver:json-file,Opts:{max-size = 10m,max-file = 3}
