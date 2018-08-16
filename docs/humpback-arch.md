@@ -25,4 +25,4 @@
  
   Humpack uses `Docker` official private image registry `distribution` to provide image storage services, `Humpback Website` provides registry image query by access the `distribution` API.   
       
-  Default version of `2.5.1` or higher, see more <a href="https://github.com/docker/distribution/blob/master/README.md">`Docker Distribution`</a>
+  Default version of `2.6.2` or higher, see more <a href="https://github.com/docker/distribution/blob/master/README.md">`Docker Distribution`</a>

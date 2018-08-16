@@ -27,4 +27,4 @@
  
    Humpack 选用 `Docker` 官方私有镜像仓库 `distribution` 来提供镜像存储服务，`Humpback Website` 通过访问 `distribution` API 来提供仓库镜像查询功能。   
       
-   默认版本 `2.5.1` 或更高，更多参见 <a href="https://github.com/docker/distribution/blob/master/README.md">`Docker Distribution`</a>
+   默认版本 `2.6.2` 或更高，更多参见 <a href="https://github.com/docker/distribution/blob/master/README.md">`Docker Distribution`</a>

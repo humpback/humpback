@@ -9,7 +9,7 @@
 - 启动 Humpback Center
 
 ```bash 
-$ docker pull humpbacks/humpback-center:1.3.0
+$ docker pull humpbacks/humpback-center:1.3.5
 $ docker run -d -ti --net=host --restart=always \
  --name=humpback-center \
  -e HUMPBACK_SITEAPI=http://192.168.2.80:8012/api \
@@ -19,10 +19,11 @@ $ docker run -d -ti --net=host --restart=always \
  -e DOCKER_CLUSTER_NAME=humpback/center \
  -v /opt/app/humpback-center/cache:/opt/humpback-center/cache \
  -v /opt/app/humpback-center/logs:/opt/humpback-center/logs \
- humpbacks/humpback-center:1.3.0
+ -v /opt/app/humpback-center/data:/opt/humpback-center/data \
+ humpbacks/humpback-center:1.3.5
 $ docker ps -a
 CONTAINER ID    IMAGE                           COMMAND                  CREATED         STATUS         PORTS         NAMES
-a1640bf8c956    humpbacks/humpback-center:1.3.0  "./humpback-center"     15 minutes ago  45 seconds ago              humpback-center
+a1640bf8c956    humpbacks/humpback-center:1.3.5  "./humpback-center"     15 minutes ago  45 seconds ago              humpback-center
 ```
 
 - 环境变量与参数
@@ -33,13 +34,15 @@ a1640bf8c956    humpbacks/humpback-center:1.3.0  "./humpback-center"     15 minu
 
 &ensp;&ensp;&ensp;`CENTER_API_ENABLECORS=true` Humpback Center API 是否支持跨域访问。
 
-&ensp;&ensp;&ensp;`DOCKER_CLUSTER_URIS=zk://192.168.2.80:2181,192.168.2.81:2181,192.168.2.82:2181` 为先前配置的 `Zookeeper` 集群地址信息。
+&ensp;&ensp;&ensp;`DOCKER_CLUSTER_URIS=zk://192.168.2.80:2181,192.168.2.81:2181,192.168.2.82:2181` 为先前配置的 `Zookeeper` 集群地址信息，建议选择`etcd`工具。   
 
 &ensp;&ensp;&ensp;`DOCKER_CLUSTER_NAME=humpback/center` 集群名称，要与 `Humpback Agnet` 配置一致。   
 
 &ensp;&ensp;&ensp;`-v /opt/app/humpback-center/cache` 集群容器信息持久化目录，建议不要手动更改与删除。   
 
-&ensp;&ensp;&ensp;`-v /opt/app/humpback-center/logs` 系统日志目录。
+&ensp;&ensp;&ensp;`-v /opt/app/humpback-center/logs` 系统日志目录。   
+
+&ensp;&ensp;&ensp;`-v /opt/app/humpback-center/data` 系统数据目录。   
 
 - [集群模式如何创建容器](zh-cn/cluster-create-container.md)
 

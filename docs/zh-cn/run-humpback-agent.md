@@ -31,7 +31,7 @@ Server:
 
 &ensp;&ensp;&ensp; 1、集群模式启动
 ```bash 
-$ docker pull humpbacks/humpback-agent:1.3.0
+$ docker pull humpbacks/humpback-agent:1.3.5
 $ docker run -d -ti --net=host --restart=always \
  --name=humpback-agent \
  -e DOCKER_API_VERSION=v1.21 \
@@ -40,23 +40,23 @@ $ docker run -d -ti --net=host --restart=always \
  -e DOCKER_CLUSTER_URIS=zk://192.168.2.80:2181,192.168.2.81:2181,192.168.2.82:2181 \
  -e DOCKER_CLUSTER_NAME=humpback/center \
  -v /var/run/:/var/run/:rw \
- humpbacks/humpback-agent:1.3.0
+ humpbacks/humpback-agent:1.3.5
 $ docker ps -a
 CONTAINER ID    IMAGE                           COMMAND               CREATED        STATUS         PORTS         NAMES
-b1ac4a82c2dd    humpbacks/humpback-agent:1.3.0   "./humpback-agent"   3 minutes ago  20 seconds ago               humpback-agent
+b1ac4a82c2dd    humpbacks/humpback-agent:1.3.5   "./humpback-agent"   3 minutes ago  20 seconds ago               humpback-agent
 ```
 &ensp;&ensp;&ensp; 2、非集群模式启动
 ```bash 
-$ docker pull humpbacks/humpback-agent:1.3.0
+$ docker pull humpbacks/humpback-agent:1.3.5
 $ docker run -d -ti --net=host --restart=always \
  --name=humpback-agent \
  -e DOCKER_API_VERSION=v1.21 \
  -e DOCKER_CLUSTER_ENABLED=false \
  -v /var/run/:/var/run/:rw \
- humpbacks/humpback-agent:1.3.0
+ humpbacks/humpback-agent:1.3.5
 $ docker ps -a
 CONTAINER ID    IMAGE                           COMMAND               CREATED        STATUS         PORTS         NAMES
-b1ac4a82c2dd    humpbacks/humpback-agent:1.3.0   "./humpback-agent"   3 minutes ago  20 seconds ago               humpback-agent
+b1ac4a82c2dd    humpbacks/humpback-agent:1.3.5   "./humpback-agent"   3 minutes ago  20 seconds ago               humpback-agent
 ```
 
 - 环境变量与参数
@@ -67,7 +67,7 @@ b1ac4a82c2dd    humpbacks/humpback-agent:1.3.0   "./humpback-agent"   3 minutes 
 
 &ensp;&ensp;&ensp;`DOCKER_CLUSTER_ENABLED=true` 如果当前 Agent 需要被集群模式调度， 那么 `Cluster Mode` 模式请设置为 `true`，否则关闭集群调度该节点为 `Single Mode` 模式。   
 
-&ensp;&ensp;&ensp;`DOCKER_CLUSTER_URIS=zk://192.168.2.80:2181,192.168.2.81:2181,192.168.2.82:2181` 为先前配置的 `Zookeeper` 集群地址信息。   
+&ensp;&ensp;&ensp;`DOCKER_CLUSTER_URIS=zk://192.168.2.80:2181,192.168.2.81:2181,192.168.2.82:2181` 为先前配置的 `Zookeeper` 集群地址信息，建议选择`etcd`工具。   
 
 &ensp;&ensp;&ensp;`DOCKER_CLUSTER_NAME=humpback/center` 集群名称，要与 `Humpback Center` 配置一致。
 

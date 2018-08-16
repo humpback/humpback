@@ -54,7 +54,7 @@ Container Detail
 
 &ensp;&ensp;&ensp;Project address:<a href="https://humpback.github.io/humpback">https://humpback.github.io/humpback</a> 
 
-&ensp;&ensp;&ensp;Docker version: Docker 1.8.3 or higher
+&ensp;&ensp;&ensp;Docker version: Docker 1.9.1 or higher
 
 &ensp;&ensp;&ensp;Development License Agreement: Apache 2.0   
 

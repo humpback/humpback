@@ -35,14 +35,14 @@ $ docker run -d -p 5000:5000 --restart=always \
  -v /var/lib/registry/:/var/lib/registry/ \
  -v /etc/docker/registry/config.yml:/etc/docker/registry/config.yml \
  --name registry \
- registry:2.5.1
+ registry:2.6.2
 ```
 - 检查启动状态，若 `_catalog` 接口能正常访问，证明仓库启动成功。    
 
 ```bash
 $ docker ps -a
 CONTAINER ID    IMAGE            COMMAND                  CREATED         STATUS            PORTS                    NAMES
-a0e4c87eef5b    registry:2.5.1   "/entrypoint.sh /etc/"   15 minutes ago  45 seconds ago    0.0.0.0:5000->5000/tcp   registry
+a0e4c87eef5b    registry:2.6.2   "/entrypoint.sh /etc/"   15 minutes ago  45 seconds ago    0.0.0.0:5000->5000/tcp   registry
 $ curl http://192.168.2.80:5000/v2/_catalog
 {"repositories":[]}
 ``` 

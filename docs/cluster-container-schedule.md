@@ -14,7 +14,7 @@ Humpback Center is only a scheduler, not responsible for container management.
 
 Run Humpback Center in docker   
 ```bash 
-$ docker pull humpbacks/humpback-center:1.3.0
+$ docker pull humpbacks/humpback-center:1.3.5
 $ docker run -d -ti --net=host --restart=always \
  --name=humpback-center \
  -e HUMPBACK_SITEAPI=http://192.168.2.80/api \
@@ -24,17 +24,19 @@ $ docker run -d -ti --net=host --restart=always \
  -e DOCKER_CLUSTER_NAME=humpback/center \
  -v /opt/app/humpback-center/cache:/opt/humpback-center/cache \
  -v /opt/app/humpback-center/logs:/opt/humpback-center/logs \
- humpbacks/humpback-center:1.3.0
+ -v /opt/app/humpback-center/data:/opt/humpback-center/data \
+ -v /opt/app/humpback-center/etc/config.yaml:/opt/humpback-center/etc/config.yaml \
+ humpbacks/humpback-center:1.3.5
 $ docker ps -a
 CONTAINER ID    IMAGE                           COMMAND                  CREATED         STATUS         PORTS         NAMES
-a1640bf8c956    humpbacks/humpback-center:1.3.0  "./humpback-center"     15 minutes ago  45 seconds ago              humpback-center
+a1640bf8c956    humpbacks/humpback-center:1.3.5  "./humpback-center"     15 minutes ago  45 seconds ago              humpback-center
 ```   
 
 ## How to join the cluster
 
 Run Humpback Agent in docker
 ```bash 
-$ docker pull humpbacks/humpback-agent:1.3.0
+$ docker pull humpbacks/humpback-agent:1.3.5
 $ docker run -d -ti --net=host --restart=always \
  --name=humpback-agent \
  -e DOCKER_API_VERSION=v1.21 \
@@ -43,10 +45,10 @@ $ docker run -d -ti --net=host --restart=always \
  -e DOCKER_CLUSTER_URIS=zk://192.168.2.80:2181,192.168.2.81:2181,192.168.2.82:2181 \
  -e DOCKER_CLUSTER_NAME=humpback/center \
  -v /var/run/:/var/run/:rw \
- humpbacks/humpback-agent:1.3.0
+ humpbacks/humpback-agent:1.3.5
 $ docker ps -a
 CONTAINER ID    IMAGE                           COMMAND               CREATED        STATUS         PORTS         NAMES
-b1ac4a82c2dd    humpbacks/humpback-agent:1.3.0   "./humpback-agent"   3 minutes ago  20 seconds ago               humpback-agent
+b1ac4a82c2dd    humpbacks/humpback-agent:1.3.5   "./humpback-agent"   3 minutes ago  20 seconds ago               humpback-agent
 ```
 Related environment variables   
 
@@ -54,19 +56,21 @@ Related environment variables
 
    - CENTER_LISTEN_PORT=:8589, The default port for the Humpback Center API is 8589.   
 
-   - CENTER_API_ENABLECORS=true, Whether the Humpback Center API supports cross-domain access.
+   - CENTER_API_ENABLECORS=true, Whether the Humpback Center API supports cross-domain access.   
 
-   - DOCKER_API_VERSION=v1.20, Default `v1.20`, use the` docker version` command to view the API Version in the client first.
+   - DOCKER_API_VERSION=v1.21, Default `v1.21`, use the` docker version` command to view the API Version in the client first.   
 
    - DOCKER_CLUSTER_ENABLED=true, Cluster mode switch, After the container is started, it is automatically registered in the cluster   
 
-   - DOCKER_CLUSTER_URIS, Default to zookeeper cluster address, if it is etcd, consul or other found tools, please change the prefix to `etcd: //` or `consul: //`.   
+   - DOCKER_CLUSTER_URIS, Default to etcd cluster address, if it is zookeeper, consul or other found tools, please change the prefix to `zk: //` or `consul: //`.   
 
    - DOCKER_CLUSTER_NAME=humpback/center, Set the humpback cluster name, and the configuration of `Humpback Agent` is consistent with the` Humpback Center` configuration
 
    - /opt/app/humpback-center/cache Cluster container information persistence directory, It is recommended that you do not manually change and delete.   
 
-   - /opt/app/humpback-center/logs System log directory。  
+   - /opt/app/humpback-center/logs System log directory.     
+
+   - /opt/app/humpback-center/data System data directory.   
 
 After successful startup of Humpback Agent, you can modify the Group attribute at the Humpback site and open the ClusterMode mode option. At this time all the servers under the Group will switch to cluster scheduling mode.
 

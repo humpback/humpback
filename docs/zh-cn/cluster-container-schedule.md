@@ -14,39 +14,41 @@
 
 &emsp;Run Humpback Center in docker   
 ```bash 
-$ docker pull humpbacks/humpback-center:1.3.0
+$ docker pull humpbacks/humpback-center:1.3.5
 $ docker run -d -ti --net=host --restart=always \
  --name=humpback-center \
  -e HUMPBACK_SITEAPI=http://192.168.2.80/api \
  -e CENTER_LISTEN_PORT=:8589 \
  -e CENTER_API_ENABLECORS=true \
- -e DOCKER_CLUSTER_URIS=zk://192.168.2.80:2181,192.168.2.81:2181,192.168.2.82:2181 \
+ -e DOCKER_CLUSTER_URIS=etcd://192.168.2.80:2379,192.168.2.81:2379,192.168.2.82:2379 \
  -e DOCKER_CLUSTER_NAME=humpback/center \
  -v /opt/app/humpback-center/cache:/opt/humpback-center/cache \
  -v /opt/app/humpback-center/logs:/opt/humpback-center/logs \
- humpbacks/humpback-center:1.3.0
+ -v /opt/app/humpback-center/data:/opt/humpback-center/data \
+ -v /opt/app/humpback-center/etc/config.yaml:/opt/humpback-center/etc/config.yaml \
+ humpbacks/humpback-center:1.3.5
 $ docker ps -a
 CONTAINER ID    IMAGE                           COMMAND                  CREATED         STATUS         PORTS         NAMES
-a1640bf8c956    humpbacks/humpback-center:1.3.0  "./humpback-center"     15 minutes ago  45 seconds ago              humpback-center
+a1640bf8c956    humpbacks/humpback-center:1.3.5  "./humpback-center"     15 minutes ago  45 seconds ago              humpback-center
 ```   
 
 ## 如何加入到集群
 
 &emsp;Run Humpback Agent in docker
 ```bash 
-$ docker pull humpbacks/humpback-agent:1.3.0
+$ docker pull humpbacks/humpback-agent:1.3.5
 $ docker run -d -ti --net=host --restart=always \
  --name=humpback-agent \
  -e DOCKER_API_VERSION=v1.21 \
  -e DOCKER_AGENT_IPADDR=0.0.0.0 \
  -e DOCKER_CLUSTER_ENABLED=true \
- -e DOCKER_CLUSTER_URIS=zk://192.168.2.80:2181,192.168.2.81:2181,192.168.2.82:2181 \
+ -e DOCKER_CLUSTER_URIS=etcd://192.168.2.80:2379,192.168.2.81:2379,192.168.2.82:2379 \
  -e DOCKER_CLUSTER_NAME=humpback/center \
  -v /var/run/:/var/run/:rw \
- humpbacks/humpback-agent:1.3.0
+ humpbacks/humpback-agent:1.3.5
 $ docker ps -a
 CONTAINER ID    IMAGE                           COMMAND               CREATED        STATUS         PORTS         NAMES
-b1ac4a82c2dd    humpbacks/humpback-agent:1.3.0   "./humpback-agent"   3 minutes ago  20 seconds ago               humpback-agent
+b1ac4a82c2dd    humpbacks/humpback-agent:1.3.5   "./humpback-agent"   3 minutes ago  20 seconds ago               humpback-agent
 ```
 &ensp;&ensp;&ensp;相关环境变量   
 
@@ -56,11 +58,11 @@ b1ac4a82c2dd    humpbacks/humpback-agent:1.3.0   "./humpback-agent"   3 minutes 
 
    - CENTER_API_ENABLECORS=true， Humpback Center API 是否支持跨域访问。
 
-   - DOCKER_API_VERSION=v1.20，默认 `v1.20`， 使用 `docker version` 命令先查看 Client 中的 API Version。
+   - DOCKER_API_VERSION=v1.21，默认 `v1.21`， 使用 `docker version` 命令先查看 Client 中的 API Version。
 
    - DOCKER_CLUSTER_ENABLED=true，集群模式开关，启动容器后自动会注册到集群中。   
 
-   - DOCKER_CLUSTER_URIS，默认为zookeeper集群地址，若为 etcd 或 consul 等发现工具，请对应将前缀改为 `etcd://` 或 `consul://`。   
+   - DOCKER_CLUSTER_URIS，默认为`etcd`集群地址，若为 zookeeper 或 consul 等发现工具，请对应将前缀改为 `zk://` 或 `consul://`。   
 
    - DOCKER_CLUSTER_NAME=humpback/center，设置humpback集群名称，`Humpback Agnet` 与 `Humpback Center` 要配置一致。 
 
@@ -68,6 +70,8 @@ b1ac4a82c2dd    humpbacks/humpback-agent:1.3.0   "./humpback-agent"   3 minutes 
 
    - /opt/app/humpback-center/logs 系统日志目录。  
 
+   - /opt/app/humpback-center/data 系统数据目录。   
+   
 &ensp;&ensp;&ensp;当 Humpback Agent 成功启动后，可在 Humpback 站点修改 Group 属性，打开 ClusterMode 模式选项，此时 Group 下所有服务器将会切换为集群调度模式。
 
 ## 如何退出集群     

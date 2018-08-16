@@ -54,7 +54,7 @@ Container Detail
 
 &ensp;&ensp;&ensp;项目地址：<a href="https://humpback.github.io/humpback">https://humpback.github.io/humpback</a> 
 
-&ensp;&ensp;&ensp;Docker版本：Docker 1.8.3 或更高
+&ensp;&ensp;&ensp;Docker版本：Docker 1.9.1 或更高
 
 &ensp;&ensp;&ensp;开发授权协议: Apache 2.0   
 
