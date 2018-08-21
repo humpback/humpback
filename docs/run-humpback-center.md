@@ -9,7 +9,7 @@ In the group config page please set the ` Cluster Mode` for the group which need
 - Start the Humpback Center
 
 ```bash 
-$ docker pull humpbacks/humpback-center:1.3.5
+$ docker pull humpbacks/humpback-center:latest
 $ docker run -d -ti --net=host --restart=always \
  --name=humpback-center \
  -e HUMPBACK_SITEAPI=http://192.168.2.80:8012/api \
@@ -20,10 +20,10 @@ $ docker run -d -ti --net=host --restart=always \
  -v /opt/app/humpback-center/cache:/opt/humpback-center/cache \
  -v /opt/app/humpback-center/logs:/opt/humpback-center/logs \
  -v /opt/app/humpback-center/data:/opt/humpback-center/data \
- humpbacks/humpback-center:1.3.5
+ humpbacks/humpback-center:latest
 $ docker ps -a
 CONTAINER ID    IMAGE                           COMMAND                  CREATED         STATUS         PORTS         NAMES
-a1640bf8c956    humpbacks/humpback-center:1.3.5  "./humpback-center"     15 minutes ago  45 seconds ago              humpback-center
+a1640bf8c956    humpbacks/humpback-center:latest  "./humpback-center"     15 minutes ago  45 seconds ago              humpback-center
 ```
 
 - Environment variables and parameters

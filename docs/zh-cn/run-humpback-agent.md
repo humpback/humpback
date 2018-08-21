@@ -31,7 +31,7 @@ Server:
 
 &ensp;&ensp;&ensp; 1、集群模式启动
 ```bash 
-$ docker pull humpbacks/humpback-agent:1.3.5
+$ docker pull humpbacks/humpback-agent:latest
 $ docker run -d -ti --net=host --restart=always \
  --name=humpback-agent \
  -e DOCKER_API_VERSION=v1.21 \
@@ -40,23 +40,23 @@ $ docker run -d -ti --net=host --restart=always \
  -e DOCKER_CLUSTER_URIS=zk://192.168.2.80:2181,192.168.2.81:2181,192.168.2.82:2181 \
  -e DOCKER_CLUSTER_NAME=humpback/center \
  -v /var/run/:/var/run/:rw \
- humpbacks/humpback-agent:1.3.5
+ humpbacks/humpback-agent:latest
 $ docker ps -a
 CONTAINER ID    IMAGE                           COMMAND               CREATED        STATUS         PORTS         NAMES
-b1ac4a82c2dd    humpbacks/humpback-agent:1.3.5   "./humpback-agent"   3 minutes ago  20 seconds ago               humpback-agent
+b1ac4a82c2dd    humpbacks/humpback-agent:latest   "./humpback-agent"   3 minutes ago  20 seconds ago               humpback-agent
 ```
 &ensp;&ensp;&ensp; 2、非集群模式启动
 ```bash 
-$ docker pull humpbacks/humpback-agent:1.3.5
+$ docker pull humpbacks/humpback-agent:latest
 $ docker run -d -ti --net=host --restart=always \
  --name=humpback-agent \
  -e DOCKER_API_VERSION=v1.21 \
  -e DOCKER_CLUSTER_ENABLED=false \
  -v /var/run/:/var/run/:rw \
- humpbacks/humpback-agent:1.3.5
+ humpbacks/humpback-agent:latest
 $ docker ps -a
 CONTAINER ID    IMAGE                           COMMAND               CREATED        STATUS         PORTS         NAMES
-b1ac4a82c2dd    humpbacks/humpback-agent:1.3.5   "./humpback-agent"   3 minutes ago  20 seconds ago               humpback-agent
+b1ac4a82c2dd    humpbacks/humpback-agent:latest   "./humpback-agent"   3 minutes ago  20 seconds ago               humpback-agent
 ```
 
 - 环境变量与参数

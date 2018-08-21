@@ -15,7 +15,7 @@ $ docker run -d --net=host --restart=always \
  -e HUMPBACK_LISTEN_PORT=8012 \
  -v /opt/app/humpback-web/dbFiles:/humpback-web/dbFiles \
  --name humpback-web \
- humpbacks/humpback-web:1.3.5
+ humpbacks/humpback-web:latest
 ```
 
 Open browser: http://192.168.2.80:8012    
