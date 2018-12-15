@@ -10,7 +10,11 @@
 
 ## Home Page
 
-* [https://humpback.github.io/humpback](https://humpback.github.io/humpback)   
+* [https://humpback.github.io/humpback](https://humpback.github.io/humpback) 
+
+## QQ Group
+
+![qq_group](docs/_media/humpback_qq_group.jpg)
 
 ## Architecture
 
