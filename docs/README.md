@@ -1,14 +1,6 @@
 # Humpback
 
-> Quickly build lightweight docker cloud for enterprise user.
-
-## Home Page
-
-* [https://humpback.github.io/humpback](https://humpback.github.io/humpback) 
-
-## Architecture
-
-![Humpback Architecture](https://humpback.github.io/humpback/_media/humpback-arch.png)
+> Lightweight platform for managing containerized services.
 
 ## Feature
 
@@ -21,18 +13,15 @@
 * Elasticity Cluster.
 * Private Registry.
 
-## Manage Mode
+## Getting Help
 
-* `Single Mode`   
-Single mode, which implements container management for a single group of hosts, providing container creation, container operations, container renaming, container upgrade and cloning, container monitoring, and container log output.
-
-* `Cluster Mode`   
-Container cluster mode, batch creation of containers by instance number, container scheduling, batch operation containers, upgrade and migration, etc.
+- Issues: https://github.com/humpback/humpback/issues
+- Slack (chat): todo
+- Wechat： todo
 
 ## Components
 
-* [Humpback Web](https://github.com/humpback/humpback-web)
-* [Humpback Center](https://github.com/humpback/humpback-center)
+* [Humpback Server](https://github.com/humpback/humpback-server)
 * [Humpback Agent](https://github.com/humpback/humpback-agent)
 
 ## Preview

@@ -1,67 +1,58 @@
-# How To Start Humpback
+# Install Humpback
 
-> Preparation
+## Prerequisites
 
-First prepare the server. We will use the following three servers to finish our example. Please install the `Docker` for each machine before start. 
+Humpback consists of two components, the Humpback Server, and the Humpback Agent. Both them run as lightweight Docker containers on a Docker engine.
 
-```
-SERVER01：192.168.2.80 
-SERVER02：192.168.2.81
-SERVER03：192.168.2.82 
-```
+To get started, you will need the latest version of Docker installed and working. We recommend following the [official installation instructions](https://docs.docker.com/engine/install/) for Docker - in particular, we advise against installing Docker via snap on Ubuntu distributions as you may run into compatibility issues.
 
-> Deployment introduction
+## Deployment Hummpback Server
 
-`192.168.2.80` as the Humpback platform center will start these service: 
+First, create the volume that Humpback Server will use to store its database:
 
-Docker Registry. Image private registry service.    
-
-Humpback-Web. Humpback manage the site.      
-
-Humpback-Center. Provides container scheduling services for cluster mode.   
-
-All servers start `Humpback-Agent` service.   
-
-```
-| Server           |  Zookeeper |  Docker Registry  |  Humpback-Web  |  Humpback-Agent  |  Humpback-Center  |
-|------------------|:----------:|:-----------------:|:--------------:|:----------------:|:-----------------:|
-|   192.168.2.80   |     √      |         √         |        √       |        √         |         √         |
-|   192.168.2.81   |     √      |         X         |        X       |        √         |         X         |
-|   192.168.2.82   |     √      |         X         |        X       |        √         |         X         |
+```bash
+docker volume create humpback_data
 ```
 
-There are two modes in Humpback platform to manage containers:  
+Then, install the Portainer Server container:
 
-`Single Mode`, In this mode, `Humpback-Web` will call the` Humpback-Agent` API directly for simple cluster container management. this mode is simple for deployment, `Humpback-Center` and ` Zookeeper` are not necessary.
+```bash
+docker run -d \
+  --name humpback-server \
+  -p 8100:8100 \
+  -p 8101:8101 \
+  --restart=always \
+  -v portainer_data:/workspace/data \
+  -e LOCATION=prd \
+  humpbacks/humpback-server
+```
 
-`Cluster Mode`, `Humpback-Center` and` Zookeeper` are need for supporting cluster. `Humpback-Center` is a cluster scheduling center, and` Zookeeper` is used for node discovery.
+By default, Humpback Server will expose the UI over port `8100` and expose a API server over port `8101` for receiving agent report. 
 
-> Zookeeper cluster
+Humpback Server has now been installed. you can log into your Humpback Server instance by opening a web browser and going to:
 
-[How to build a Zookeeper cluster](run-zookeeper.md) 
+```
+http://localhost:8100
+```
 
-> Docker Registry private registry
+## Deployment Hummpback Agent
 
-[How to deploy Docker Registry](run-registry.md)
+By default, Humpback Agent will expose a API server over port `8018` for receiving Humpback Server call. 
 
-> Humpback Web site
+```bash
 
-[How to deploy the Humpback site](run-humpback-web.md)
+docker run -d \
+  --name=humpback-agent \
+  --net=host \
+  --restart=always \
+  --privileged \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v /var/lib/docker:/var/lib/docker \
+  -e HUMPBACK_AGENT_API_BIND=0.0.0.0:8018 \
+  -e HUMPBACK_SERVER_HOST={server-address}:8101 \
+  -e HUMPBACK_VOLUMES_ROOT_DIRECTORY=/var/lib/docker \
+  humpbacks/humpback-agent
 
-> Humpback Agent
+```
 
-[How to deploy the Humpback Agent](run-humpback-agent.md)
-
-> Humpback Center
-
-[How to deploy Humpback Center](run-humpback-center.md)
-
-
-
-
-
-
-
-
-
- 
+Please replace `{server-address}` to the Humbpack Server IP.

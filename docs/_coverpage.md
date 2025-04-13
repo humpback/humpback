@@ -2,13 +2,12 @@
 
 # Humpback <small>2.0</small>
 
-> Quickly build lightweight docker cloud for enterprise user.
+> Lightweight platform for managing containerized services.
 
-- Container Scheduling
+- Multiple Deployment Strategies
 - Supporting Multiple Cluster
-- Elasticity Cluster
-- Private Registry
-- Web UI Supporting
+- Centralized Access Control
+- Friendly Web UI
 
 [Gitee](https://gitee.com/humpbacks/humpback)
 [GitHub](https://github.com/humpback/humpback)
