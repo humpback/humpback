@@ -4,14 +4,10 @@
 
 ## Feature
 
-* Web UI Supporting, Easy to use.
-* Container Grouping and Isolation.
-* Container Upgrades and Cloning.
-* Container Monitoring.
-* Container Logs View.
-* Container Cluster Scheduling, Supporting Multiple Cluster.
-* Elasticity Cluster.
-* Private Registry.
+- Multiple Deployment Strategies: Flexible deployment strategies to meet your various business scenarios.
+- Supporting Multiple Cluster：One-stop operation and management of multiple clusters.
+- Centralized Access Control： Granular permission control (team and individual levels).
+- Friendly Web UI: An intuitive web interface that hides the complexity of container operations.
 
 ## Getting Help
 
@@ -23,30 +19,6 @@
 
 * [Humpback Server](https://github.com/humpback/humpback-server)
 * [Humpback Agent](https://github.com/humpback/humpback-agent)
-
-## Preview
-
-### Login   
-
-![Login](https://humpback.github.io/humpback/_media/humpback-web.png)
-
-### Single Mode
-![Single Mode](https://humpback.github.io/humpback/_media/single-mode-ui.png)
-
-### Cluster Mode
-![Cluster Mode](https://humpback.github.io/humpback/_media/cluster-mode-ui.png)
-
-### Container Monitoring
-![Container Monitoring](https://humpback.github.io/humpback/_media/container-monitor.png)
-
-### Container Logs
-![Container Logs](https://humpback.github.io/humpback/_media/container-logs.png)
-
-### Container Detail
-![Container Detail](https://humpback.github.io/humpback/_media/container-single-info.png)
-
-### Container Cluster Info
-![Container Cluster Info](https://humpback.github.io/humpback/_media/container-cluster-info.png)
 
 ## License
 

@@ -8,6 +8,6 @@
 
 - Administering Humpback
   - [User Management](management-user.md)
-  - [Registry Management](management-group.md)
+  - [Registry Management](management-registry.md)
   - [Configuration Management](management-config.md)
   - [Activity](management-activity.md)

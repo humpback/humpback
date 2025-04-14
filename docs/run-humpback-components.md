@@ -14,7 +14,7 @@ First, create the volume that Humpback Server will use to store its database:
 docker volume create humpback_data
 ```
 
-Then, install the Portainer Server container:
+Then, install the Humpback Server container:
 
 ```bash
 docker run -d \
@@ -22,7 +22,7 @@ docker run -d \
   -p 8100:8100 \
   -p 8101:8101 \
   --restart=always \
-  -v portainer_data:/workspace/data \
+  -v humpback_data:/workspace/data \
   -e LOCATION=prd \
   humpbacks/humpback-server
 ```
