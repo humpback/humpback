@@ -4,7 +4,8 @@
 
 - Using Humpback
   - [How to Create a Service](create-service.md)
-  - [Service Scheduling Strategy](service-schedule.md)
+  - [Service Deployment Strategy](service-deployment-strategy.md)
+  - [Service Monitor](service-monitor.md)
 
 - Administering Humpback
   - [User Management](management-user.md)

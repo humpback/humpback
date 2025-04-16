@@ -1,3 +1,0 @@
-# Service Scheduling Strategy
-
-

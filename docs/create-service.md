@@ -32,3 +32,9 @@ The service has the following three states:
 - `Assigning`​​: The service's current state hasn't reached the desired state, and Humpback is currently scheduling resources.
 - `Running`​​: The service has successfully achieved its desired state and is running normally.
 - `Warning`​​: The service is experiencing anomalies and cannot reach its desired state, requiring operating.
+
+## Setup Container Options
+
+In the service application page, you can setup container options like below:
+
+![](/_media/service-application.png)
