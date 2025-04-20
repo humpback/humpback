@@ -1,4 +1,4 @@
-# Humpback
+# Humpback 2.0
 
 > Lightweight platform for managing containerized services.
 

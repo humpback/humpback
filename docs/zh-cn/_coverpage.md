@@ -1,18 +1,14 @@
-![logo](_media/logo.png)
+![logo](../_media/logo-nobg.png)
 
-# Humpback <small>3.0</small>
+# Humpback <small>2.0</small>
 
-> 帮助企业快速搭建轻量级的Docker容器云管理平台。
+> 轻量级容器化服务管理平台
 
-* 容器调度
-* 多集群管理，权限隔离
-* 弹性伸缩
-* 私有仓库
-* 全界面操作，简单易用
+- 多种部署策略
+- 支持多集群
+- 集中式访问控制
+- F简洁易用的界面
 
 [Gitee](https://gitee.com/humpbacks/humpback)
 [GitHub](https://github.com/humpback/humpback)
-[Get Started](#Humpback)
-
-<!-- background color -->
-![color](linear-gradient(to bottom, darkgray, white))
+[Get Started](#Humpback-20)

@@ -1,69 +1,59 @@
-# 如何启动Humpback
+# 安装Humpback
 
-> 准备工作   
+## 先决条件
 
-首先准备好服务器，以下三台机器为搭建集群示例，在开始前请为每台机器安装好 `Docker` 实例。   
+Humpback 由两个核心组件构成：Humpback Server 和 Humpback Agent。这两个组件都以轻量级 Docker 容器的形式运行在 Docker 引擎上。
 
-```
-SERVER01：192.168.2.80 
-SERVER02：192.168.2.81
-SERVER03：192.168.2.82 
-```
+开始使用前，您需要安装最新版本的 Docker 并确保其正常运行。我们建议您遵循 Docker 的[官方安装指南](https://docs.docker.com/engine/install/)——特别提醒，在 Ubuntu 系统上不建议通过 snap 安装 Docker，否则可能会遇到兼容性问题。
 
-> 部署介绍
+## 部署Hummpback Server
 
-&ensp;&ensp;&ensp;可以看到 `192.168.2.80` 作为 Humpback 平台中心，启动的服务最多：   
+首先，创建一个volume用于存储Humpback Server的数据库：
 
-&ensp;&ensp;&ensp;Docker Registry，镜像私有仓库服务。    
-
-&ensp;&ensp;&ensp;Humpback-Web，Humpback 管理站点。      
-
-&ensp;&ensp;&ensp;Humpback-Center，为集群模式提供容器调度服务。   
-
-&ensp;&ensp;&ensp;同时以下三台服务器都启动 `Humpback-Agent` 提供本地镜像管理功能，等待被 Humpback 平台调用。   
-
-```
-| Server           |  Zookeeper |  Docker Registry  |  Humpback-Web  |  Humpback-Agent  |  Humpback-Center  |
-|------------------|:----------:|:-----------------:|:--------------:|:----------------:|:-----------------:|
-|   192.168.2.80   |     √      |         √         |        √       |        √         |         √         |
-|   192.168.2.81   |     √      |         X         |        X       |        √         |         X         |
-|   192.168.2.82   |     √      |         X         |        X       |        √         |         X         |
+```bash
+docker volume create humpback_data
 ```
 
-&ensp;&ensp;&ensp;每台服务器都需要启动 `Zookeeper` 节点组成集群，但搭建 `Zookeeper` 集群不是必选项。   
-  
-&ensp;&ensp;&ensp;Humpback 平台管理模式分为两种：   
+接下，使用下面的命令创建Humpback Server容器：
 
-&ensp;&ensp;&ensp;`Single Mode`，在该模式下 `Humpback-Web` 会直接访问 `Humpback-Agent` API 进行交互实现简单的集群容器管理，这种模式部署更单一，不必启动 `Humpback-Center` 和搭建 `Zookeeper` 集群。   
+```bash
+docker run -d \
+  --name humpback-server \
+  -p 8100:8100 \
+  -p 8101:8101 \
+  --restart=always \
+  -v humpback_data:/workspace/data \
+  -e LOCATION=prd \
+  humpbacks/humpback-server
+```
 
-&ensp;&ensp;&ensp;`Cluster Mode`，Humpack 后端需要启动 `Humpback-Center` 和 `Zookeeper` 集群来支撑，`Humpback-Center` 作为集群调度中心提供容器动态调度分配功能，而 `Zookeeper` 集群提供节点发现功能，实现集群节点弹性伸缩。
+Humpback Server默认会监听两个端口，`8100`端口是web站点，`8101`是API服务器，主要接受agent汇报的数据。
 
-> Zookeeper 集群
+命令运行成功后，你可以通过打开下面的站点检查Humpback Server是否启动成功。
 
-&ensp;&ensp;&ensp;[如何 Zookeeper 集群搭建](zh-cn/run-zookeeper.md) 
+```
+http://localhost:8100
+```
 
-> Docker Registry 私有仓库
+## 部署Hummpback Agent
 
-&ensp;&ensp;&ensp;[如何部署 Docker Registry](zh-cn/run-registry.md)
+Humpback Agent默认会监听`8018`端口用于接收Humpback Server的调用。
 
-> Humpback Web 站点
+使用下面的命令启动Humpback Agent
 
-&ensp;&ensp;&ensp;[如何部署 Humpback 站点](zh-cn/run-humpback-web.md)
+```bash
 
-> Humpback Agent
+docker run -d \
+  --name=humpback-agent \
+  --net=host \
+  --restart=always \
+  --privileged \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v /var/lib/docker:/var/lib/docker \
+  -e HUMPBACK_AGENT_API_BIND=0.0.0.0:8018 \
+  -e HUMPBACK_SERVER_HOST={server-address}:8101 \
+  -e HUMPBACK_VOLUMES_ROOT_DIRECTORY=/var/lib/docker \
+  humpbacks/humpback-agent
 
-&ensp;&ensp;&ensp;[如何部署 Humpback Agent](zh-cn/run-humpback-agent.md)
-
-> Humpback Center
-
-&ensp;&ensp;&ensp;[如何部署 Humpback Center](zh-cn/run-humpback-center.md)
-
-
-
-
-
-
-
-
-
- 
+```
+请注意：将`{server-address}`替换为部署Humpback Server的真实IP地址。

@@ -16,12 +16,13 @@
     <a href="#/zh-cn/">简体中文</a>
   </nav>
   <div id="app"></div>
-  
+
   <script>
     window.$docsify = {
       name: 'Humpback',
       repo: 'https://github.com/humpback/humpback',
       coverpage: true,
+      coverpage: ['/', '/zh-cn/'],
       loadSidebar: true,
       autoHeader: true,
       // logo: '/_media/logo-nobg.png',
@@ -46,6 +47,16 @@
   <!-- Docsify v4 -->
   <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
   <script src="https://cdn.jsdelivr.net/npm/@markbattistella/docsify-sidebarfooter@latest"></script>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-9TH1KH67ZC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-9TH1KH67ZC');
+  </script>
 </body>
 
 </html>
