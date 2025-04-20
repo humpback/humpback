@@ -16,6 +16,7 @@
     <a href="#/zh-cn/">简体中文</a>
   </nav>
   <div id="app"></div>
+  
   <script>
     window.$docsify = {
       name: 'Humpback',
@@ -24,10 +25,27 @@
       loadSidebar: true,
       autoHeader: true,
       // logo: '/_media/logo-nobg.png',
+      autoFooter: {
+        // the name you wish to display as the copyright holder
+        name: 'Humpback',
+        // the URL (personal or company) which clicking the `name` goes to
+        url: 'https://humpback.github.io/humpback/#/',
+        // the start year of copyright
+        copyYear: '2016',
+        // show the privacy policy link
+        policy: false,
+        // show the terms of service link
+        terms: false,
+        // show the cookies policy link
+        cookies: false,
+        // use your own css styles or the built in ones
+        customStyle: 'sidebar'
+      }
     }
   </script>
   <!-- Docsify v4 -->
   <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@markbattistella/docsify-sidebarfooter@latest"></script>
 </body>
 
 </html>

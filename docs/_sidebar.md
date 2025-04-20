@@ -12,3 +12,5 @@
   - [Registry Management](management-registry.md)
   - [Configuration Management](management-config.md)
   - [Activity](management-activity.md)
+
+  <footer id="mb-footer"></footer>

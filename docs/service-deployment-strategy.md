@@ -11,6 +11,6 @@ The deployment strategy consists of three configurations:
    - Selecting **Replicated** and set replica count. Humpback will create the specified number of containers based on resource usage across nodes in the group.  
 - `Placement Constraints`: Controls node distribution for containers by setting constraints via IP or labels.  
 - `Schedules Info`: Configures containers to run in scheduled task mode.  
-   • Humpback supports **Cron expressions** for defining scheduled tasks.  
-   • It also allows **manual startup**.  
-   • **Timeouts**: Humpback will automatically stop containers when the configured timeout is reached.  
+   - Humpback supports **Cron expressions** for defining scheduled tasks.  
+   - It also allows **manual startup**.  
+   - **Timeouts**: Humpback will automatically stop containers when the configured timeout is reached.  
