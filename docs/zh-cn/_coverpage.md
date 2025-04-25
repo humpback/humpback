@@ -7,7 +7,7 @@
 - 多种部署策略
 - 支持多集群
 - 集中式访问控制
-- F简洁易用的界面
+- 简洁易用的界面
 
 [Gitee](https://gitee.com/humpbacks/humpback)
 [GitHub](https://github.com/humpback/humpback)
