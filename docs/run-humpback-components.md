@@ -6,7 +6,7 @@ Humpback consists of two components, the Humpback Server, and the Humpback Agent
 
 To get started, you will need the latest version of Docker installed and working. We recommend following the [official installation instructions](https://docs.docker.com/engine/install/) for Docker - in particular, we advise against installing Docker via snap on Ubuntu distributions as you may run into compatibility issues.
 
-## Deployment Hummpback Server
+## Deployment Humpback Server
 
 First, create the volume that Humpback Server will use to store its database:
 
@@ -35,7 +35,9 @@ Humpback Server has now been installed. you can log into your Humpback Server in
 http://localhost:8100
 ```
 
-## Deployment Hummpback Agent
+You can use the account initialized by the system to log in. Both the username and the password are `humpback`. 
+
+## Deployment Humpback Agent
 
 By default, Humpback Agent will expose a API server over port `8018` for receiving Humpback Server call. 
 
@@ -56,3 +58,7 @@ docker run -d \
 ```
 
 Please replace `{server-address}` to the Humbpack Server IP.
+
+## Add Node in Humpback
+
+Open Humpback website, under the Administration menu, on the Nodes page, you can add the node that you just install agent on by IP address.
