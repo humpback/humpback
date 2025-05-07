@@ -4,6 +4,7 @@
 [![Vue 3](https://img.shields.io/badge/vue-3.x-brightgreen.svg)](https://v3.vuejs.org/)
 [![Docker](https://img.shields.io/badge/docker-pull-blue?logo=docker)](https://hub.docker.com/r/humpbacks)
 [![Release](https://img.shields.io/badge/release-v2.0.0-blue)](https://github.com/humpbacks/humpback/releases/latest)
+
 ![Humpback logo](/docs/_media/logo-nobg.png)
 
 Lightweight platform for managing containerized services.

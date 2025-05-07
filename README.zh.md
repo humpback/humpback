@@ -5,7 +5,6 @@
 [![Docker](https://img.shields.io/badge/docker-pull-blue?logo=docker)](https://hub.docker.com/r/humpbacks)
 [![Release](https://img.shields.io/badge/release-v2.0.0-blue)](https://github.com/humpbacks/humpback/releases/latest)
 
-
 ![Humpback logo](/docs/_media/logo-nobg.png)
 
 轻量级容器化服务管理平台。
