@@ -1,0 +1,120 @@
+// Available variables which can be used inside of strings.
+// ${workspaceRoot}: the root folder of the team
+// ${file}: the current opened file
+// ${fileBasename}: the current opened file's basename
+// ${fileDirname}: the current opened file's dirname
+// ${fileExtname}: the current opened file's extension
+// ${cwd}: the current working directory of the spawned process
+{
+  "version": "2.0.0",
+  "type": "shell",
+  "command": "go",
+  "problemMatcher": [],
+  "promptOnClose": true,
+  "presentation": {
+    "reveal": "always",
+    "clear": true,
+    "echo": true,
+    "focus": true,
+    "showReuseMessage": true,
+    "panel": "shared"
+  },
+  "options": {
+    "cwd": "${fileDirname}",
+    "env": {
+      "GOOS": "windows",
+      "GOARCH": "amd64",
+    }
+  },
+  "tasks": [
+    {
+      "label": "Go Run",
+      "command": "go",
+      "group": "build",
+      "args": [
+        "run",
+        "${file}"
+      ]
+    },
+    {
+      "label": "Go Build",
+      "command": "go",
+      "group": "build",
+      "args": [
+        "build"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Go Mod Init",
+      "command": "go",
+      "group": "build",
+      "args": [
+        "mod",
+        "init"
+      ]
+    },
+    {
+      "label": "Go Mod Download",
+      "command": "go",
+      "group": "build",
+      "args": [
+        "mod",
+        "download"
+      ]
+    },
+    {
+      "label": "Go Mod Tidy",
+      "command": "go",
+      "group": "build",
+      "args": [
+        "mod",
+        "tidy"
+      ]
+    },
+    {
+      "label": "Go Clean",
+      "command": "go",
+      "group": "build",
+      "args": [
+        "clean"
+      ]
+    },
+    {
+      "label": "Go Clean Mod",
+      "command": "go",
+      "group": "build",
+      "args": [
+        "clean",
+        "--modcache"
+      ]
+    },
+    {
+      "label": "Go Mod Graph",
+      "command": "go",
+      "group": "build",
+      "args": [
+        "mod",
+        "graph"
+      ]
+    },
+    {
+      "label": "Go Install",
+      "command": "go",
+      "group": "build",
+      "args": [
+        "install"
+      ]
+    },
+    {
+      "label": "Go Test",
+      "command": "go",
+      "group": "test",
+      "args": [
+        "test",
+        "-v",
+        "-cover=true"
+      ]
+    }
+  ]
+}

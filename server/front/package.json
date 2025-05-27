@@ -1,0 +1,14 @@
+{
+  "name": "front",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "preinstall": "npx only-allow pnpm",
+    "dev": "pnpm -r --parallel --filter=./projects/* run dev",
+    "build": "pnpm -r --parallel --filter=./projects/* run build",
+    "lint": "pnpm -r --parallel --filter=./projects/* run lint"
+  },
+  "devDependencies": {
+  }
+}

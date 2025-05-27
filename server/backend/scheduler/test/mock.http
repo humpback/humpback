@@ -1,0 +1,35 @@
+GET http://localhost:8801/mock/nodes
+Accept: application/json
+
+###
+GET http://localhost:8801/nodes
+Accept: application/json
+
+###
+GET http://localhost:8801/mock/service/gateway
+Accept: application/json
+
+###
+GET http://localhost:8801/mock/service/LcNSJe1X/web
+Accept: application/json
+
+###
+GET http://localhost:8801/mock/service/schedule
+Accept: application/json
+
+###
+GET http://localhost:8801/mock/action/LcNSJe1XkcawsNqI/Delete
+Accept: application/json
+
+###
+GET http://localhost:8801/services
+Accept: application/json
+
+###
+POST http://172.30.198.172:8018/api/v1/container/list
+Accept: application/json
+Content-Type: application/json
+
+{
+  "all": true
+}

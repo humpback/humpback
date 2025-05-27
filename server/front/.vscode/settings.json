@@ -1,0 +1,29 @@
+{
+  "html.format.wrapAttributes": "aligned-multiple",
+  "html.format.wrapLineLength": 160,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.quickSuggestions": {
+    "other": true,
+    "comments": true,
+    "strings": true
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit",
+    "source.fixAll.eslint": "explicit"
+  },
+  "eslint.run": "onSave",
+  "eslint.validate": [
+    "vue",
+    "javascript",
+    "typescript",
+    "html"
+  ],
+  "prettier.bracketSameLine": true,
+  "prettier.printWidth": 160,
+  "prettier.semi": false,
+  "prettier.useEditorConfig": false,
+  "prettier.endOfLine": "auto",
+  "[typescript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  }
+}

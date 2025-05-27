@@ -1,0 +1,25 @@
+version: 1.0.0
+location: local # local / dev / prd
+backend:
+  checkInterval: 30
+  serviceCheckInterval: 10
+  checkThreshold: 3
+  backendPort: 8101
+node:
+  hostIp: 0.0.0.0
+  sitePort: 8100
+db:
+  root: './humpback.db'
+  timeout: 5s
+  sessionTimeout: 12h
+  sessionGCInterval: 24h
+  activityGCInterval: 24h
+  activityRetentionDay: 120  #单位：天
+  statisticsGCInterval: 24h
+  statisticsRetentionDay: 32 #单位：天
+html:
+  dir: '../front/projects/web/dist'
+  load: false
+admin:
+  username: humpback   # 长度2-100
+  password: humpback # 长度8-20

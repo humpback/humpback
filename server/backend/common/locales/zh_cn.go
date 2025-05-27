@@ -1,0 +1,132 @@
+package locales
+
+import (
+	"fmt"
+
+	"humpback/common/enum"
+)
+
+var zhCnMsg = map[string]string{
+	CodeSucceed:              "成功",
+	CodeServerErr:            "服务器错误，请联系管理员！",
+	CodeRequestParamsInvalid: "请求参数无效。",
+	CodeLoginExpired:         "登录已过期，请重新登录。",
+	CodeNotLogin:             "未登录。",
+	CodeNoPermission:         "你没有操作权限。",
+
+	CodeNameNotEmpty: "名称不能为空。",
+
+	CodeUserNameLimitLength:  fmt.Sprintf("用户名长度限制为%d到%d。", enum.LimitUsername.Min, enum.LimitUsername.Max),
+	CodeUserNameIsInvalid:    "用户名无效。",
+	CodeUserNameNotEmpty:     "用户名不能为空。",
+	CodeUserNotExist:         "用户不存在。",
+	CodeUserIdNotEmpty:       "用户ID不能为空。",
+	CodeUserAlreadyExist:     "用户已存在。",
+	CodeUserNameAlreadyExist: "用户名已存在。",
+	CodeUserIsOwner:          "无法更新自己。",
+
+	CodeUserRoleIsInvalid: "用户角色无效。",
+
+	CodeTeamNameNotEmpty:     "团队名称不能为空。",
+	CodeTeamNameLimitLength:  fmt.Sprintf("团队名称长度限制为%d到%d。", enum.LimitTeamName.Min, enum.LimitTeamName.Max),
+	CodeTeamIdNotEmpty:       "团队ID不能为空。",
+	CodeTeamNotExist:         "团队不存在。",
+	CodeTeamAlreadyExist:     "团队已经存在。",
+	CodeTeamNameAlreadyExist: "团队名称已存在。",
+
+	CodeEmailIsInvalid:   "电子邮件地址无效。",
+	CodeEmailLimitLength: fmt.Sprintf("电子邮件地址长度最大限制为%d。", enum.LimitEmail.Max),
+
+	CodePhoneLimitLength: fmt.Sprintf("电话号码长度最大限制为%d。", enum.LimitPhone.Max),
+	CodePhoneIsInvalid:   "电话号码无效。",
+
+	CodeDescriptionLimitLength: fmt.Sprintf("描述长度最大限制为%d。", enum.LimitDescription.Max),
+
+	CodePasswordLimitLength:    fmt.Sprintf("密码长度限制为%d到%d。", enum.LimitPassword.Min, enum.LimitPassword.Max),
+	CodePasswordIsWrong:        "密码错误。",
+	CodePasswordNotEmpty:       "密码不能为空。",
+	CodeOldPasswordNotEmpty:    "旧密码不能为空。",
+	CodeOldPasswordLimitLength: fmt.Sprintf("旧密码长度限制为%d到%d。", enum.LimitPassword.Min, enum.LimitPassword.Max),
+	CodeOldPasswordIsWrong:     "旧密码错误。",
+	CodeNewPasswordNotEmpty:    "新密码不能为空。",
+	CodeNewPasswordLimitLength: fmt.Sprintf("新密码长度限制为%d到%d。", enum.LimitPassword.Min, enum.LimitPassword.Max),
+
+	CodeConfigNameNotEmpty:           "配置名称不能为空。",
+	CodeConfigNameLimitLength:        fmt.Sprintf("配置名称长度限制为%d到%d。", enum.LimitConfigName.Min, enum.LimitConfigName.Max),
+	CodeConfigNameAlreadyExist:       "配置名称已存在。",
+	CodeConfigNotExist:               "配置不存在。",
+	CodeConfigValueNotEmpty:          "配置值不能为空。",
+	CodeConfigStaticValueLimitLength: fmt.Sprintf("静态配置值长度最大限制为%d。", enum.LimitConfigValue.Max/2),
+	CodeConfigVolumeValueLimitLength: fmt.Sprintf("卷配置值长度最大限制为%d。", enum.LimitConfigValue.Max),
+	CodeConfigTypeIsInvalid:          "配置类型无效。",
+	CodeConfigIdNotEmpty:             "配置ID不能为空。",
+
+	CodeRegistryNotExist:            "仓库不存在。",
+	CodeRegistryIdNotEmpty:          "仓库ID不能为空。",
+	CodeRegistryUrlNotEmpty:         "仓库地址不能为空。",
+	CodeRegistryUrlLimitLength:      fmt.Sprintf("仓库地址长度最大限制为%d。", enum.LimitRegistryUrl.Max),
+	CodeRegistryUrlAlreadyExist:     "仓库地址已存在。",
+	CodeRegistryUsernameLimitLength: fmt.Sprintf("仓库用户名长度最大限制为%d。", enum.LimitRegistryUsername.Max),
+	CodeRegistryPasswordLimitLength: fmt.Sprintf("仓库密码长度最大限制为%d。", enum.LimitRegistryPassword.Max),
+	CodeRegistryDefaultNotDelete:    "仓库docker.io不能被删除。",
+	CodeRegistryDomainNotEmpty:      "仓库域名不能为空。",
+
+	CodeNodesNotEmpty:              "机器不能为空。",
+	CodeNodesIdNotEmpty:            "机器ID不能为空。",
+	CodeNodesNotExist:              "机器不存在。",
+	CodeNodesIpAddressInvalid:      "IP地址无效。",
+	CodeNodesLabelKeyIsEmpty:       "标签名称不能为空。",
+	CodeNodesLabelValueIsEmpty:     "标签值不能为空。",
+	CodeNodesLabelKeyIsDuplicated:  "标签名重复。",
+	CodeNodesIpAddressAlreadyExist: "IP地址已存在。",
+
+	CodeGroupIdNotEmpty:       "分组ID不能为空。",
+	CodeGroupNotExist:         "分组不存在。",
+	CodeGroupNameAlreadyExist: "分组名称已存在。",
+	CodeGroupNameLimitLength:  fmt.Sprintf("分组名称长度限制为%d到%d。", enum.LimitGroupName.Min, enum.LimitGroupName.Max),
+	CodeGroupNameNotEmpty:     "分组名称不能为空。",
+	CodeGroupNoPermission:     "你没有当前分组权限。",
+
+	CodeServiceNotExist:                          "服务不存在。",
+	CodeServiceNameNotEmpty:                      "服务名称不能为空。",
+	CodeServiceNameLimitLength:                   fmt.Sprintf("服务名称长度限制为%d到%d。", enum.LimitServiceName.Min, enum.LimitServiceName.Max),
+	CodeServiceNameAlreadyExist:                  "服务名称已存在。",
+	CodeServiceIdNotEmpty:                        "服务ID不能为空。",
+	CodeServiceImageNotEmpty:                     "服务镜像不能为空。",
+	CodeServiceImageLimitLength:                  fmt.Sprintf("镜像长度最大限制为%d", enum.LimitImageName.Max),
+	CodeServiceNetworkModeInvalid:                "网络模式无效。",
+	CodeServiceRestartPolicyInvalid:              "重启策略无效。",
+	CodeServiceContainerPortNotEmpty:             "容器端口不能为空。",
+	CodeServiceContainerPortIsDuplicated:         "容器端口重复。",
+	CodeServiceHostPortIsDuplicated:              "主机端口重复。",
+	CodeServiceContainerVolumeNotEmpty:           "容器卷不能为空。",
+	CodeServiceContainerVolumeIsDuplicated:       "容器卷重复。",
+	CodeServiceContainerVolumeTypeInvlaid:        "容器卷类型无效。",
+	CodeServiceHostVolumeNotEmpty:                "主机卷不能为空。",
+	CodeServiceLabelNameNotEmpty:                 "标签名称不能为空。",
+	CodeServiceLabelValueNotEmpty:                "标签值不能为空。",
+	CodeServiceResourceMemoryLimitLimitMax:       fmt.Sprintf("内存限制为%d到%d。", enum.LimitMemoryLimit.Min, enum.LimitMemoryLimit.Max),
+	CodeServiceResourceMemoryReservationLimitMax: fmt.Sprintf("内存预留限制为%d到%d", enum.LimitMemoryReservation.Min, enum.LimitMemoryReservation.Max),
+	CodeServiceResourceMaxCpuUsageInvalid:        fmt.Sprintf("最大cpu使用率无效，限制为%d到%d", enum.LimitMaxCpuUsage.Min, enum.LimitMaxCpuUsage.Max),
+	CodeServiceDispatchModeInvalid:               "调度模式无效。",
+	CodeServiceInstanceNumInvalid:                fmt.Sprintf("实例数无效。限制为%d到%d", enum.LimitInstanceNum.Min, enum.LimitInstanceNum.Max),
+	CodeServicePlacementModeInvalid:              "约束无效。",
+	CodeServicePlacementLabelNotEmpty:            "约束标签不能为空。",
+	CodeServicePlacementValueNotEmpty:            "约束值不能为空。",
+	CodeServiceScheduleCronNotEmpty:              "调度计划cron不能为空。",
+	CodeServiceScheduleCronInvalid:               "定时任务cron无效。",
+	CodeServiceScheduleTimeoutInvalid:            "定时任务超时控制时间无效。",
+	CodeServiceProtocolInvalid:                   "协议无效，仅支持TCP、UDP。",
+	CodeServiceOperateInvalid:                    "无效的操作。",
+	CodeServiceIsNotEnable:                       "服务未启用。",
+	CodeServiceIsEnabled:                         "服务已启用。",
+	CodeServiceIsDisabled:                        "服务已停用。",
+
+	CodeContainerIdNotEmpty:     "容器ID不能为空。",
+	CodeContainerActionInvalid:  "操作无效。",
+	CodeContainerLogTimeInvalid: "日志时间范围无效。",
+	CodeContainerNotExist:       "容器不存在。",
+
+	CodeActivityTypeInvalid:  "操作记录类型无效。",
+	CodeActivityTypeNotEmpty: "操作记录类型不能为空。",
+}

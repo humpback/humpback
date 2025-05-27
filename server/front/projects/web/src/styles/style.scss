@@ -1,0 +1,27 @@
+/*table中不同数据背景色的定义*/
+:root {
+  --hp-bg-color: rgb(242, 243, 248);
+  --hp-header-height: 48px;
+  --hp-header-bg-color: #ffffff;
+  --hp-footer-height: 48px;
+  --hp-aside-collapse-width: 60px;
+  --hp-aside-width: 240px;
+  --hp-aside-bg-color: #101827;
+  --hp-aside-text-color: #f1efef;
+  --hp-aside-active-color: #ffd04b;
+  --hp-aside-active-bg-color: var(--el-color-info);
+  --hp-menu-padding: 10px;
+  --hp-menu-item-height: 42px;
+  --hp-table-header-bg-color: #f5f7fa;
+  --hp-card-header-bg-color: #eeeff0;
+  --hp-font-family: 'Roboto', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Segoe UI, Arial, "PingFang SC", "miui", "Hiragino Sans GB", "Microsoft Yahei", sans-serif;
+  --el-font-family: var(--hp-font-family);
+  font-family: var(--hp-font-family);
+  background-color: var(--hp-bg-color);
+}
+
+body {
+  margin: 0;
+}
+
+
