@@ -14,7 +14,7 @@ Lightweight platform for managing containerized services.
 - [English](README.md)
 - [中文](README.zh.md)
 
-## Home Page
+## Documents
 
 * [https://humpback.github.io/humpback](https://humpback.github.io/humpback) 
 
@@ -31,8 +31,43 @@ Lightweight platform for managing containerized services.
 
 ## Components
 
-* [Humpback Server](https://github.com/humpback/humpback-server)
 * [Humpback Agent](https://github.com/humpback/humpback-agent)
+
+## Getting Started
+
+### Installing
+
+First, create the volume that Humpback will use to store its database:
+
+```bash
+docker volume create humpback_data
+```
+
+Then, install the Humpback container:
+
+```bash
+docker run -d \
+  --name humpback \
+  -p 8100:8100 \
+  -p 8101:8101 \
+  --restart=always \
+  -v humpback_data:/workspace/data \
+  -e LOCATION=prd \
+  humpbacks/humpback:latest
+```
+
+By default, Humpback will expose the UI over port `8100` and expose a API server over port `8101` for receiving
+agent report.
+
+Humpback has now been installed. you can log into your Humpback instance by opening a web browser and
+going to:
+
+```
+http://localhost:8100
+```
+
+The initial super administrator account and password are **humpback**
+
 
 ## Getting Help
 

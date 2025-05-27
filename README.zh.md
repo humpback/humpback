@@ -14,7 +14,7 @@
 - [English](README.md)
 - [中文](README.zh.md)
 
-## 主页
+## 文档
 
 * [https://humpback.github.io/humpback](https://humpback.github.io/humpback)
 
@@ -31,8 +31,40 @@
 
 ## 组件
 
-* [Humpback Server](https://github.com/humpback/humpback-server)
 * [Humpback Agent](https://github.com/humpback/humpback-agent)
+
+## 快速开始
+
+### 安装
+
+首先，创建一个volume用于存储Humpback的数据库：
+
+```bash
+docker volume create humpback_data
+```
+
+接下，使用下面的命令创建Humpback容器：
+
+```bash
+docker run -d \
+  --name humpback \
+  -p 8100:8100 \
+  -p 8101:8101 \
+  --restart=always \
+  -v humpback_data:/workspace/data \
+  -e LOCATION=prd \
+  humpbacks/humpback:latest
+```
+
+Humpback默认会监听两个端口，`8100`端口是web站点，`8101`是API服务器，主要接受agent汇报的数据。
+
+命令运行成功后，你可以通过打开下面的站点检查Humpback是否启动成功。
+
+```
+http://localhost:8100
+```
+
+初始化的超级管理员账号密码均为 **humpback**
 
 ## 帮助
 

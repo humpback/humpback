@@ -1,0 +1,148 @@
+@use "sass:list";
+
+$px-values: 0, 4px, 8px, 12px, 16px, 20px;
+$px-length: list.length($px-values);
+@for $i from 1 through $px-length {
+  $index: $i - 1;
+  .ma-#{$index} {
+    margin: list.nth($px-values, $i);
+  }
+  .mt-#{$index} {
+    margin-top: list.nth($px-values, $i);
+  }
+  .mr-#{$index} {
+    margin-right: list.nth($px-values, $i);
+  }
+  .mb-#{$index} {
+    margin-bottom: list.nth($px-values, $i);
+  }
+  .ml-#{$index} {
+    margin-left: list.nth($px-values, $i);
+  }
+  .mx-#{$index} {
+    margin: 0 list.nth($px-values, $i);
+  }
+  .my-#{$index} {
+    margin: list.nth($px-values, $i) 0;
+  }
+  .pa-#{$index} {
+    padding: list.nth($px-values, $i);
+  }
+  .pt-#{$index} {
+    padding-top: list.nth($px-values, $i);
+  }
+  .pr-#{$index} {
+    padding-right: list.nth($px-values, $i);
+  }
+  .pb-#{$index} {
+    margin-bottom: list.nth($px-values, $i);
+  }
+  .pl-#{$index} {
+    margin-left: list.nth($px-values, $i);
+  }
+  .px-#{$index} {
+    margin: 0 list.nth($px-values, $i);
+  }
+  .py-#{$index} {
+    margin: list.nth($px-values, $i) 0;
+  }
+  .gap-#{$index} {
+    gap: list.nth($px-values, $i);
+  }
+}
+
+$keywords: (
+  'danger':var(--el-color-danger),
+  'success':var(--el-color-success),
+  'primary':var(--el-color-primary),
+  'info':var(--el-color-info),
+  'warning':var(--el-color-warning),
+  'default':var(--el-color-default),
+);
+@each $name, $color in $keywords {
+  // 创建 class 名称并应用样式
+  .keywords-#{$name} {
+    color: $color;
+    font-weight: bold;
+  }
+}
+
+$text-align: (
+  'right': right,
+  'left': left,
+  'center': center,
+);
+@each $name, $value in $text-align {
+  // 创建 class 名称并应用样式
+  .text-align-#{$name} {
+    text-align: $value;
+  }
+}
+
+$justify-content: (
+  'right': right,
+  'left': left,
+  'center': center,
+  'space': space-between,
+);
+@each $name, $value in $justify-content {
+  // 创建 class 名称并应用样式
+  .justify-content-#{$name} {
+    justify-content: $value;
+  }
+}
+
+$align-items: (
+  'start': start,
+  'end': end,
+  'center': center,
+);
+@each $name, $value in $align-items {
+  // 创建 class 名称并应用样式
+  .align-items-#{$name} {
+    align-items: $value;
+  }
+}
+
+$wh: (
+  'h': "height",
+  'w': "width",
+);
+@each $name, $value in $wh {
+  // 创建 class 名称并应用样式
+  .#{$name}-100 {
+    #{$value}: 100%;
+  }
+}
+
+$fontWeight: (
+  'semiBold': 600,
+  'bold': 700,
+);
+@each $name, $value in $fontWeight {
+  // 创建 class 名称并应用样式
+  .f-#{$name} {
+    font-weight: #{$value};
+  }
+}
+
+.d-flex {
+  display: flex;
+  align-items: center;
+  align-content: start;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.overflow_div {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+

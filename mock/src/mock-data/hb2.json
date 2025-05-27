@@ -1,0 +1,64 @@
+{
+  "hostInfo": {
+    "hostName": "hb002",
+    "osInformation": "darwin arm64",
+    "kernelVersion": "24.1.0",
+    "totalCPU": 11,
+    "usedCPU": 1,
+    "cpuUsage": 20.53,
+    "totalMemoryGB": 36,
+    "usedMemoryGB": 20,
+    "memoryUsage": 62.53,
+    "hostIPs": [
+      "172.16.41.22"
+    ],
+    "hostPort": 8018
+  },
+  "dockerEngine": {
+    "version": "27.4.0",
+    "apiVersion": "1.47",
+    "rootDirectory": "/var/lib/docker",
+    "storageDriver": "overlay2",
+    "loggingDriver": "json-file",
+    "volumePlugins": [
+      "local"
+    ],
+    "networkPlugins": [
+      "bridge",
+      "host",
+      "ipvlan",
+      "macvlan",
+      "null",
+      "overlay"
+    ]
+  },
+  "containers": [
+    {
+      "containerId": "asecfesac3cabd67af7d1ded36c464d6f326c04e80a4bb99a061faca1347f4b2",
+      "containerName": "humpback-ogBvfpW3-7hCCb-rMDcL",
+      "state": "Running",
+      "errorMsg": "image not found",
+      "status": "Up 2 hours",
+      "network": "bridge",
+      "image": "nginx",
+      "command": "/docker-entrypoint.sh nginx -g 'daemon off;'",
+      "created": 1736740776,
+      "ports": [
+        {
+          "bindIP": "0.0.0.0",
+          "privatePort": 80,
+          "publicPort": 8888,
+          "type": "tcp"
+        }
+      ],
+      "ipAddr": [
+        {
+          "networkID": "5581b44fa6461cb7dfa12fde3c1bbac9ab5f24782ffe920c21eec380a8562ef4",
+          "endpointID": "1adefa785e178a5f3bed80c0690fef45d7d8f8283c3d2130b078649ebbdfdf2b",
+          "gateway": "172.17.0.1",
+          "ipAddress": "172.17.0.3"
+        }
+      ]
+    }
+  ]
+}

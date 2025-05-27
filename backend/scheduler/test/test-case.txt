@@ -1,0 +1,11 @@
+Group: GroupTest
+
+Nodes: 
+  hb001 - 172.16.41.21
+  hb002 - 172.16.41.22
+  hb003 - 172.16.41.23
+
+Services
+  gateway - background / global
+  redis - background / replicas / 4
+  transferdata - schedule / replicas / 1

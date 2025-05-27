@@ -1,0 +1,12 @@
+root = true # 根目录的配置文件，编辑器会由当前目录向上查找，如果找到 `root = true` 的文件，则不再查找
+
+[*]
+indent_style = space # 空格缩进,可选"space"、"tab"
+indent_size = 2 # 缩进空格为2个
+end_of_line = lf # 结尾换行符，可选"lf"、"cr"、"crlf"
+charset = utf-8 # 文件编码是 utf-8
+trim_trailing_whitespace = true # 是否删除行尾的空格
+insert_final_newline = false # 文件末尾是否插入新的一行(或者说以换行符结尾)
+
+
+
