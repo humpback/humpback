@@ -3,7 +3,7 @@ import { GenerateUUID, RulePleaseEnter, SetWebTitle } from "@/utils"
 import { PageGroupDetail, RuleLength, ServiceNetworkMode, ServiceNetworkProtocol, ServiceRestartPolicyMode } from "@/models"
 import { FormInstance, FormRules } from "element-plus"
 import { NewServiceMetaDockerEmptyInfo } from "@/types"
-import { cloneDeep, filter, find, findIndex, groupBy, toLower, trim } from "lodash-es"
+import { cloneDeep, filter, find, findIndex, groupBy, split, toLower, trim } from "lodash-es"
 import VolumesPage from "./advanced/volumes.vue"
 import EnvironmentsPage from "./advanced/environments.vue"
 import LabelsPage from "./advanced/labels.vue"
@@ -77,18 +77,20 @@ function checkContainerPort(rule: any, value: any, callback: any) {
   if (!containerPort) {
     return callback(new Error(`${t("rules.pleaseEnter")} ${t("label.containerPort")}`))
   }
-  if (filter(metaInfo.value.validPorts, x => x.containerPort === containerPort).length > 1) {
-    return callback(new Error(`${t("rules.duplicate")} ${t("label.containerPort")}`))
-  }
   return callback()
 }
 
 function checkHostPort(rule: any, value: any, callback: any) {
+  const index = Number(split(rule.field, ".")[1])
   const hostPort = value ? (value as number) : 0
-  if (hostPort && filter(metaInfo.value.validPorts, x => x.hostPort === hostPort).length > 1) {
+  if (hostPort && filter(metaInfo.value.validPorts, x => x.hostPort === hostPort && x.protocol === metaInfo.value.validPorts[index].protocol).length > 1) {
     return callback(new Error(`${t("rules.duplicate")} ${t("label.hostPort")}`))
   }
   return callback()
+}
+
+function validateField(field: string) {
+  formRef.value?.validateField(field)
 }
 
 function cancel() {
@@ -329,7 +331,11 @@ onBeforeMount(async () => {
                     </v-input-number>
                   </el-form-item>
                   <el-form-item :prop="`validPorts.${index}.protocol`">
-                    <el-select v-model="metaInfo.validPorts[index].protocol" :placeholder="t('placeholder.protocol')" style="width: 200px">
+                    <el-select
+                      v-model="metaInfo.validPorts[index].protocol"
+                      :placeholder="t('placeholder.protocol')"
+                      style="width: 200px"
+                      @change="validateField(`validPorts.${index}.hostPort`)">
                       <el-option :label="t('label.tcp')" :value="ServiceNetworkProtocol.NetworkProtocolTCP" />
                       <el-option :label="t('label.udp')" :value="ServiceNetworkProtocol.NetworkProtocolUDP" />
                     </el-select>

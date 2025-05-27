@@ -3,10 +3,10 @@ import { GetI18nMessage } from "@/locales"
 export async function CopyToClipboard(value: string) {
   await copyText(value)
     .then(() => {
-       ShowSuccessMsg(GetI18nMessage("message.copySucceed"))
+      ShowSuccessMsg(GetI18nMessage("message.copySucceed"))
     })
     .catch(e => {
-     ShowErrMsg(GetI18nMessage("message.copyFailed"))
+      ShowErrMsg(GetI18nMessage("message.copyFailed"))
     })
 }
 
