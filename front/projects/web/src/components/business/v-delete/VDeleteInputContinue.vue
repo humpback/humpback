@@ -2,6 +2,7 @@
 const props = defineProps<{ modelValue: boolean; keywords: string }>()
 const emits = defineEmits<{
   (e: "update:modelValue", value: boolean): void
+  (e: "enter"): void
 }>()
 
 const { t } = useI18n()
@@ -21,7 +22,7 @@ function changeInput(v: string) {
 <template>
   <div>
     <div><strong v-html="t('notify.enterKeywordsContinue', { name: props.keywords })"></strong></div>
-    <el-input :modelValue="input" class="mt-3" @update:modelValue="changeInput" />
+    <el-input :modelValue="input" class="mt-3" @update:modelValue="changeInput" @keydown.enter="emits('enter')" />
   </div>
 </template>
 

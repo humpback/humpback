@@ -53,6 +53,14 @@ export interface NodeInfo extends BaseInfo {
   memoryTotal: number
   memoryUsed: number
   labels: { [key: string]: string }
+  registerInfo: RegisterInfo
+}
+
+export interface RegisterInfo {
+  token: string
+  expireAt: number
+  isRegister: boolean
+  registerAt: number
 }
 
 export function NewNodeEmptyInfo(): NodeInfo {
@@ -69,6 +77,12 @@ export function NewNodeEmptyInfo(): NodeInfo {
     memoryUsage: 0,
     memoryTotal: 0,
     memoryUsed: 0,
-    labels: {}
+    labels: {},
+    registerInfo: {
+      token: "",
+      expireAt: 0,
+      isRegister: false,
+      registerAt: 0
+    }
   }
 }
