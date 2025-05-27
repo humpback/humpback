@@ -60,5 +60,7 @@ jspm_packages
 **/package-lock.json
 #**/pnpm-lock.yaml
 *.exe
+**/*.exe
 ../backend/humpback
 **/humpback
+**/humpback.db

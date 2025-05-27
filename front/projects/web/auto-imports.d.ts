@@ -6,26 +6,22 @@
 // biome-ignore lint: disable
 export {}
 declare global {
-  const BytesToGB: typeof import('utils/common.ts')['BytesToGB']
-  const ConfigType: typeof import('@/models/enum.ts')['ConfigType']
-  const ContainerStatus: typeof import('@/models/enum.ts')['ContainerStatus']
-  const CopyToClipboard: typeof import('utils/copy.ts')['CopyToClipboard']
-  const CreateCancelRequest: typeof import('services/http-client.ts')['CreateCancelRequest']
-  const Debounce: typeof import('utils/time.ts')['Debounce']
+  const BytesToGB: typeof import('./src/utils/common')['BytesToGB']
+  const ConfigType: typeof import('./src/models/enum')['ConfigType']
+  const ContainerStatus: typeof import('./src/models/enum')['ContainerStatus']
+  const CopyToClipboard: typeof import('./src/utils/copy')['CopyToClipboard']
+  const CreateCancelRequest: typeof import('./src/services/http-client')['CreateCancelRequest']
+  const Debounce: typeof import('./src/utils/time')['Debounce']
   const EffectScope: typeof import('vue')['EffectScope']
-  const GenerateUUID: typeof import('utils/rsa.ts')['GenerateUUID']
-  const GetUserRole: typeof import('utils/common.ts')['GetUserRole']
+  const GenerateUUID: typeof import('./src/utils/rsa')['GenerateUUID']
+  const GetUserRole: typeof import('./src/utils/common')['GetUserRole']
   const IconMdiAccount: typeof import('~icons/mdi/account')['default']
   const IconMdiAccountFileText: typeof import('~icons/mdi/account-file-text')['default']
   const IconMdiAlphaCBoxOutline: typeof import('~icons/mdi/alpha-c-box-outline')['default']
   const IconMdiCogOutline: typeof import('~icons/mdi/cog-outline')['default']
   const IconMdiCompany: typeof import('~icons/mdi/company')['default']
   const IconMdiLogoutVariant: typeof import('~icons/mdi/logout-variant')['default']
-  const IconMdiPlay: typeof import('~icons/mdi/play')['default']
-  const IconMdiRestart: typeof import('~icons/mdi/restart')['default']
   const IconMdiServer: typeof import('~icons/mdi/server')['default']
-  const IconMdiSquare: typeof import('~icons/mdi/square')['default']
-  const IconMdiStopCircleOutline: typeof import('~icons/mdi/stop-circle-outline')['default']
   const IconMdiTextBoxOutline: typeof import('~icons/mdi/text-box-outline')['default']
   const IconMdiUserOutline: typeof import('~icons/mdi/user-outline')['default']
   const IconMdiViewDashboard: typeof import('~icons/mdi/view-dashboard')['default']
@@ -36,77 +32,77 @@ declare global {
   const IconNotoSmilingFaceWithSunglasses: typeof import('~icons/noto/smiling-face-with-sunglasses')['default']
   const IconNotoWinkingFace: typeof import('~icons/noto/winking-face')['default']
   const IconNotoYawningFace: typeof import('~icons/noto/yawning-face')['default']
-  const IncludesIgnoreCase: typeof import('utils/common.ts')['IncludesIgnoreCase']
-  const IsAdmin: typeof import('utils/common.ts')['IsAdmin']
-  const IsEmpty: typeof import('utils/rule.ts')['IsEmpty']
-  const IsSuperAdmin: typeof import('utils/common.ts')['IsSuperAdmin']
-  const IsUser: typeof import('utils/common.ts')['IsUser']
-  const IsValidEmail: typeof import('utils/rule.ts')['IsValidEmail']
-  const NewBaseEmptyInfo: typeof import('#/base.ts')['NewBaseEmptyInfo']
-  const NewConfigEmptyInfo: typeof import('#/setting.ts')['NewConfigEmptyInfo']
-  const NewDashboardResourceStatisticsInfo: typeof import('#/dashboard.ts')['NewDashboardResourceStatisticsInfo']
-  const NewGroupEmptyInfo: typeof import('#/group.ts')['NewGroupEmptyInfo']
-  const NewNodeEmptyInfo: typeof import('#/setting.ts')['NewNodeEmptyInfo']
-  const NewPageInfo: typeof import('#/query.ts')['NewPageInfo']
-  const NewRegistryEmptyInfo: typeof import('#/setting.ts')['NewRegistryEmptyInfo']
-  const NewServiceDeploymentInfo: typeof import('#/service.ts')['NewServiceDeploymentInfo']
-  const NewServiceEmptyInfo: typeof import('#/service.ts')['NewServiceEmptyInfo']
-  const NewServiceMetaDockerEmptyInfo: typeof import('#/service.ts')['NewServiceMetaDockerEmptyInfo']
-  const NewSortInfo: typeof import('#/query.ts')['NewSortInfo']
-  const NewTeamEmptyInfo: typeof import('#/user.ts')['NewTeamEmptyInfo']
-  const NewUserEmptyInfo: typeof import('#/user.ts')['NewUserEmptyInfo']
-  const NodeStatus: typeof import('@/models/enum.ts')['NodeStatus']
-  const NodeSwitch: typeof import('@/models/enum.ts')['NodeSwitch']
-  const PageActivity: typeof import('@/models/page.ts')['PageActivity']
-  const PageGroupDetail: typeof import('@/models/page.ts')['PageGroupDetail']
-  const PageLimitRole: typeof import('@/models/enum.ts')['PageLimitRole']
-  const PageServiceDetail: typeof import('@/models/page.ts')['PageServiceDetail']
-  const PageSizeOptions: typeof import('@/models/enum.ts')['PageSizeOptions']
-  const PageUserRelated: typeof import('@/models/page.ts')['PageUserRelated']
-  const ParseNumber: typeof import('utils/common.ts')['ParseNumber']
-  const QueryInfo: typeof import('#/query.ts')['QueryInfo']
-  const RSAEncrypt: typeof import('utils/rsa.ts')['RSAEncrypt']
-  const RSAPublicKey: typeof import('@/models/rsa.ts')['RSAPublicKey']
-  const RuleCannotBeEmpty: typeof import('utils/rule.ts')['RuleCannotBeEmpty']
-  const RuleFormat: typeof import('@/models/rule.ts')['RuleFormat']
-  const RuleFormatErrEmailOption: typeof import('utils/rule.ts')['RuleFormatErrEmailOption']
-  const RuleFormatErrPhone: typeof import('utils/rule.ts')['RuleFormatErrPhone']
-  const RuleIsRequired: typeof import('utils/rule.ts')['RuleIsRequired']
-  const RuleLength: typeof import('@/models/rule.ts')['RuleLength']
-  const RuleLimitMax: typeof import('utils/rule.ts')['RuleLimitMax']
-  const RuleLimitRange: typeof import('utils/rule.ts')['RuleLimitRange']
-  const RulePleaseEnter: typeof import('utils/rule.ts')['RulePleaseEnter']
-  const ServiceDeployMode: typeof import('@/models/enum.ts')['ServiceDeployMode']
-  const ServiceDeployType: typeof import('@/models/enum.ts')['ServiceDeployType']
-  const ServiceNetworkMode: typeof import('@/models/enum.ts')['ServiceNetworkMode']
-  const ServiceNetworkProtocol: typeof import('@/models/enum.ts')['ServiceNetworkProtocol']
-  const ServicePlacementMode: typeof import('@/models/enum.ts')['ServicePlacementMode']
-  const ServiceRestartPolicyMode: typeof import('@/models/enum.ts')['ServiceRestartPolicyMode']
-  const ServiceStatus: typeof import('@/models/enum.ts')['ServiceStatus']
-  const ServiceVolumeType: typeof import('@/models/enum.ts')['ServiceVolumeType']
-  const SessionStorageCurrentGroupId: typeof import('@/models/page.ts')['SessionStorageCurrentGroupId']
-  const SetWebTitle: typeof import('utils/common.ts')['SetWebTitle']
-  const ShowErrMsg: typeof import('utils/message.ts')['ShowErrMsg']
-  const ShowInfoMsg: typeof import('utils/message.ts')['ShowInfoMsg']
-  const ShowSuccessMsg: typeof import('utils/message.ts')['ShowSuccessMsg']
-  const ShowSystemErrMsg: typeof import('utils/message.ts')['ShowSystemErrMsg']
-  const ShowWarningMsg: typeof import('utils/message.ts')['ShowWarningMsg']
-  const SortType: typeof import('@/models/enum.ts')['SortType']
-  const StorageEventType: typeof import('utils/event.ts')['StorageEventType']
-  const TableHeight: typeof import('utils/common.ts')['TableHeight']
-  const TimestampToTime: typeof import('utils/time.ts')['TimestampToTime']
-  const UserRole: typeof import('@/models/enum.ts')['UserRole']
+  const IncludesIgnoreCase: typeof import('./src/utils/common')['IncludesIgnoreCase']
+  const IsAdmin: typeof import('./src/utils/common')['IsAdmin']
+  const IsEmpty: typeof import('./src/utils/rule')['IsEmpty']
+  const IsSuperAdmin: typeof import('./src/utils/common')['IsSuperAdmin']
+  const IsUser: typeof import('./src/utils/common')['IsUser']
+  const IsValidEmail: typeof import('./src/utils/rule')['IsValidEmail']
+  const NewBaseEmptyInfo: typeof import('./src/types/base')['NewBaseEmptyInfo']
+  const NewConfigEmptyInfo: typeof import('./src/types/setting')['NewConfigEmptyInfo']
+  const NewDashboardResourceStatisticsInfo: typeof import('./src/types/dashboard')['NewDashboardResourceStatisticsInfo']
+  const NewGroupEmptyInfo: typeof import('./src/types/group')['NewGroupEmptyInfo']
+  const NewNodeEmptyInfo: typeof import('./src/types/setting')['NewNodeEmptyInfo']
+  const NewPageInfo: typeof import('./src/types/query')['NewPageInfo']
+  const NewRegistryEmptyInfo: typeof import('./src/types/setting')['NewRegistryEmptyInfo']
+  const NewServiceDeploymentInfo: typeof import('./src/types/service')['NewServiceDeploymentInfo']
+  const NewServiceEmptyInfo: typeof import('./src/types/service')['NewServiceEmptyInfo']
+  const NewServiceMetaDockerEmptyInfo: typeof import('./src/types/service')['NewServiceMetaDockerEmptyInfo']
+  const NewSortInfo: typeof import('./src/types/query')['NewSortInfo']
+  const NewTeamEmptyInfo: typeof import('./src/types/user')['NewTeamEmptyInfo']
+  const NewUserEmptyInfo: typeof import('./src/types/user')['NewUserEmptyInfo']
+  const NodeStatus: typeof import('./src/models/enum')['NodeStatus']
+  const NodeSwitch: typeof import('./src/models/enum')['NodeSwitch']
+  const PageActivity: typeof import('./src/models/page')['PageActivity']
+  const PageGroupDetail: typeof import('./src/models/page')['PageGroupDetail']
+  const PageLimitRole: typeof import('./src/models/enum')['PageLimitRole']
+  const PageServiceDetail: typeof import('./src/models/page')['PageServiceDetail']
+  const PageSizeOptions: typeof import('./src/models/enum')['PageSizeOptions']
+  const PageUserRelated: typeof import('./src/models/page')['PageUserRelated']
+  const ParseNumber: typeof import('./src/utils/common')['ParseNumber']
+  const QueryInfo: typeof import('./src/types/query')['QueryInfo']
+  const RSAEncrypt: typeof import('./src/utils/rsa')['RSAEncrypt']
+  const RSAPublicKey: typeof import('./src/models/rsa')['RSAPublicKey']
+  const RuleCannotBeEmpty: typeof import('./src/utils/rule')['RuleCannotBeEmpty']
+  const RuleFormat: typeof import('./src/models/rule')['RuleFormat']
+  const RuleFormatErrEmailOption: typeof import('./src/utils/rule')['RuleFormatErrEmailOption']
+  const RuleFormatErrPhone: typeof import('./src/utils/rule')['RuleFormatErrPhone']
+  const RuleIsRequired: typeof import('./src/utils/rule')['RuleIsRequired']
+  const RuleLength: typeof import('./src/models/rule')['RuleLength']
+  const RuleLimitMax: typeof import('./src/utils/rule')['RuleLimitMax']
+  const RuleLimitRange: typeof import('./src/utils/rule')['RuleLimitRange']
+  const RulePleaseEnter: typeof import('./src/utils/rule')['RulePleaseEnter']
+  const ServiceDeployMode: typeof import('./src/models/enum')['ServiceDeployMode']
+  const ServiceDeployType: typeof import('./src/models/enum')['ServiceDeployType']
+  const ServiceNetworkMode: typeof import('./src/models/enum')['ServiceNetworkMode']
+  const ServiceNetworkProtocol: typeof import('./src/models/enum')['ServiceNetworkProtocol']
+  const ServicePlacementMode: typeof import('./src/models/enum')['ServicePlacementMode']
+  const ServiceRestartPolicyMode: typeof import('./src/models/enum')['ServiceRestartPolicyMode']
+  const ServiceStatus: typeof import('./src/models/enum')['ServiceStatus']
+  const ServiceVolumeType: typeof import('./src/models/enum')['ServiceVolumeType']
+  const SessionStorageCurrentGroupId: typeof import('./src/models/page')['SessionStorageCurrentGroupId']
+  const SetWebTitle: typeof import('./src/utils/common')['SetWebTitle']
+  const ShowErrMsg: typeof import('./src/utils/message')['ShowErrMsg']
+  const ShowInfoMsg: typeof import('./src/utils/message')['ShowInfoMsg']
+  const ShowSuccessMsg: typeof import('./src/utils/message')['ShowSuccessMsg']
+  const ShowSystemErrMsg: typeof import('./src/utils/message')['ShowSystemErrMsg']
+  const ShowWarningMsg: typeof import('./src/utils/message')['ShowWarningMsg']
+  const SortType: typeof import('./src/models/enum')['SortType']
+  const StorageEventType: typeof import('./src/utils/event')['StorageEventType']
+  const TableHeight: typeof import('./src/utils/common')['TableHeight']
+  const TimestampToTime: typeof import('./src/utils/time')['TimestampToTime']
+  const UserRole: typeof import('./src/models/enum')['UserRole']
   const acceptHMRUpdate: typeof import('pinia')['acceptHMRUpdate']
-  const activityService: typeof import('services/activity-service.ts')['activityService']
+  const activityService: typeof import('./src/services/activity-service')['activityService']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
-  const commonService: typeof import('services/common-service.ts')['commonService']
+  const commonService: typeof import('./src/services/common-service')['commonService']
   const computed: typeof import('vue')['computed']
   const computedAsync: typeof import('@vueuse/core')['computedAsync']
   const computedEager: typeof import('@vueuse/core')['computedEager']
   const computedInject: typeof import('@vueuse/core')['computedInject']
   const computedWithControl: typeof import('@vueuse/core')['computedWithControl']
-  const configService: typeof import('services/config-service.ts')['configService']
+  const configService: typeof import('./src/services/config-service')['configService']
   const controlledComputed: typeof import('@vueuse/core')['controlledComputed']
   const controlledRef: typeof import('@vueuse/core')['controlledRef']
   const createApp: typeof import('vue')['createApp']
@@ -121,29 +117,29 @@ declare global {
   const createTemplatePromise: typeof import('@vueuse/core')['createTemplatePromise']
   const createUnrefFn: typeof import('@vueuse/core')['createUnrefFn']
   const customRef: typeof import('vue')['customRef']
-  const dashboardService: typeof import('services/dashboard-service.ts')['dashboardService']
+  const dashboardService: typeof import('./src/services/dashboard-service')['dashboardService']
   const debouncedRef: typeof import('@vueuse/core')['debouncedRef']
   const debouncedWatch: typeof import('@vueuse/core')['debouncedWatch']
   const defineAsyncComponent: typeof import('vue')['defineAsyncComponent']
   const defineComponent: typeof import('vue')['defineComponent']
   const defineStore: typeof import('pinia')['defineStore']
-  const disposeStore: typeof import('@/stores')['disposeStore']
+  const disposeStore: typeof import('./src/stores/index')['disposeStore']
   const eagerComputed: typeof import('@vueuse/core')['eagerComputed']
   const effectScope: typeof import('vue')['effectScope']
-  const eventEmitter: typeof import('utils/event.ts')['eventEmitter']
+  const eventEmitter: typeof import('./src/utils/event')['eventEmitter']
   const extendRef: typeof import('@vueuse/core')['extendRef']
   const getActivePinia: typeof import('pinia')['getActivePinia']
   const getCurrentInstance: typeof import('vue')['getCurrentInstance']
   const getCurrentScope: typeof import('vue')['getCurrentScope']
-  const globalLoading: typeof import('utils/global-loading.ts')['globalLoading']
-  const groupContainerService: typeof import('services/group-container-service.ts')['groupContainerService']
-  const groupService: typeof import('services/group-service.ts')['groupService']
+  const globalLoading: typeof import('./src/utils/global-loading')['globalLoading']
+  const groupContainerService: typeof import('./src/services/group-container-service')['groupContainerService']
+  const groupService: typeof import('./src/services/group-service')['groupService']
   const h: typeof import('vue')['h']
-  const httpClient: typeof import('services/http-client.ts')['httpClient']
+  const httpClient: typeof import('./src/services/http-client')['httpClient']
   const ignorableWatch: typeof import('@vueuse/core')['ignorableWatch']
-  const initRSA: typeof import('@/models/rsa.ts')['initRSA']
-  const initRule: typeof import('@/models/rule.ts')['initRule']
-  const initStore: typeof import('@/stores')['initStore']
+  const initRSA: typeof import('./src/models/rsa')['initRSA']
+  const initRule: typeof import('./src/models/rule')['initRule']
+  const initStore: typeof import('./src/stores/index')['initStore']
   const inject: typeof import('vue')['inject']
   const injectLocal: typeof import('@vueuse/core')['injectLocal']
   const isDefined: typeof import('@vueuse/core')['isDefined']
@@ -159,7 +155,7 @@ declare global {
   const mapWritableState: typeof import('pinia')['mapWritableState']
   const markRaw: typeof import('vue')['markRaw']
   const nextTick: typeof import('vue')['nextTick']
-  const nodeService: typeof import('services/node-service.ts')['nodeService']
+  const nodeService: typeof import('./src/services/node-service')['nodeService']
   const onActivated: typeof import('vue')['onActivated']
   const onBeforeMount: typeof import('vue')['onBeforeMount']
   const onBeforeRouteLeave: typeof import('vue-router')['onBeforeRouteLeave']
@@ -197,23 +193,23 @@ declare global {
   const refDefault: typeof import('@vueuse/core')['refDefault']
   const refThrottled: typeof import('@vueuse/core')['refThrottled']
   const refWithControl: typeof import('@vueuse/core')['refWithControl']
-  const registryService: typeof import('services/registry-service.ts')['registryService']
+  const registryService: typeof import('./src/services/registry-service')['registryService']
   const resolveComponent: typeof import('vue')['resolveComponent']
   const resolveRef: typeof import('@vueuse/core')['resolveRef']
   const resolveUnref: typeof import('@vueuse/core')['resolveUnref']
-  const serviceService: typeof import('services/service-service.ts')['serviceService']
+  const serviceService: typeof import('./src/services/service-service')['serviceService']
   const setActivePinia: typeof import('pinia')['setActivePinia']
   const setMapStoreSuffix: typeof import('pinia')['setMapStoreSuffix']
   const shallowReactive: typeof import('vue')['shallowReactive']
   const shallowReadonly: typeof import('vue')['shallowReadonly']
   const shallowRef: typeof import('vue')['shallowRef']
-  const statisticsCountService: typeof import('services/statistics-count-service.ts')['statisticsCountService']
-  const storageEventBus: typeof import('utils/event.ts')['storageEventBus']
+  const statisticsCountService: typeof import('./src/services/statistics-count-service')['statisticsCountService']
+  const storageEventBus: typeof import('./src/utils/event')['storageEventBus']
   const storeToRefs: typeof import('pinia')['storeToRefs']
-  const stores: typeof import('@/stores')['default']
+  const stores: typeof import('./src/stores/index')['default']
   const syncRef: typeof import('@vueuse/core')['syncRef']
   const syncRefs: typeof import('@vueuse/core')['syncRefs']
-  const teamService: typeof import('services/team-service.ts')['teamService']
+  const teamService: typeof import('./src/services/team-service')['teamService']
   const templateRef: typeof import('@vueuse/core')['templateRef']
   const throttledRef: typeof import('@vueuse/core')['throttledRef']
   const throttledWatch: typeof import('@vueuse/core')['throttledWatch']
@@ -330,7 +326,7 @@ declare global {
   const useOffsetPagination: typeof import('@vueuse/core')['useOffsetPagination']
   const useOnline: typeof import('@vueuse/core')['useOnline']
   const usePageLeave: typeof import('@vueuse/core')['usePageLeave']
-  const usePageStore: typeof import('@/stores/use-page-store.ts')['default']
+  const usePageStore: typeof import('./src/stores/use-page-store')['default']
   const useParallax: typeof import('@vueuse/core')['useParallax']
   const useParentElement: typeof import('@vueuse/core')['useParentElement']
   const usePerformanceObserver: typeof import('@vueuse/core')['usePerformanceObserver']
@@ -347,7 +343,7 @@ declare global {
   const usePrevious: typeof import('@vueuse/core')['usePrevious']
   const useRafFn: typeof import('@vueuse/core')['useRafFn']
   const useRefHistory: typeof import('@vueuse/core')['useRefHistory']
-  const useRegistryStore: typeof import('@/stores/use-registry-store.ts')['default']
+  const useRegistryStore: typeof import('./src/stores/use-registry-store')['default']
   const useResizeObserver: typeof import('@vueuse/core')['useResizeObserver']
   const useRoute: typeof import('vue-router')['useRoute']
   const useRouter: typeof import('vue-router')['useRouter']
@@ -363,7 +359,7 @@ declare global {
   const useSorted: typeof import('@vueuse/core')['useSorted']
   const useSpeechRecognition: typeof import('@vueuse/core')['useSpeechRecognition']
   const useSpeechSynthesis: typeof import('@vueuse/core')['useSpeechSynthesis']
-  const useStateStore: typeof import('@/stores/use-state-store.ts')['default']
+  const useStateStore: typeof import('./src/stores/use-state-store')['default']
   const useStepper: typeof import('@vueuse/core')['useStepper']
   const useStorage: typeof import('@vueuse/core')['useStorage']
   const useStorageAsync: typeof import('@vueuse/core')['useStorageAsync']
@@ -390,7 +386,7 @@ declare global {
   const useTransition: typeof import('@vueuse/core')['useTransition']
   const useUrlSearchParams: typeof import('@vueuse/core')['useUrlSearchParams']
   const useUserMedia: typeof import('@vueuse/core')['useUserMedia']
-  const useUserStore: typeof import('@/stores/use-user-store.ts')['default']
+  const useUserStore: typeof import('./src/stores/use-user-store')['default']
   const useVModel: typeof import('@vueuse/core')['useVModel']
   const useVModels: typeof import('@vueuse/core')['useVModels']
   const useVibrate: typeof import('@vueuse/core')['useVibrate']
@@ -403,7 +399,7 @@ declare global {
   const useWindowFocus: typeof import('@vueuse/core')['useWindowFocus']
   const useWindowScroll: typeof import('@vueuse/core')['useWindowScroll']
   const useWindowSize: typeof import('@vueuse/core')['useWindowSize']
-  const userService: typeof import('services/user-service.ts')['userService']
+  const userService: typeof import('./src/services/user-service')['userService']
   const watch: typeof import('vue')['watch']
   const watchArray: typeof import('@vueuse/core')['watchArray']
   const watchAtMost: typeof import('@vueuse/core')['watchAtMost']
@@ -427,50 +423,50 @@ declare global {
   export type { Component, ComponentPublicInstance, ComputedRef, DirectiveBinding, ExtractDefaultPropTypes, ExtractPropTypes, ExtractPublicPropTypes, InjectionKey, PropType, Ref, MaybeRef, MaybeRefOrGetter, VNode, WritableComputedRef } from 'vue'
   import('vue')
   // @ts-ignore
-  export type { StorageEventType, StorageEventType } from 'utils/event.ts'
-  import('utils/event.ts')
+  export type { StorageEventType, StorageEventType } from './src/utils/event'
+  import('./src/utils/event')
   // @ts-ignore
-  export type { HttpRequestOptions } from 'services/http-client.ts'
-  import('services/http-client.ts')
+  export type { HttpRequestOptions } from './src/services/http-client'
+  import('./src/services/http-client')
   // @ts-ignore
-  export type { PageLimitRole, UserRole, ConfigType, SortType, NodeStatus, NodeSwitch, ServiceStatus, ServiceDeployMode, ServiceDeployType, ServicePlacementMode, ServiceNetworkMode, ServiceNetworkProtocol, ServiceVolumeType, ServiceRestartPolicyMode, ContainerStatus, PageLimitRole, UserRole, ConfigType, SortType, NodeStatus, NodeSwitch, ServiceStatus, ServiceDeployMode, ServiceDeployType, ServicePlacementMode, ServiceNetworkMode, ServiceNetworkProtocol, ServiceVolumeType, ServiceRestartPolicyMode, ContainerStatus } from '@/models/enum.ts'
-  import('@/models/enum.ts')
+  export type { PageLimitRole, UserRole, ConfigType, SortType, NodeStatus, NodeSwitch, ServiceStatus, ServiceDeployMode, ServiceDeployType, ServicePlacementMode, ServiceNetworkMode, ServiceNetworkProtocol, ServiceVolumeType, ServiceRestartPolicyMode, ContainerStatus, PageLimitRole, UserRole, ConfigType, SortType, NodeStatus, NodeSwitch, ServiceStatus, ServiceDeployMode, ServiceDeployType, ServicePlacementMode, ServiceNetworkMode, ServiceNetworkProtocol, ServiceVolumeType, ServiceRestartPolicyMode, ContainerStatus } from './src/models/enum'
+  import('./src/models/enum')
   // @ts-ignore
-  export type { PageUserRelated, PageGroupDetail, PageServiceDetail, PageActivity, PageUserRelated, PageGroupDetail, PageServiceDetail, PageActivity } from '@/models/page.ts'
-  import('@/models/page.ts')
+  export type { PageUserRelated, PageGroupDetail, PageServiceDetail, PageActivity, PageUserRelated, PageGroupDetail, PageServiceDetail, PageActivity } from './src/models/page'
+  import('./src/models/page')
   // @ts-ignore
-  export type { ActivityInfo } from '#/activity.ts'
-  import('#/activity.ts')
+  export type { ActivityInfo } from './src/types/activity'
+  import('./src/types/activity')
   // @ts-ignore
-  export type { BaseInfo } from '#/base.ts'
-  import('#/base.ts')
+  export type { BaseInfo } from './src/types/base'
+  import('./src/types/base')
   // @ts-ignore
-  export type { ContainersPerformance, ContainerStats, ContainerNetworkStats } from '#/container.ts'
-  import('#/container.ts')
+  export type { ContainersPerformance, ContainerStats, ContainerNetworkStats } from './src/types/container'
+  import('./src/types/container')
   // @ts-ignore
-  export type { DashboardResourceStatisticsInfo, ResourceExceptionServiceInfo } from '#/dashboard.ts'
-  import('#/dashboard.ts')
+  export type { DashboardResourceStatisticsInfo, ResourceExceptionServiceInfo } from './src/types/dashboard'
+  import('./src/types/dashboard')
   // @ts-ignore
-  export type { GroupInfo } from '#/group.ts'
-  import('#/group.ts')
+  export type { GroupInfo } from './src/types/group'
+  import('./src/types/group')
   // @ts-ignore
-  export type { ResponseSuccess, ResponseQuery } from '#/reponse.ts'
-  import('#/reponse.ts')
+  export type { ResponseSuccess, ResponseQuery } from './src/types/reponse'
+  import('./src/types/reponse')
   // @ts-ignore
-  export type { QueryInfo, PageInfo, SortInfo, QueryList, QueryInfo } from '#/query.ts'
-  import('#/query.ts')
+  export type { QueryInfo, PageInfo, SortInfo, QueryList, QueryInfo } from './src/types/query'
+  import('./src/types/query')
   // @ts-ignore
-  export type { UserInfo, TeamInfo } from '#/user.ts'
-  import('#/user.ts')
+  export type { UserInfo, TeamInfo } from './src/types/user'
+  import('./src/types/user')
   // @ts-ignore
-  export type { ConfigInfo, RegistryInfo, NodeInfo } from '#/setting.ts'
-  import('#/setting.ts')
+  export type { ConfigInfo, RegistryInfo, NodeInfo } from './src/types/setting'
+  import('./src/types/setting')
   // @ts-ignore
-  export type { ServiceInfo, ServiceMetaDockerInfo, ServiceCapabilitiesInfo, ServiceLogConfigInfo, ServiceResourcesInfo, ServiceVolumeInfo, ServiceNetworkInfo, ServicePortInfo, ServiceRestartPolicyInfo, ServiceDeploymentInfo, ServicePlacementInfo, ServiceScheduleInfo, ServiceContainerStatusInfo } from '#/service.ts'
-  import('#/service.ts')
+  export type { ServiceInfo, ServiceMetaDockerInfo, ServiceCapabilitiesInfo, ServiceLogConfigInfo, ServiceResourcesInfo, ServiceVolumeInfo, ServiceNetworkInfo, ServicePortInfo, ServiceRestartPolicyInfo, ServiceDeploymentInfo, ServicePlacementInfo, ServiceScheduleInfo, ServiceContainerStatusInfo } from './src/types/service'
+  import('./src/types/service')
   // @ts-ignore
-  export type { StatisticsCountInfo } from '#/statistics-count.ts'
-  import('#/statistics-count.ts')
+  export type { StatisticsCountInfo } from './src/types/statistics-count'
+  import('./src/types/statistics-count')
 }
 
 // for vue template auto import
@@ -478,26 +474,22 @@ import { UnwrapRef } from 'vue'
 declare module 'vue' {
   interface GlobalComponents {}
   interface ComponentCustomProperties {
-    readonly BytesToGB: UnwrapRef<typeof import('utils/common.ts')['BytesToGB']>
-    readonly ConfigType: UnwrapRef<typeof import('@/models/enum.ts')['ConfigType']>
-    readonly ContainerStatus: UnwrapRef<typeof import('@/models/enum.ts')['ContainerStatus']>
-    readonly CopyToClipboard: UnwrapRef<typeof import('utils/copy.ts')['CopyToClipboard']>
-    readonly CreateCancelRequest: UnwrapRef<typeof import('services/http-client.ts')['CreateCancelRequest']>
-    readonly Debounce: UnwrapRef<typeof import('utils/time.ts')['Debounce']>
+    readonly BytesToGB: UnwrapRef<typeof import('./src/utils/common')['BytesToGB']>
+    readonly ConfigType: UnwrapRef<typeof import('./src/models/enum')['ConfigType']>
+    readonly ContainerStatus: UnwrapRef<typeof import('./src/models/enum')['ContainerStatus']>
+    readonly CopyToClipboard: UnwrapRef<typeof import('./src/utils/copy')['CopyToClipboard']>
+    readonly CreateCancelRequest: UnwrapRef<typeof import('./src/services/http-client')['CreateCancelRequest']>
+    readonly Debounce: UnwrapRef<typeof import('./src/utils/time')['Debounce']>
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
-    readonly GenerateUUID: UnwrapRef<typeof import('utils/rsa.ts')['GenerateUUID']>
-    readonly GetUserRole: UnwrapRef<typeof import('utils/common.ts')['GetUserRole']>
+    readonly GenerateUUID: UnwrapRef<typeof import('./src/utils/rsa')['GenerateUUID']>
+    readonly GetUserRole: UnwrapRef<typeof import('./src/utils/common')['GetUserRole']>
     readonly IconMdiAccount: UnwrapRef<typeof import('~icons/mdi/account')['default']>
     readonly IconMdiAccountFileText: UnwrapRef<typeof import('~icons/mdi/account-file-text')['default']>
     readonly IconMdiAlphaCBoxOutline: UnwrapRef<typeof import('~icons/mdi/alpha-c-box-outline')['default']>
     readonly IconMdiCogOutline: UnwrapRef<typeof import('~icons/mdi/cog-outline')['default']>
     readonly IconMdiCompany: UnwrapRef<typeof import('~icons/mdi/company')['default']>
     readonly IconMdiLogoutVariant: UnwrapRef<typeof import('~icons/mdi/logout-variant')['default']>
-    readonly IconMdiPlay: UnwrapRef<typeof import('~icons/mdi/play')['default']>
-    readonly IconMdiRestart: UnwrapRef<typeof import('~icons/mdi/restart')['default']>
     readonly IconMdiServer: UnwrapRef<typeof import('~icons/mdi/server')['default']>
-    readonly IconMdiSquare: UnwrapRef<typeof import('~icons/mdi/square')['default']>
-    readonly IconMdiStopCircleOutline: UnwrapRef<typeof import('~icons/mdi/stop-circle-outline')['default']>
     readonly IconMdiTextBoxOutline: UnwrapRef<typeof import('~icons/mdi/text-box-outline')['default']>
     readonly IconMdiUserOutline: UnwrapRef<typeof import('~icons/mdi/user-outline')['default']>
     readonly IconMdiViewDashboard: UnwrapRef<typeof import('~icons/mdi/view-dashboard')['default']>
@@ -508,77 +500,77 @@ declare module 'vue' {
     readonly IconNotoSmilingFaceWithSunglasses: UnwrapRef<typeof import('~icons/noto/smiling-face-with-sunglasses')['default']>
     readonly IconNotoWinkingFace: UnwrapRef<typeof import('~icons/noto/winking-face')['default']>
     readonly IconNotoYawningFace: UnwrapRef<typeof import('~icons/noto/yawning-face')['default']>
-    readonly IncludesIgnoreCase: UnwrapRef<typeof import('utils/common.ts')['IncludesIgnoreCase']>
-    readonly IsAdmin: UnwrapRef<typeof import('utils/common.ts')['IsAdmin']>
-    readonly IsEmpty: UnwrapRef<typeof import('utils/rule.ts')['IsEmpty']>
-    readonly IsSuperAdmin: UnwrapRef<typeof import('utils/common.ts')['IsSuperAdmin']>
-    readonly IsUser: UnwrapRef<typeof import('utils/common.ts')['IsUser']>
-    readonly IsValidEmail: UnwrapRef<typeof import('utils/rule.ts')['IsValidEmail']>
-    readonly NewBaseEmptyInfo: UnwrapRef<typeof import('#/base.ts')['NewBaseEmptyInfo']>
-    readonly NewConfigEmptyInfo: UnwrapRef<typeof import('#/setting.ts')['NewConfigEmptyInfo']>
-    readonly NewDashboardResourceStatisticsInfo: UnwrapRef<typeof import('#/dashboard.ts')['NewDashboardResourceStatisticsInfo']>
-    readonly NewGroupEmptyInfo: UnwrapRef<typeof import('#/group.ts')['NewGroupEmptyInfo']>
-    readonly NewNodeEmptyInfo: UnwrapRef<typeof import('#/setting.ts')['NewNodeEmptyInfo']>
-    readonly NewPageInfo: UnwrapRef<typeof import('#/query.ts')['NewPageInfo']>
-    readonly NewRegistryEmptyInfo: UnwrapRef<typeof import('#/setting.ts')['NewRegistryEmptyInfo']>
-    readonly NewServiceDeploymentInfo: UnwrapRef<typeof import('#/service.ts')['NewServiceDeploymentInfo']>
-    readonly NewServiceEmptyInfo: UnwrapRef<typeof import('#/service.ts')['NewServiceEmptyInfo']>
-    readonly NewServiceMetaDockerEmptyInfo: UnwrapRef<typeof import('#/service.ts')['NewServiceMetaDockerEmptyInfo']>
-    readonly NewSortInfo: UnwrapRef<typeof import('#/query.ts')['NewSortInfo']>
-    readonly NewTeamEmptyInfo: UnwrapRef<typeof import('#/user.ts')['NewTeamEmptyInfo']>
-    readonly NewUserEmptyInfo: UnwrapRef<typeof import('#/user.ts')['NewUserEmptyInfo']>
-    readonly NodeStatus: UnwrapRef<typeof import('@/models/enum.ts')['NodeStatus']>
-    readonly NodeSwitch: UnwrapRef<typeof import('@/models/enum.ts')['NodeSwitch']>
-    readonly PageActivity: UnwrapRef<typeof import('@/models/page.ts')['PageActivity']>
-    readonly PageGroupDetail: UnwrapRef<typeof import('@/models/page.ts')['PageGroupDetail']>
-    readonly PageLimitRole: UnwrapRef<typeof import('@/models/enum.ts')['PageLimitRole']>
-    readonly PageServiceDetail: UnwrapRef<typeof import('@/models/page.ts')['PageServiceDetail']>
-    readonly PageSizeOptions: UnwrapRef<typeof import('@/models/enum.ts')['PageSizeOptions']>
-    readonly PageUserRelated: UnwrapRef<typeof import('@/models/page.ts')['PageUserRelated']>
-    readonly ParseNumber: UnwrapRef<typeof import('utils/common.ts')['ParseNumber']>
-    readonly QueryInfo: UnwrapRef<typeof import('#/query.ts')['QueryInfo']>
-    readonly RSAEncrypt: UnwrapRef<typeof import('utils/rsa.ts')['RSAEncrypt']>
-    readonly RSAPublicKey: UnwrapRef<typeof import('@/models/rsa.ts')['RSAPublicKey']>
-    readonly RuleCannotBeEmpty: UnwrapRef<typeof import('utils/rule.ts')['RuleCannotBeEmpty']>
-    readonly RuleFormat: UnwrapRef<typeof import('@/models/rule.ts')['RuleFormat']>
-    readonly RuleFormatErrEmailOption: UnwrapRef<typeof import('utils/rule.ts')['RuleFormatErrEmailOption']>
-    readonly RuleFormatErrPhone: UnwrapRef<typeof import('utils/rule.ts')['RuleFormatErrPhone']>
-    readonly RuleIsRequired: UnwrapRef<typeof import('utils/rule.ts')['RuleIsRequired']>
-    readonly RuleLength: UnwrapRef<typeof import('@/models/rule.ts')['RuleLength']>
-    readonly RuleLimitMax: UnwrapRef<typeof import('utils/rule.ts')['RuleLimitMax']>
-    readonly RuleLimitRange: UnwrapRef<typeof import('utils/rule.ts')['RuleLimitRange']>
-    readonly RulePleaseEnter: UnwrapRef<typeof import('utils/rule.ts')['RulePleaseEnter']>
-    readonly ServiceDeployMode: UnwrapRef<typeof import('@/models/enum.ts')['ServiceDeployMode']>
-    readonly ServiceDeployType: UnwrapRef<typeof import('@/models/enum.ts')['ServiceDeployType']>
-    readonly ServiceNetworkMode: UnwrapRef<typeof import('@/models/enum.ts')['ServiceNetworkMode']>
-    readonly ServiceNetworkProtocol: UnwrapRef<typeof import('@/models/enum.ts')['ServiceNetworkProtocol']>
-    readonly ServicePlacementMode: UnwrapRef<typeof import('@/models/enum.ts')['ServicePlacementMode']>
-    readonly ServiceRestartPolicyMode: UnwrapRef<typeof import('@/models/enum.ts')['ServiceRestartPolicyMode']>
-    readonly ServiceStatus: UnwrapRef<typeof import('@/models/enum.ts')['ServiceStatus']>
-    readonly ServiceVolumeType: UnwrapRef<typeof import('@/models/enum.ts')['ServiceVolumeType']>
-    readonly SessionStorageCurrentGroupId: UnwrapRef<typeof import('@/models/page.ts')['SessionStorageCurrentGroupId']>
-    readonly SetWebTitle: UnwrapRef<typeof import('utils/common.ts')['SetWebTitle']>
-    readonly ShowErrMsg: UnwrapRef<typeof import('utils/message.ts')['ShowErrMsg']>
-    readonly ShowInfoMsg: UnwrapRef<typeof import('utils/message.ts')['ShowInfoMsg']>
-    readonly ShowSuccessMsg: UnwrapRef<typeof import('utils/message.ts')['ShowSuccessMsg']>
-    readonly ShowSystemErrMsg: UnwrapRef<typeof import('utils/message.ts')['ShowSystemErrMsg']>
-    readonly ShowWarningMsg: UnwrapRef<typeof import('utils/message.ts')['ShowWarningMsg']>
-    readonly SortType: UnwrapRef<typeof import('@/models/enum.ts')['SortType']>
-    readonly StorageEventType: UnwrapRef<typeof import('utils/event.ts')['StorageEventType']>
-    readonly TableHeight: UnwrapRef<typeof import('utils/common.ts')['TableHeight']>
-    readonly TimestampToTime: UnwrapRef<typeof import('utils/time.ts')['TimestampToTime']>
-    readonly UserRole: UnwrapRef<typeof import('@/models/enum.ts')['UserRole']>
+    readonly IncludesIgnoreCase: UnwrapRef<typeof import('./src/utils/common')['IncludesIgnoreCase']>
+    readonly IsAdmin: UnwrapRef<typeof import('./src/utils/common')['IsAdmin']>
+    readonly IsEmpty: UnwrapRef<typeof import('./src/utils/rule')['IsEmpty']>
+    readonly IsSuperAdmin: UnwrapRef<typeof import('./src/utils/common')['IsSuperAdmin']>
+    readonly IsUser: UnwrapRef<typeof import('./src/utils/common')['IsUser']>
+    readonly IsValidEmail: UnwrapRef<typeof import('./src/utils/rule')['IsValidEmail']>
+    readonly NewBaseEmptyInfo: UnwrapRef<typeof import('./src/types/base')['NewBaseEmptyInfo']>
+    readonly NewConfigEmptyInfo: UnwrapRef<typeof import('./src/types/setting')['NewConfigEmptyInfo']>
+    readonly NewDashboardResourceStatisticsInfo: UnwrapRef<typeof import('./src/types/dashboard')['NewDashboardResourceStatisticsInfo']>
+    readonly NewGroupEmptyInfo: UnwrapRef<typeof import('./src/types/group')['NewGroupEmptyInfo']>
+    readonly NewNodeEmptyInfo: UnwrapRef<typeof import('./src/types/setting')['NewNodeEmptyInfo']>
+    readonly NewPageInfo: UnwrapRef<typeof import('./src/types/query')['NewPageInfo']>
+    readonly NewRegistryEmptyInfo: UnwrapRef<typeof import('./src/types/setting')['NewRegistryEmptyInfo']>
+    readonly NewServiceDeploymentInfo: UnwrapRef<typeof import('./src/types/service')['NewServiceDeploymentInfo']>
+    readonly NewServiceEmptyInfo: UnwrapRef<typeof import('./src/types/service')['NewServiceEmptyInfo']>
+    readonly NewServiceMetaDockerEmptyInfo: UnwrapRef<typeof import('./src/types/service')['NewServiceMetaDockerEmptyInfo']>
+    readonly NewSortInfo: UnwrapRef<typeof import('./src/types/query')['NewSortInfo']>
+    readonly NewTeamEmptyInfo: UnwrapRef<typeof import('./src/types/user')['NewTeamEmptyInfo']>
+    readonly NewUserEmptyInfo: UnwrapRef<typeof import('./src/types/user')['NewUserEmptyInfo']>
+    readonly NodeStatus: UnwrapRef<typeof import('./src/models/enum')['NodeStatus']>
+    readonly NodeSwitch: UnwrapRef<typeof import('./src/models/enum')['NodeSwitch']>
+    readonly PageActivity: UnwrapRef<typeof import('./src/models/page')['PageActivity']>
+    readonly PageGroupDetail: UnwrapRef<typeof import('./src/models/page')['PageGroupDetail']>
+    readonly PageLimitRole: UnwrapRef<typeof import('./src/models/enum')['PageLimitRole']>
+    readonly PageServiceDetail: UnwrapRef<typeof import('./src/models/page')['PageServiceDetail']>
+    readonly PageSizeOptions: UnwrapRef<typeof import('./src/models/enum')['PageSizeOptions']>
+    readonly PageUserRelated: UnwrapRef<typeof import('./src/models/page')['PageUserRelated']>
+    readonly ParseNumber: UnwrapRef<typeof import('./src/utils/common')['ParseNumber']>
+    readonly QueryInfo: UnwrapRef<typeof import('./src/types/query')['QueryInfo']>
+    readonly RSAEncrypt: UnwrapRef<typeof import('./src/utils/rsa')['RSAEncrypt']>
+    readonly RSAPublicKey: UnwrapRef<typeof import('./src/models/rsa')['RSAPublicKey']>
+    readonly RuleCannotBeEmpty: UnwrapRef<typeof import('./src/utils/rule')['RuleCannotBeEmpty']>
+    readonly RuleFormat: UnwrapRef<typeof import('./src/models/rule')['RuleFormat']>
+    readonly RuleFormatErrEmailOption: UnwrapRef<typeof import('./src/utils/rule')['RuleFormatErrEmailOption']>
+    readonly RuleFormatErrPhone: UnwrapRef<typeof import('./src/utils/rule')['RuleFormatErrPhone']>
+    readonly RuleIsRequired: UnwrapRef<typeof import('./src/utils/rule')['RuleIsRequired']>
+    readonly RuleLength: UnwrapRef<typeof import('./src/models/rule')['RuleLength']>
+    readonly RuleLimitMax: UnwrapRef<typeof import('./src/utils/rule')['RuleLimitMax']>
+    readonly RuleLimitRange: UnwrapRef<typeof import('./src/utils/rule')['RuleLimitRange']>
+    readonly RulePleaseEnter: UnwrapRef<typeof import('./src/utils/rule')['RulePleaseEnter']>
+    readonly ServiceDeployMode: UnwrapRef<typeof import('./src/models/enum')['ServiceDeployMode']>
+    readonly ServiceDeployType: UnwrapRef<typeof import('./src/models/enum')['ServiceDeployType']>
+    readonly ServiceNetworkMode: UnwrapRef<typeof import('./src/models/enum')['ServiceNetworkMode']>
+    readonly ServiceNetworkProtocol: UnwrapRef<typeof import('./src/models/enum')['ServiceNetworkProtocol']>
+    readonly ServicePlacementMode: UnwrapRef<typeof import('./src/models/enum')['ServicePlacementMode']>
+    readonly ServiceRestartPolicyMode: UnwrapRef<typeof import('./src/models/enum')['ServiceRestartPolicyMode']>
+    readonly ServiceStatus: UnwrapRef<typeof import('./src/models/enum')['ServiceStatus']>
+    readonly ServiceVolumeType: UnwrapRef<typeof import('./src/models/enum')['ServiceVolumeType']>
+    readonly SessionStorageCurrentGroupId: UnwrapRef<typeof import('./src/models/page')['SessionStorageCurrentGroupId']>
+    readonly SetWebTitle: UnwrapRef<typeof import('./src/utils/common')['SetWebTitle']>
+    readonly ShowErrMsg: UnwrapRef<typeof import('./src/utils/message')['ShowErrMsg']>
+    readonly ShowInfoMsg: UnwrapRef<typeof import('./src/utils/message')['ShowInfoMsg']>
+    readonly ShowSuccessMsg: UnwrapRef<typeof import('./src/utils/message')['ShowSuccessMsg']>
+    readonly ShowSystemErrMsg: UnwrapRef<typeof import('./src/utils/message')['ShowSystemErrMsg']>
+    readonly ShowWarningMsg: UnwrapRef<typeof import('./src/utils/message')['ShowWarningMsg']>
+    readonly SortType: UnwrapRef<typeof import('./src/models/enum')['SortType']>
+    readonly StorageEventType: UnwrapRef<typeof import('./src/utils/event')['StorageEventType']>
+    readonly TableHeight: UnwrapRef<typeof import('./src/utils/common')['TableHeight']>
+    readonly TimestampToTime: UnwrapRef<typeof import('./src/utils/time')['TimestampToTime']>
+    readonly UserRole: UnwrapRef<typeof import('./src/models/enum')['UserRole']>
     readonly acceptHMRUpdate: UnwrapRef<typeof import('pinia')['acceptHMRUpdate']>
-    readonly activityService: UnwrapRef<typeof import('services/activity-service.ts')['activityService']>
+    readonly activityService: UnwrapRef<typeof import('./src/services/activity-service')['activityService']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
-    readonly commonService: UnwrapRef<typeof import('services/common-service.ts')['commonService']>
+    readonly commonService: UnwrapRef<typeof import('./src/services/common-service')['commonService']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
     readonly computedAsync: UnwrapRef<typeof import('@vueuse/core')['computedAsync']>
     readonly computedEager: UnwrapRef<typeof import('@vueuse/core')['computedEager']>
     readonly computedInject: UnwrapRef<typeof import('@vueuse/core')['computedInject']>
     readonly computedWithControl: UnwrapRef<typeof import('@vueuse/core')['computedWithControl']>
-    readonly configService: UnwrapRef<typeof import('services/config-service.ts')['configService']>
+    readonly configService: UnwrapRef<typeof import('./src/services/config-service')['configService']>
     readonly controlledComputed: UnwrapRef<typeof import('@vueuse/core')['controlledComputed']>
     readonly controlledRef: UnwrapRef<typeof import('@vueuse/core')['controlledRef']>
     readonly createApp: UnwrapRef<typeof import('vue')['createApp']>
@@ -593,29 +585,29 @@ declare module 'vue' {
     readonly createTemplatePromise: UnwrapRef<typeof import('@vueuse/core')['createTemplatePromise']>
     readonly createUnrefFn: UnwrapRef<typeof import('@vueuse/core')['createUnrefFn']>
     readonly customRef: UnwrapRef<typeof import('vue')['customRef']>
-    readonly dashboardService: UnwrapRef<typeof import('services/dashboard-service.ts')['dashboardService']>
+    readonly dashboardService: UnwrapRef<typeof import('./src/services/dashboard-service')['dashboardService']>
     readonly debouncedRef: UnwrapRef<typeof import('@vueuse/core')['debouncedRef']>
     readonly debouncedWatch: UnwrapRef<typeof import('@vueuse/core')['debouncedWatch']>
     readonly defineAsyncComponent: UnwrapRef<typeof import('vue')['defineAsyncComponent']>
     readonly defineComponent: UnwrapRef<typeof import('vue')['defineComponent']>
     readonly defineStore: UnwrapRef<typeof import('pinia')['defineStore']>
-    readonly disposeStore: UnwrapRef<typeof import('@/stores')['disposeStore']>
+    readonly disposeStore: UnwrapRef<typeof import('./src/stores/index')['disposeStore']>
     readonly eagerComputed: UnwrapRef<typeof import('@vueuse/core')['eagerComputed']>
     readonly effectScope: UnwrapRef<typeof import('vue')['effectScope']>
-    readonly eventEmitter: UnwrapRef<typeof import('utils/event.ts')['eventEmitter']>
+    readonly eventEmitter: UnwrapRef<typeof import('./src/utils/event')['eventEmitter']>
     readonly extendRef: UnwrapRef<typeof import('@vueuse/core')['extendRef']>
     readonly getActivePinia: UnwrapRef<typeof import('pinia')['getActivePinia']>
     readonly getCurrentInstance: UnwrapRef<typeof import('vue')['getCurrentInstance']>
     readonly getCurrentScope: UnwrapRef<typeof import('vue')['getCurrentScope']>
-    readonly globalLoading: UnwrapRef<typeof import('utils/global-loading.ts')['globalLoading']>
-    readonly groupContainerService: UnwrapRef<typeof import('services/group-container-service.ts')['groupContainerService']>
-    readonly groupService: UnwrapRef<typeof import('services/group-service.ts')['groupService']>
+    readonly globalLoading: UnwrapRef<typeof import('./src/utils/global-loading')['globalLoading']>
+    readonly groupContainerService: UnwrapRef<typeof import('./src/services/group-container-service')['groupContainerService']>
+    readonly groupService: UnwrapRef<typeof import('./src/services/group-service')['groupService']>
     readonly h: UnwrapRef<typeof import('vue')['h']>
-    readonly httpClient: UnwrapRef<typeof import('services/http-client.ts')['httpClient']>
+    readonly httpClient: UnwrapRef<typeof import('./src/services/http-client')['httpClient']>
     readonly ignorableWatch: UnwrapRef<typeof import('@vueuse/core')['ignorableWatch']>
-    readonly initRSA: UnwrapRef<typeof import('@/models/rsa.ts')['initRSA']>
-    readonly initRule: UnwrapRef<typeof import('@/models/rule.ts')['initRule']>
-    readonly initStore: UnwrapRef<typeof import('@/stores')['initStore']>
+    readonly initRSA: UnwrapRef<typeof import('./src/models/rsa')['initRSA']>
+    readonly initRule: UnwrapRef<typeof import('./src/models/rule')['initRule']>
+    readonly initStore: UnwrapRef<typeof import('./src/stores/index')['initStore']>
     readonly inject: UnwrapRef<typeof import('vue')['inject']>
     readonly injectLocal: UnwrapRef<typeof import('@vueuse/core')['injectLocal']>
     readonly isDefined: UnwrapRef<typeof import('@vueuse/core')['isDefined']>
@@ -631,7 +623,7 @@ declare module 'vue' {
     readonly mapWritableState: UnwrapRef<typeof import('pinia')['mapWritableState']>
     readonly markRaw: UnwrapRef<typeof import('vue')['markRaw']>
     readonly nextTick: UnwrapRef<typeof import('vue')['nextTick']>
-    readonly nodeService: UnwrapRef<typeof import('services/node-service.ts')['nodeService']>
+    readonly nodeService: UnwrapRef<typeof import('./src/services/node-service')['nodeService']>
     readonly onActivated: UnwrapRef<typeof import('vue')['onActivated']>
     readonly onBeforeMount: UnwrapRef<typeof import('vue')['onBeforeMount']>
     readonly onBeforeRouteLeave: UnwrapRef<typeof import('vue-router')['onBeforeRouteLeave']>
@@ -669,23 +661,23 @@ declare module 'vue' {
     readonly refDefault: UnwrapRef<typeof import('@vueuse/core')['refDefault']>
     readonly refThrottled: UnwrapRef<typeof import('@vueuse/core')['refThrottled']>
     readonly refWithControl: UnwrapRef<typeof import('@vueuse/core')['refWithControl']>
-    readonly registryService: UnwrapRef<typeof import('services/registry-service.ts')['registryService']>
+    readonly registryService: UnwrapRef<typeof import('./src/services/registry-service')['registryService']>
     readonly resolveComponent: UnwrapRef<typeof import('vue')['resolveComponent']>
     readonly resolveRef: UnwrapRef<typeof import('@vueuse/core')['resolveRef']>
     readonly resolveUnref: UnwrapRef<typeof import('@vueuse/core')['resolveUnref']>
-    readonly serviceService: UnwrapRef<typeof import('services/service-service.ts')['serviceService']>
+    readonly serviceService: UnwrapRef<typeof import('./src/services/service-service')['serviceService']>
     readonly setActivePinia: UnwrapRef<typeof import('pinia')['setActivePinia']>
     readonly setMapStoreSuffix: UnwrapRef<typeof import('pinia')['setMapStoreSuffix']>
     readonly shallowReactive: UnwrapRef<typeof import('vue')['shallowReactive']>
     readonly shallowReadonly: UnwrapRef<typeof import('vue')['shallowReadonly']>
     readonly shallowRef: UnwrapRef<typeof import('vue')['shallowRef']>
-    readonly statisticsCountService: UnwrapRef<typeof import('services/statistics-count-service.ts')['statisticsCountService']>
-    readonly storageEventBus: UnwrapRef<typeof import('utils/event.ts')['storageEventBus']>
+    readonly statisticsCountService: UnwrapRef<typeof import('./src/services/statistics-count-service')['statisticsCountService']>
+    readonly storageEventBus: UnwrapRef<typeof import('./src/utils/event')['storageEventBus']>
     readonly storeToRefs: UnwrapRef<typeof import('pinia')['storeToRefs']>
-    readonly stores: UnwrapRef<typeof import('@/stores')['default']>
+    readonly stores: UnwrapRef<typeof import('./src/stores/index')['default']>
     readonly syncRef: UnwrapRef<typeof import('@vueuse/core')['syncRef']>
     readonly syncRefs: UnwrapRef<typeof import('@vueuse/core')['syncRefs']>
-    readonly teamService: UnwrapRef<typeof import('services/team-service.ts')['teamService']>
+    readonly teamService: UnwrapRef<typeof import('./src/services/team-service')['teamService']>
     readonly templateRef: UnwrapRef<typeof import('@vueuse/core')['templateRef']>
     readonly throttledRef: UnwrapRef<typeof import('@vueuse/core')['throttledRef']>
     readonly throttledWatch: UnwrapRef<typeof import('@vueuse/core')['throttledWatch']>
@@ -802,7 +794,7 @@ declare module 'vue' {
     readonly useOffsetPagination: UnwrapRef<typeof import('@vueuse/core')['useOffsetPagination']>
     readonly useOnline: UnwrapRef<typeof import('@vueuse/core')['useOnline']>
     readonly usePageLeave: UnwrapRef<typeof import('@vueuse/core')['usePageLeave']>
-    readonly usePageStore: UnwrapRef<typeof import('@/stores/use-page-store.ts')['default']>
+    readonly usePageStore: UnwrapRef<typeof import('./src/stores/use-page-store')['default']>
     readonly useParallax: UnwrapRef<typeof import('@vueuse/core')['useParallax']>
     readonly useParentElement: UnwrapRef<typeof import('@vueuse/core')['useParentElement']>
     readonly usePerformanceObserver: UnwrapRef<typeof import('@vueuse/core')['usePerformanceObserver']>
@@ -819,7 +811,7 @@ declare module 'vue' {
     readonly usePrevious: UnwrapRef<typeof import('@vueuse/core')['usePrevious']>
     readonly useRafFn: UnwrapRef<typeof import('@vueuse/core')['useRafFn']>
     readonly useRefHistory: UnwrapRef<typeof import('@vueuse/core')['useRefHistory']>
-    readonly useRegistryStore: UnwrapRef<typeof import('@/stores/use-registry-store.ts')['default']>
+    readonly useRegistryStore: UnwrapRef<typeof import('./src/stores/use-registry-store')['default']>
     readonly useResizeObserver: UnwrapRef<typeof import('@vueuse/core')['useResizeObserver']>
     readonly useRoute: UnwrapRef<typeof import('vue-router')['useRoute']>
     readonly useRouter: UnwrapRef<typeof import('vue-router')['useRouter']>
@@ -835,7 +827,7 @@ declare module 'vue' {
     readonly useSorted: UnwrapRef<typeof import('@vueuse/core')['useSorted']>
     readonly useSpeechRecognition: UnwrapRef<typeof import('@vueuse/core')['useSpeechRecognition']>
     readonly useSpeechSynthesis: UnwrapRef<typeof import('@vueuse/core')['useSpeechSynthesis']>
-    readonly useStateStore: UnwrapRef<typeof import('@/stores/use-state-store.ts')['default']>
+    readonly useStateStore: UnwrapRef<typeof import('./src/stores/use-state-store')['default']>
     readonly useStepper: UnwrapRef<typeof import('@vueuse/core')['useStepper']>
     readonly useStorage: UnwrapRef<typeof import('@vueuse/core')['useStorage']>
     readonly useStorageAsync: UnwrapRef<typeof import('@vueuse/core')['useStorageAsync']>
@@ -862,7 +854,7 @@ declare module 'vue' {
     readonly useTransition: UnwrapRef<typeof import('@vueuse/core')['useTransition']>
     readonly useUrlSearchParams: UnwrapRef<typeof import('@vueuse/core')['useUrlSearchParams']>
     readonly useUserMedia: UnwrapRef<typeof import('@vueuse/core')['useUserMedia']>
-    readonly useUserStore: UnwrapRef<typeof import('@/stores/use-user-store.ts')['default']>
+    readonly useUserStore: UnwrapRef<typeof import('./src/stores/use-user-store')['default']>
     readonly useVModel: UnwrapRef<typeof import('@vueuse/core')['useVModel']>
     readonly useVModels: UnwrapRef<typeof import('@vueuse/core')['useVModels']>
     readonly useVibrate: UnwrapRef<typeof import('@vueuse/core')['useVibrate']>
@@ -875,7 +867,7 @@ declare module 'vue' {
     readonly useWindowFocus: UnwrapRef<typeof import('@vueuse/core')['useWindowFocus']>
     readonly useWindowScroll: UnwrapRef<typeof import('@vueuse/core')['useWindowScroll']>
     readonly useWindowSize: UnwrapRef<typeof import('@vueuse/core')['useWindowSize']>
-    readonly userService: UnwrapRef<typeof import('services/user-service.ts')['userService']>
+    readonly userService: UnwrapRef<typeof import('./src/services/user-service')['userService']>
     readonly watch: UnwrapRef<typeof import('vue')['watch']>
     readonly watchArray: UnwrapRef<typeof import('@vueuse/core')['watchArray']>
     readonly watchAtMost: UnwrapRef<typeof import('@vueuse/core')['watchAtMost']>
