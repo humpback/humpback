@@ -2,34 +2,34 @@
 
 ## 先决条件
 
-Humpback 由两个核心组件构成：Humpback Server 和 Humpback Agent。这两个组件都以轻量级 Docker 容器的形式运行在 Docker 引擎上。
+Humpback 由两个核心组件构成：Humpback 和 Humpback Agent。这两个组件都以轻量级 Docker 容器的形式运行在 Docker 引擎上。
 
 开始使用前，您需要安装最新版本的 Docker 并确保其正常运行。我们建议您遵循 Docker 的[官方安装指南](https://docs.docker.com/engine/install/)——特别提醒，在 Ubuntu 系统上不建议通过 snap 安装 Docker，否则可能会遇到兼容性问题。
 
-## 部署Hummpback Server
+## 部署Hummpback
 
-首先，创建一个volume用于存储Humpback Server的数据库：
+首先，创建一个volume用于存储Humpback的数据库：
 
 ```bash
 docker volume create humpback_data
 ```
 
-接下，使用下面的命令创建Humpback Server容器：
+接下，使用下面的命令创建Humpback容器：
 
 ```bash
 docker run -d \
-  --name humpback-server \
+  --name humpback \
   -p 8100:8100 \
   -p 8101:8101 \
   --restart=always \
   -v humpback_data:/workspace/data \
   -e LOCATION=prd \
-  humpbacks/humpback-server
+  humpbacks/humpback
 ```
 
-Humpback Server默认会监听两个端口，`8100`端口是web站点，`8101`是API服务器，主要接受agent汇报的数据。
+Humpback默认会监听两个端口，`8100`端口是web站点，`8101`是API服务器，主要接受agent汇报的数据。
 
-命令运行成功后，你可以通过打开下面的站点检查Humpback Server是否启动成功。
+命令运行成功后，你可以通过打开下面的站点检查Humpback是否启动成功。
 
 ```
 http://localhost:8100
@@ -39,7 +39,7 @@ http://localhost:8100
 
 ## 部署Hummpback Agent
 
-Humpback Agent默认会监听`8018`端口用于接收Humpback Server的调用。
+Humpback Agent默认会监听`8018`端口用于接收Humpback的调用。
 
 使用下面的命令启动Humpback Agent
 
@@ -58,7 +58,7 @@ docker run -d \
   humpbacks/humpback-agent
 
 ```
-请注意：将`{server-address}`替换为部署Humpback Server的真实IP地址。
+请注意：将`{server-address}`替换为部署Humpback的真实IP地址。
 
 ## 在Humpback中添加节点
 

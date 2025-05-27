@@ -17,7 +17,6 @@
 
 ## 组件
 
-* [Humpback Server](https://github.com/humpback/humpback-server)
 * [Humpback Agent](https://github.com/humpback/humpback-agent)
 
 ## 许可证

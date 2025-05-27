@@ -17,7 +17,6 @@
 
 ## Components
 
-* [Humpback Server](https://github.com/humpback/humpback-server)
 * [Humpback Agent](https://github.com/humpback/humpback-agent)
 
 ## License
