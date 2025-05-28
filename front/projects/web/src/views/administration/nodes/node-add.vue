@@ -118,7 +118,7 @@ defineExpose({ open })
       <div class="node-view-command">
         <div>
           <div v-for="item in dialogInfo.result" :key="item.ipAddress" class="mb-1">
-            <el-button :type="dialogInfo.activeTab === item.ipAddress ? 'primary' : undefined" @click="dialogInfo.activeTab = item.ipAddress">
+            <el-button :type="dialogInfo.activeTab === item.ipAddress ? 'info' : undefined" @click="dialogInfo.activeTab = item.ipAddress">
               {{ item.ipAddress }}
             </el-button>
           </div>

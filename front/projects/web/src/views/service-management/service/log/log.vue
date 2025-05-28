@@ -152,7 +152,7 @@ onMounted(async () => {
     </div>
 
     <div class="log-box">
-      <v-log-view v-loading="isAction" :logList="logs">
+      <v-log-view v-loading="isAction" :logList="logs" element-loading-background="rgba(255, 255, 255, 0.2)">
         <template #header-left>
           <el-switch v-model="searchInfo.showTimestamp" :active-text="t('label.showTimestamp')" @change="getLogs()" />
         </template>

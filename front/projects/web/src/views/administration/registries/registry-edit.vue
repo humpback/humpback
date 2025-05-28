@@ -107,19 +107,10 @@ defineExpose({ open })
           </div>
         </el-form-item>
         <el-form-item :label="t('label.username')" prop="username">
-          <v-input
-            v-model="dialogInfo.info.username"
-            :disabled="isDefaultRegistry(dialogInfo.info.url)"
-            :maxlength="RuleLength.RegistryUsername.Max"
-            clearable
-            show-word-limit />
+          <v-input v-model="dialogInfo.info.username" :maxlength="RuleLength.RegistryUsername.Max" clearable show-word-limit />
         </el-form-item>
         <el-form-item :label="t('label.password')" prop="password">
-          <v-password-input
-            v-model="dialogInfo.info.password"
-            :disabled="isDefaultRegistry(dialogInfo.info.url)"
-            :maxlength="RuleLength.RegistryPassword.Max"
-            :minlength="0" />
+          <v-password-input v-model="dialogInfo.info.password" :maxlength="RuleLength.RegistryPassword.Max" :minlength="0" />
         </el-form-item>
       </el-form>
     </div>
