@@ -96,7 +96,7 @@ func (scheduler *HumpbackScheduler) Start() {
 			Addr:    listeningAddress,
 			Handler: e,
 		}
-		if err := scheduler.httpSrv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+		if err := scheduler.httpSrv.ListenAndServeTLS(config.CertArgs().CertFile, config.CertArgs().KeyFile); err != nil && err != http.ErrServerClosed {
 			slog.Error("[Scheduler Api] Listening failed", "Address", listeningAddress, "Error", err)
 		}
 	}()

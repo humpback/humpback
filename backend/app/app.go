@@ -3,11 +3,15 @@ package app
 import (
 	"context"
 	"log/slog"
+	"time"
 
 	"humpback/api"
 	"humpback/api/static"
+	"humpback/config"
 	"humpback/internal/controller"
 	"humpback/internal/db"
+	"humpback/pkg/crypto"
+	"humpback/pkg/utils"
 	"humpback/scheduler"
 )
 
@@ -38,7 +42,32 @@ func InitApp() (*App, error) {
 	return app, nil
 }
 
+func (app *App) CheckCerts() bool {
+
+	certFile := config.CertArgs().CertFile
+	keyFile := config.CertArgs().KeyFile
+
+	return utils.FileExist(certFile) && utils.FileExist(keyFile)
+}
+
 func (app *App) Startup() {
+
+	if !app.CheckCerts() {
+		ip := config.NodeArgs().HostIp
+		host := config.CertArgs().Host
+		if host == "" {
+			host = "localhost"
+		}
+		if ip == "" {
+			ip = "0.0.0.0"
+		}
+		if err := crypto.GenerateCertsForHost(host, ip, config.CertArgs().CertFile, config.CertArgs().KeyFile, time.Now().AddDate(5, 0, 0)); err != nil {
+			panic(err)
+		}
+	} else {
+		slog.Info("[Cert] Certs already exist, skip generating new certs.")
+	}
+
 	controller.Start(app.stopCh)
 	app.scheduler.Start()
 	app.webSite.Start()

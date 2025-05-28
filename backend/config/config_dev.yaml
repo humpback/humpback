@@ -2,6 +2,10 @@ location: dev # local / dev / prd
 html:
   dir: './web'
   load: true
+cert:
+  certFile: '/workspace/certs/cert.pem'
+  keyFile: '/workspace/certs/key.pem'
+  host: 'localhost' # 证书绑定的域名或IP地址
 db:
   root: '/workspace/data/humpback.db'
   timeout: 5s

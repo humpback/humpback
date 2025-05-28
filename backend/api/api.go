@@ -36,7 +36,7 @@ func (api *Router) Start() {
 			Addr:    listeningAddress,
 			Handler: api.engine,
 		}
-		if err := api.httpSrv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+		if err := api.httpSrv.ListenAndServeTLS(config.CertArgs().CertFile, config.CertArgs().KeyFile); err != nil && err != http.ErrServerClosed {
 			slog.Error("[Site Api] Listening failed", "Address", listeningAddress, "Error", err)
 		}
 	}()
