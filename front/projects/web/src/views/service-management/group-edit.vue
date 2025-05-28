@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { cloneDeep } from "lodash-es"
+import { cloneDeep, omit } from "lodash-es"
 import { FormInstance, FormRules } from "element-plus"
 import { RulePleaseEnter } from "@/utils"
 import { RuleLength } from "@/models"
@@ -60,38 +60,26 @@ async function save() {
   }
 
   const body: any = {
+    groupId: dialogInfo.value.info.groupId,
     groupName: dialogInfo.value.info.groupName,
     description: dialogInfo.value.info.description,
     users: dialogInfo.value.info.users,
     teams: dialogInfo.value.info.teams
   }
   isAction.value = true
-  if (dialogInfo.value.info.groupId) {
-    body.groupId = dialogInfo.value.info.groupId
-    groupService
-      .update(body)
-      .then(() => {
-        ShowSuccessMsg(t("message.saveSuccess"))
+  return await Promise.all([dialogInfo.value.info.groupId ? groupService.update(body) : groupService.create(omit(body, ["groupId"]))])
+    .then(() => {
+      ShowSuccessMsg(dialogInfo.value.info.groupId ? t("message.saveSuccess") : t("message.addSuccess"))
+      dialogInfo.value.show = false
+      emits("refresh")
+    })
+    .catch(err => {
+      if (err?.response?.data?.code === "R4Group-006") {
         dialogInfo.value.show = false
         emits("refresh")
-      })
-      .catch(err => {
-        if (err?.response?.data?.code === "R4Group-006") {
-          dialogInfo.value.show = false
-          emits("refresh")
-        }
-      })
-      .finally(() => (isAction.value = false))
-  } else {
-    groupService
-      .create(body)
-      .then(() => {
-        ShowSuccessMsg(t("message.addSuccess"))
-        dialogInfo.value.show = false
-        emits("refresh")
-      })
-      .finally(() => (isAction.value = false))
-  }
+      }
+    })
+    .finally(() => (isAction.value = false))
 }
 
 defineExpose({ open })

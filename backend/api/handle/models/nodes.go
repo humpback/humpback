@@ -75,6 +75,14 @@ func (n *NodeUpdateLabelReqInfo) Check() error {
     if n.Labels == nil {
         n.Labels = make(map[string]string)
     }
+    for k, v := range n.Labels {
+        if strings.TrimSpace(k) == "" {
+            return response.NewBadRequestErr(locales.CodeNodesLabelKeyIsEmpty)
+        }
+        if strings.TrimSpace(v) == "" {
+            return response.NewBadRequestErr(locales.CodeNodesLabelValueIsEmpty)
+        }
+    }
     return nil
 }
 

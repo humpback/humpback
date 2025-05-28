@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { cloneDeep, find } from "lodash-es"
+import { cloneDeep, find, omit } from "lodash-es"
 import { FormInstance, FormRules } from "element-plus"
 import { RuleFormatErrEmailOption, RuleFormatErrPhone, RulePleaseEnter } from "@/utils"
 import { RuleLength } from "@/models"
@@ -81,6 +81,7 @@ async function save() {
     return
   }
   const body: any = {
+    userId: dialogInfo.value.info.userId,
     username: dialogInfo.value.info.username,
     email: dialogInfo.value.info.email,
     password: RSAEncrypt(dialogInfo.value.info.password),
@@ -89,27 +90,15 @@ async function save() {
     role: dialogInfo.value.info.role,
     teams: dialogInfo.value.info.teams
   }
+
   isAction.value = true
-  if (dialogInfo.value.info.userId) {
-    body.userId = dialogInfo.value.info.userId
-    userService
-      .update(body)
-      .then(() => {
-        ShowSuccessMsg(t("message.saveSuccess"))
-        dialogInfo.value.show = false
-        emits("refresh")
-      })
-      .finally(() => (isAction.value = false))
-  } else {
-    userService
-      .create(body)
-      .then(() => {
-        ShowSuccessMsg(t("message.addSuccess"))
-        dialogInfo.value.show = false
-        emits("refresh")
-      })
-      .finally(() => (isAction.value = false))
-  }
+  return await Promise.all([dialogInfo.value.info.userId ? userService.update(body) : userService.create(omit(body, ["userId"]))])
+    .then(() => {
+      ShowSuccessMsg(dialogInfo.value.info.userId ? t("message.saveSuccess") : t("message.addSuccess"))
+      dialogInfo.value.show = false
+      emits("refresh")
+    })
+    .finally(() => (isAction.value = false))
 }
 
 defineExpose({ open })

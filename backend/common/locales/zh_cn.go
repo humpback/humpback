@@ -24,8 +24,7 @@ var zhCnMsg = map[string]string{
     CodeUserAlreadyExist:     "用户已存在。",
     CodeUserNameAlreadyExist: "用户名已存在。",
     CodeUserIsOwner:          "无法更新自己。",
-    
-    CodeUserRoleIsInvalid: "用户角色无效。",
+    CodeUserRoleIsInvalid:    "用户角色无效。",
     
     CodeTeamNameNotEmpty:     "团队名称不能为空。",
     CodeTeamNameLimitLength:  fmt.Sprintf("团队名称长度限制为%d到%d。", enum.LimitTeamName.Min, enum.LimitTeamName.Max),
@@ -75,6 +74,7 @@ var zhCnMsg = map[string]string{
     CodeNodesIdNotEmpty:            "机器ID不能为空。",
     CodeNodesNotExist:              "机器不存在。",
     CodeNodesIpAddressInvalid:      "IP地址无效。",
+    CodeNodesOnceCreateLimit10:     "一次最多可添加10个节点。",
     CodeNodesLabelKeyIsEmpty:       "标签名称不能为空。",
     CodeNodesLabelValueIsEmpty:     "标签值不能为空。",
     CodeNodesLabelKeyIsDuplicated:  "标签名重复。",

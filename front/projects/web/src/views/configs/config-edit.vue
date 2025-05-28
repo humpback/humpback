@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ConfigInfo, NewConfigEmptyInfo } from "@/types"
-import { cloneDeep } from "lodash-es"
+import { cloneDeep, omit } from "lodash-es"
 import { FormInstance, FormRules } from "element-plus"
 import { RulePleaseEnter } from "@/utils"
 import { RuleLength } from "@/models"
@@ -53,32 +53,20 @@ async function save() {
     return
   }
   const body: any = {
+    configId: dialogInfo.value.info.configId,
     configName: dialogInfo.value.info.configName,
     configValue: dialogInfo.value.info.configValue,
     configType: dialogInfo.value.info.configType,
     description: dialogInfo.value.info.description
   }
   isAction.value = true
-  if (dialogInfo.value.info.configId) {
-    body.configId = dialogInfo.value.info.configId
-    configService
-      .update(body)
-      .then(() => {
-        ShowSuccessMsg(t("message.saveSuccess"))
-        dialogInfo.value.show = false
-        emits("refresh")
-      })
-      .finally(() => (isAction.value = false))
-  } else {
-    configService
-      .create(body)
-      .then(() => {
-        ShowSuccessMsg(t("message.addSuccess"))
-        dialogInfo.value.show = false
-        emits("refresh")
-      })
-      .finally(() => (isAction.value = false))
-  }
+  return await Promise.all([dialogInfo.value.info.configId ? configService.update(body) : configService.create(omit(body, ["configId"]))])
+    .then(() => {
+      ShowSuccessMsg(dialogInfo.value.info.configId ? t("message.saveSuccess") : t("message.addSuccess"))
+      dialogInfo.value.show = false
+      emits("refresh")
+    })
+    .finally(() => (isAction.value = false))
 }
 
 defineExpose({ open })

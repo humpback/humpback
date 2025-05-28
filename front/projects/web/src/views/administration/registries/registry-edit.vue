@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { NewRegistryEmptyInfo, RegistryInfo } from "@/types"
-import { cloneDeep } from "lodash-es"
+import { cloneDeep, omit } from "lodash-es"
 import { FormInstance, FormRules } from "element-plus"
 import { RulePleaseEnter } from "@/utils"
 import { RuleLength } from "@/models"
@@ -55,34 +55,21 @@ async function save() {
     return
   }
   const body: any = {
+    registryId: dialogInfo.value.info.registryId,
     url: dialogInfo.value.info.url,
     isDefault: dialogInfo.value.info.isDefault,
     username: dialogInfo.value.info.username ? RSAEncrypt(dialogInfo.value.info.username) : "",
     password: dialogInfo.value.info.password ? RSAEncrypt(dialogInfo.value.info.password) : ""
   }
   isAction.value = true
-  if (dialogInfo.value.info.registryId) {
-    body.registryId = dialogInfo.value.info.registryId
-    registryService
-      .update(body)
-      .then(() => {
-        registryStore.refreshRegistries()
-        ShowSuccessMsg(t("message.saveSuccess"))
-        dialogInfo.value.show = false
-        emits("refresh")
-      })
-      .finally(() => (isAction.value = false))
-  } else {
-    registryService
-      .create(body)
-      .then(() => {
-        registryStore.refreshRegistries()
-        ShowSuccessMsg(t("message.addSuccess"))
-        dialogInfo.value.show = false
-        emits("refresh")
-      })
-      .finally(() => (isAction.value = false))
-  }
+  return await Promise.all([dialogInfo.value.info.registryId ? registryService.update(body) : registryService.create(omit(body, ["registryId"]))])
+    .then(() => {
+      registryStore.refreshRegistries()
+      ShowSuccessMsg(dialogInfo.value.info.registryId ? t("message.saveSuccess") : t("message.addSuccess"))
+      dialogInfo.value.show = false
+      emits("refresh")
+    })
+    .finally(() => (isAction.value = false))
 }
 
 defineExpose({ open })
