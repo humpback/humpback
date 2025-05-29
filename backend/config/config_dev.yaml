@@ -6,6 +6,7 @@ cert:
   certFile: '/workspace/certs/cert.pem'
   keyFile: '/workspace/certs/key.pem'
   host: 'localhost' # 证书绑定的域名或IP地址
+  enabled: true  # 只控制web站点是否启用
 db:
   root: '/workspace/data/humpback.db'
   timeout: 5s

@@ -493,21 +493,10 @@ declare module 'vue' {
     readonly IconMdiCogOutline: UnwrapRef<typeof import('~icons/mdi/cog-outline')['default']>
     readonly IconMdiCompany: UnwrapRef<typeof import('~icons/mdi/company')['default']>
     readonly IconMdiLogoutVariant: UnwrapRef<typeof import('~icons/mdi/logout-variant')['default']>
-    readonly IconMdiPlay: UnwrapRef<typeof import('~icons/mdi/play')['default']>
-    readonly IconMdiRestart: UnwrapRef<typeof import('~icons/mdi/restart')['default']>
     readonly IconMdiServer: UnwrapRef<typeof import('~icons/mdi/server')['default']>
-    readonly IconMdiSquare: UnwrapRef<typeof import('~icons/mdi/square')['default']>
-    readonly IconMdiStopCircleOutline: UnwrapRef<typeof import('~icons/mdi/stop-circle-outline')['default']>
     readonly IconMdiTextBoxOutline: UnwrapRef<typeof import('~icons/mdi/text-box-outline')['default']>
     readonly IconMdiUserOutline: UnwrapRef<typeof import('~icons/mdi/user-outline')['default']>
     readonly IconMdiViewDashboard: UnwrapRef<typeof import('~icons/mdi/view-dashboard')['default']>
-    readonly IconNotoGrinningFace: UnwrapRef<typeof import('~icons/noto/grinning-face')['default']>
-    readonly IconNotoMeltingFace: UnwrapRef<typeof import('~icons/noto/melting-face')['default']>
-    readonly IconNotoSalutingFace: UnwrapRef<typeof import('~icons/noto/saluting-face')['default']>
-    readonly IconNotoSleepingFace: UnwrapRef<typeof import('~icons/noto/sleeping-face')['default']>
-    readonly IconNotoSmilingFaceWithSunglasses: UnwrapRef<typeof import('~icons/noto/smiling-face-with-sunglasses')['default']>
-    readonly IconNotoWinkingFace: UnwrapRef<typeof import('~icons/noto/winking-face')['default']>
-    readonly IconNotoYawningFace: UnwrapRef<typeof import('~icons/noto/yawning-face')['default']>
     readonly IncludesIgnoreCase: UnwrapRef<typeof import('./src/utils/common')['IncludesIgnoreCase']>
     readonly IsAdmin: UnwrapRef<typeof import('./src/utils/common')['IsAdmin']>
     readonly IsEmpty: UnwrapRef<typeof import('./src/utils/rule')['IsEmpty']>
