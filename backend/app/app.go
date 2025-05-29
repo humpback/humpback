@@ -44,9 +44,6 @@ func InitApp() (*App, error) {
 }
 
 func (app *App) CheckCerts() error {
-    if !config.CertArgs().Enabled {
-        return nil
-    }
     certFile := config.CertArgs().CertFile
     keyFile := config.CertArgs().KeyFile
     
