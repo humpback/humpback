@@ -12,6 +12,7 @@ cert:
   certFile: './certs/cacert.crt'
   keyFile: './certs/cakey.key'
   host: 'localhost' # 证书绑定的域名或IP地址
+  enabled: false  # 只控制web站点是否启用
 db:
   root: './humpback.db'
   timeout: 5s
