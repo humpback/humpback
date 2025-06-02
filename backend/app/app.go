@@ -2,22 +2,22 @@ package app
 
 import (
 	"context"
+	"fmt"
 	"log/slog"
-	"time"
 
 	"humpback/api"
 	"humpback/api/static"
 	"humpback/config"
 	"humpback/internal/controller"
 	"humpback/internal/db"
-	"humpback/pkg/crypto"
-	"humpback/pkg/utils"
 	"humpback/scheduler"
+	"humpback/security"
 )
 
 type App struct {
 	webSite   *api.Router
 	scheduler *scheduler.HumpbackScheduler
+	security  *security.SecurityManager
 	stopCh    chan struct{}
 }
 
@@ -28,6 +28,13 @@ func InitApp() (*App, error) {
 		scheduler: scheduler,
 		stopCh:    make(chan struct{}),
 	}
+
+	sm, err := security.NewSecurityManager()
+	if err != nil {
+		return nil, fmt.Errorf("failed to create security manager: %w", err)
+	}
+	app.security = sm
+
 	slog.Info("[Init DB] Init DB driver...")
 	if err := db.InitDB(); err != nil {
 		return nil, err
@@ -42,35 +49,20 @@ func InitApp() (*App, error) {
 	return app, nil
 }
 
-func (app *App) CheckCerts() bool {
-
-	certFile := config.CertArgs().CertFile
-	keyFile := config.CertArgs().KeyFile
-
-	return utils.FileExist(certFile) && utils.FileExist(keyFile)
-}
-
 func (app *App) Startup() {
 
-	if !app.CheckCerts() {
-		ip := config.NodeArgs().HostIp
-		host := config.CertArgs().Host
-		if host == "" {
-			host = "localhost"
-		}
-		if ip == "" {
-			ip = "0.0.0.0"
-		}
-		if err := crypto.GenerateCertsForHost(host, ip, config.CertArgs().CertFile, config.CertArgs().KeyFile, time.Now().AddDate(5, 0, 0)); err != nil {
-			panic(err)
-		}
-	} else {
-		slog.Info("[Cert] Certs already exist, skip generating new certs.")
+	if err := app.security.GenerateCA(config.CertArgs().CertFile, config.CertArgs().KeyFile); err != nil {
+		panic(fmt.Errorf("failed to generate CA: %w", err))
+	}
+
+	serverBundle, err := app.security.CreateCertificateBundle("humpback-server")
+	if err != nil {
+		panic(fmt.Errorf("failed to create master certificate: %w", err))
 	}
 
 	controller.Start(app.stopCh)
-	app.scheduler.Start()
-	app.webSite.Start()
+	app.scheduler.Start(serverBundle)
+	app.webSite.Start(serverBundle)
 }
 
 func (app *App) Close(c context.Context) error {

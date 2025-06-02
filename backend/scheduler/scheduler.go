@@ -9,6 +9,7 @@ import (
 	"humpback/config"
 	"humpback/internal/db"
 	"humpback/internal/node"
+	"humpback/security"
 	"humpback/types"
 
 	"github.com/gin-gonic/gin"
@@ -55,7 +56,7 @@ func doHealth(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"status": "ok"})
 }
 
-func (scheduler *HumpbackScheduler) Start() {
+func (scheduler *HumpbackScheduler) Start(cert *security.CertificateBundle) {
 	scheduler.serviceCtrl.RestoreServiceManager()
 	scheduler.nodeCtrl.RestoreNodes()
 	go func() {
@@ -93,10 +94,11 @@ func (scheduler *HumpbackScheduler) Start() {
 		listeningAddress := fmt.Sprintf("%s:%s", config.NodeArgs().HostIp, config.BackendArgs().BackendPort)
 		slog.Info("[Scheduler Api] Listening...", "Address", listeningAddress)
 		scheduler.httpSrv = &http.Server{
-			Addr:    listeningAddress,
-			Handler: e,
+			Addr:      listeningAddress,
+			Handler:   e,
+			TLSConfig: cert.CreateTLSConfig(true), // 后面要改成false
 		}
-		if err := scheduler.httpSrv.ListenAndServeTLS(config.CertArgs().CertFile, config.CertArgs().KeyFile); err != nil && err != http.ErrServerClosed {
+		if err := scheduler.httpSrv.ListenAndServeTLS("", ""); err != nil && err != http.ErrServerClosed {
 			slog.Error("[Scheduler Api] Listening failed", "Address", listeningAddress, "Error", err)
 		}
 	}()

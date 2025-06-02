@@ -9,8 +9,8 @@ node:
   hostIp: 0.0.0.0
   sitePort: 8100
 cert:
-  certFile: './certs/cert.pem'
-  keyFile: './certs/key.pem'
+  certFile: './certs/cacert.crt'
+  keyFile: './certs/cakey.key'
   host: 'localhost' # 证书绑定的域名或IP地址
 db:
   root: './humpback.db'

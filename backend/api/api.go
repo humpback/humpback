@@ -10,6 +10,7 @@ import (
 	"humpback/api/middleware"
 	"humpback/api/static"
 	"humpback/config"
+	"humpback/security"
 	"humpback/types"
 
 	"github.com/gin-gonic/gin"
@@ -28,15 +29,16 @@ func InitRouter(nodeCh chan types.NodeSimpleInfo, serviceCh chan types.ServiceCh
 	return r
 }
 
-func (api *Router) Start() {
+func (api *Router) Start(cert *security.CertificateBundle) {
 	go func() {
 		listeningAddress := fmt.Sprintf("%s:%s", config.NodeArgs().HostIp, config.NodeArgs().SitePort)
 		slog.Info("[Site Api] Listening...", "Address", listeningAddress)
 		api.httpSrv = &http.Server{
-			Addr:    listeningAddress,
-			Handler: api.engine,
+			Addr:      listeningAddress,
+			Handler:   api.engine,
+			TLSConfig: cert.CreateTLSConfig(true),
 		}
-		if err := api.httpSrv.ListenAndServeTLS(config.CertArgs().CertFile, config.CertArgs().KeyFile); err != nil && err != http.ErrServerClosed {
+		if err := api.httpSrv.ListenAndServeTLS("", ""); err != nil && err != http.ErrServerClosed {
 			slog.Error("[Site Api] Listening failed", "Address", listeningAddress, "Error", err)
 		}
 	}()
