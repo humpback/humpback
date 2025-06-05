@@ -47,7 +47,7 @@ type CertificateBundle struct {
 
 // SecurityManager 安全管理器
 type SecurityManager struct {
-	caCert       *x509.Certificate
+	CACert       *x509.Certificate
 	caPrivateKey *ecdsa.PrivateKey
 	jwtSecret    []byte
 }
@@ -74,7 +74,7 @@ func (sm *SecurityManager) GenerateCA(certPath, keyPath string) error {
 
 			slog.Info("[Cert] Certs already exist, skip generating new certs.")
 
-			sm.caCert = ca
+			sm.CACert = ca
 			sm.caPrivateKey = key
 			return nil
 		} else {
@@ -114,7 +114,7 @@ func (sm *SecurityManager) GenerateCA(certPath, keyPath string) error {
 		return err
 	}
 
-	sm.caCert = caCert
+	sm.CACert = caCert
 	sm.caPrivateKey = caPrivateKey
 
 	sm.SaveToFile(caCert, caPrivateKey, certPath, keyPath)
@@ -197,7 +197,7 @@ func (sm *SecurityManager) SaveToFile(cert *x509.Certificate, privKey *ecdsa.Pri
 
 // CreateCertificateBundle 为服务创建证书包
 func (sm *SecurityManager) CreateCertificateBundle(commonName string) (*CertificateBundle, error) {
-	if sm.caCert == nil || sm.caPrivateKey == nil {
+	if sm.CACert == nil || sm.caPrivateKey == nil {
 		return nil, errors.New("CA not initialized")
 	}
 
@@ -221,7 +221,7 @@ func (sm *SecurityManager) CreateCertificateBundle(commonName string) (*Certific
 	}
 
 	// 使用CA签名生成证书
-	certBytes, err := x509.CreateCertificate(rand.Reader, csrTemplate, sm.caCert, &privateKey.PublicKey, sm.caPrivateKey)
+	certBytes, err := x509.CreateCertificate(rand.Reader, csrTemplate, sm.CACert, &privateKey.PublicKey, sm.caPrivateKey)
 	if err != nil {
 		return nil, err
 	}
@@ -234,7 +234,7 @@ func (sm *SecurityManager) CreateCertificateBundle(commonName string) (*Certific
 
 	// 创建证书池
 	certPool := x509.NewCertPool()
-	certPool.AddCert(sm.caCert)
+	certPool.AddCert(sm.CACert)
 
 	// PEM编码
 	certPEM := pem.EncodeToMemory(&pem.Block{

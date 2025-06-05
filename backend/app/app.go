@@ -22,11 +22,9 @@ type App struct {
 }
 
 func InitApp() (*App, error) {
-	scheduler := scheduler.NewHumpbackScheduler()
+
 	app := &App{
-		webSite:   api.InitRouter(scheduler.NodeHeartbeatChan, scheduler.ServiceChangeChan),
-		scheduler: scheduler,
-		stopCh:    make(chan struct{}),
+		stopCh: make(chan struct{}),
 	}
 
 	sm, err := security.NewSecurityManager()
@@ -34,6 +32,11 @@ func InitApp() (*App, error) {
 		return nil, fmt.Errorf("failed to create security manager: %w", err)
 	}
 	app.security = sm
+
+	scheduler := scheduler.NewHumpbackScheduler(sm)
+	app.scheduler = scheduler
+
+	app.webSite = api.InitRouter(scheduler.NodeHeartbeatChan, scheduler.ServiceChangeChan)
 
 	slog.Info("[Init DB] Init DB driver...")
 	if err := db.InitDB(); err != nil {

@@ -2,9 +2,13 @@ package scheduler
 
 import (
 	"context"
+	"encoding/pem"
 	"fmt"
+	"log"
 	"log/slog"
 	"net/http"
+	"sync"
+	"time"
 
 	"humpback/config"
 	"humpback/internal/db"
@@ -15,6 +19,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+const tokenRefreshTime = 1 * time.Hour // 在token还有1小时过期时刷新
+
 type HumpbackScheduler struct {
 	httpSrv             *http.Server
 	nodeCtrl            *NodeController
@@ -22,19 +28,98 @@ type HumpbackScheduler struct {
 	NodeHeartbeatChan   chan types.NodeSimpleInfo
 	ContainerChangeChan chan types.ContainerStatus
 	ServiceChangeChan   chan types.ServiceChangeInfo
+	security            *security.SecurityManager
+	workerCerts         map[string]*security.CertificateBundle
+	workerTokens        map[string]string // workerID -> token
+	sync.RWMutex
 }
 
-func NewHumpbackScheduler() *HumpbackScheduler {
+func NewHumpbackScheduler(sm *security.SecurityManager) *HumpbackScheduler {
 	hs := &HumpbackScheduler{}
 	hs.NodeHeartbeatChan = make(chan types.NodeSimpleInfo, 100)
 	hs.ContainerChangeChan = make(chan types.ContainerStatus, 100)
 	hs.ServiceChangeChan = make(chan types.ServiceChangeInfo, 100)
 	hs.serviceCtrl = NewServiceController(hs.NodeHeartbeatChan, hs.ContainerChangeChan, hs.ServiceChangeChan)
 	hs.nodeCtrl = NewNodeController(hs.NodeHeartbeatChan, hs.ContainerChangeChan)
+	hs.security = sm
 
 	node.NewCacheManager()
 
 	return hs
+}
+
+func doRegister(c *gin.Context) {
+
+	payload := types.RegisterInfo{}
+
+	if c.BindJSON(&payload) != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid json"})
+		return
+	}
+	nodeId, _ := node.MatchNodeWithIpAddress(payload.IpAddress)
+	if nodeId == "" {
+		c.JSON(http.StatusNotFound, gin.H{"error": "node not found"})
+		return
+	}
+
+	node := node.GetNodeInfo(nodeId)
+	if node == nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "node not found"})
+		return
+	}
+
+	if !node.RegisterInfo.IsRegister ||
+		node.RegisterInfo.Token != payload.Token ||
+		time.Now().UnixMilli() > node.RegisterInfo.ExpireAt {
+		c.JSON(http.StatusForbidden, gin.H{"error": "invalid token or expired"})
+		return
+	}
+
+	sc := c.MustGet("scheduler").(*HumpbackScheduler)
+
+	sc.Lock()
+	defer sc.Unlock()
+
+	var err error
+	certBundle, ok := sc.workerCerts[nodeId]
+
+	if !ok {
+		certBundle, err = sc.security.CreateCertificateBundle(nodeId)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to create certificate"})
+			return
+		}
+	}
+
+	token, ok := sc.workerTokens[nodeId]
+	if !ok {
+		token, err = sc.security.GenerateWorkerToken(nodeId)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to generate token"})
+			return
+		}
+	}
+
+	sc.workerCerts[nodeId] = certBundle
+	sc.workerTokens[nodeId] = token
+
+	response := struct {
+		CertPEM string `json:"certPem"`
+		KeyPEM  string `json:"keyPem"`
+		Token   string `json:"token"`
+		CAPEM   string `json:"caPem"`
+	}{
+		CertPEM: string(certBundle.CertPEM),
+		KeyPEM:  string(certBundle.KeyPEM),
+		Token:   token,
+		CAPEM: string(pem.EncodeToMemory(&pem.Block{
+			Type:  "CERTIFICATE",
+			Bytes: sc.security.CACert.Raw,
+		})),
+	}
+
+	c.JSON(http.StatusOK, response)
+
 }
 
 func doHealth(c *gin.Context) {
@@ -53,7 +138,54 @@ func doHealth(c *gin.Context) {
 	payload.IpAddress = ip
 	sc := c.MustGet("scheduler").(*HumpbackScheduler)
 	sc.nodeCtrl.HeartBeat(payload)
-	c.JSON(http.StatusOK, gin.H{"status": "ok"})
+
+	sc.Lock()
+	defer sc.Unlock()
+
+	token := sc.workerTokens[nodeId]
+	var newToken string
+	claims, err := sc.security.VerifyWorkerToken(token)
+	if err == nil {
+		expiry := claims.ExpiresAt.Time
+		if time.Until(expiry) < tokenRefreshTime {
+			newToken, err := sc.security.GenerateWorkerToken(nodeId)
+			if err == nil {
+				sc.workerTokens[nodeId] = newToken
+				token = newToken
+				log.Printf("Refreshed token for worker %s\n", nodeId)
+			}
+		}
+	}
+
+	c.JSON(http.StatusOK, gin.H{"token": newToken})
+}
+
+func tokenAuthMiddleware(c *gin.Context) {
+
+	token := c.GetHeader("Authorization")
+	if token == "" {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "missing token"})
+		c.Abort()
+		return
+	}
+
+	// 验证Bearer token格式
+	if len(token) < 7 || token[:7] != "Bearer " {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "invalid token"})
+		c.Abort()
+		return
+	}
+
+	tokenString := token[7:]
+	sc := c.MustGet("scheduler").(*HumpbackScheduler)
+	_, err := sc.security.VerifyWorkerToken(tokenString)
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "invalid token"})
+		c.Abort()
+		return
+	}
+
+	c.Next()
 }
 
 func (scheduler *HumpbackScheduler) Start(cert *security.CertificateBundle) {
@@ -67,9 +199,11 @@ func (scheduler *HumpbackScheduler) Start(cert *security.CertificateBundle) {
 			c.Next()
 		})
 
-		e.POST("/api/health", doHealth)
+		e.POST("/api/register", doRegister)
 
-		e.GET("/api/config/:name", getConfigByName)
+		e.POST("/api/health", tokenAuthMiddleware, doHealth)
+
+		e.GET("/api/config/:name", tokenAuthMiddleware, getConfigByName)
 
 		e.GET("/mock/nodes", mockNodes)
 
