@@ -17,7 +17,6 @@ import (
 type App struct {
 	webSite   *api.Router
 	scheduler *scheduler.HumpbackScheduler
-	security  *security.SecurityManager
 	stopCh    chan struct{}
 }
 
@@ -27,13 +26,12 @@ func InitApp() (*App, error) {
 		stopCh: make(chan struct{}),
 	}
 
-	sm, err := security.NewSecurityManager()
+	err := security.InitSecurityManager()
 	if err != nil {
 		return nil, fmt.Errorf("failed to create security manager: %w", err)
 	}
-	app.security = sm
 
-	scheduler := scheduler.NewHumpbackScheduler(sm)
+	scheduler := scheduler.NewHumpbackScheduler()
 	app.scheduler = scheduler
 
 	app.webSite = api.InitRouter(scheduler.NodeHeartbeatChan, scheduler.ServiceChangeChan)
@@ -54,18 +52,23 @@ func InitApp() (*App, error) {
 
 func (app *App) Startup() {
 
-	if err := app.security.GenerateCA(config.CertArgs().CertFile, config.CertArgs().KeyFile); err != nil {
+	if err := security.GenerateCA(); err != nil {
 		panic(fmt.Errorf("failed to generate CA: %w", err))
 	}
 
-	serverBundle, err := app.security.CreateCertificateBundle("humpback-server")
+	websiteBundle, err := security.GenerateWebsiteCert(config.CertArgs().CertFile, config.CertArgs().KeyFile)
+	if err != nil {
+		panic(fmt.Errorf("failed to create website certificate: %w", err))
+	}
+
+	serverBundle, err := security.CreateCertificateBundle("humpback-server")
 	if err != nil {
 		panic(fmt.Errorf("failed to create master certificate: %w", err))
 	}
 
 	controller.Start(app.stopCh)
 	app.scheduler.Start(serverBundle)
-	app.webSite.Start(serverBundle)
+	app.webSite.Start(websiteBundle)
 }
 
 func (app *App) Close(c context.Context) error {

@@ -52,78 +52,58 @@ type SecurityManager struct {
 	jwtSecret    []byte
 }
 
+var sm *SecurityManager
+
 // NewSecurityManager 创建安全管理器实例
-func NewSecurityManager() (*SecurityManager, error) {
+func InitSecurityManager() error {
 	sm := &SecurityManager{}
 
 	// 生成安全的JWT密钥
 	sm.jwtSecret = make([]byte, 32) // 256-bit key
 	if _, err := rand.Read(sm.jwtSecret); err != nil {
-		return nil, fmt.Errorf("failed to generate JWT secret: %w", err)
+		return fmt.Errorf("failed to generate JWT secret: %w", err)
 	}
-
-	return sm, nil
-}
-
-// GenerateCA 生成根CA
-func (sm *SecurityManager) GenerateCA(certPath, keyPath string) error {
-
-	if utils.FileExist(certPath) && utils.FileExist(keyPath) {
-		ca, key, err := sm.LoadCertificateAndKey(certPath, keyPath)
-		if err == nil {
-
-			slog.Info("[Cert] Certs already exist, skip generating new certs.")
-
-			sm.CACert = ca
-			sm.caPrivateKey = key
-			return nil
-		} else {
-			slog.Info("[Cert] Certs already exist, but parse failed.")
-		}
-	}
-
-	// 生成私钥
-	caPrivateKey, err := ecdsa.GenerateKey(elliptic.P256(), rand.Reader)
-	if err != nil {
-		return err
-	}
-
-	// 创建证书模板
-	caTemplate := &x509.Certificate{
-		SerialNumber: big.NewInt(time.Now().Unix()),
-		Subject: pkix.Name{
-			Organization: []string{certOrganization},
-			CommonName:   "Humpback Root CA",
-		},
-		NotBefore:             time.Now().Add(-10 * time.Minute), // 10分钟前开始生效
-		NotAfter:              time.Now().Add(caCertValidity),
-		KeyUsage:              x509.KeyUsageCertSign | x509.KeyUsageCRLSign,
-		IsCA:                  true,
-		BasicConstraintsValid: true,
-	}
-
-	// 自签名生成CA证书
-	caBytes, err := x509.CreateCertificate(rand.Reader, caTemplate, caTemplate, &caPrivateKey.PublicKey, caPrivateKey)
-	if err != nil {
-		return err
-	}
-
-	// 解析证书对象
-	caCert, err := x509.ParseCertificate(caBytes)
-	if err != nil {
-		return err
-	}
-
-	sm.CACert = caCert
-	sm.caPrivateKey = caPrivateKey
-
-	sm.SaveToFile(caCert, caPrivateKey, certPath, keyPath)
 
 	return nil
 }
 
+func GenerateWebsiteCert(certPath, keyPath string) (*CertificateBundle, error) {
+
+	if utils.FileExist(certPath) && utils.FileExist(keyPath) {
+		ca, key, err := LoadCertificateAndKey(certPath, keyPath)
+		if err == nil {
+			slog.Info("[Cert] Certs already exist, skip generating new certs.")
+
+			// PEM编码
+			certPEM := pem.EncodeToMemory(&pem.Block{
+				Type:  "CERTIFICATE",
+				Bytes: ca.Raw,
+			})
+
+			keyBytes, err := x509.MarshalECPrivateKey(key)
+			if err != nil {
+				return nil, err
+			}
+
+			keyPEM := pem.EncodeToMemory(&pem.Block{
+				Type:  "EC PRIVATE KEY",
+				Bytes: keyBytes,
+			})
+
+			return &CertificateBundle{
+				Cert:    ca,
+				PrivKey: key,
+				CertPEM: certPEM,
+				KeyPEM:  keyPEM,
+			}, nil
+		}
+	}
+
+	return CreateCertificateBundle("humpback-website")
+}
+
 // 从文件加载证书和私钥
-func (sm *SecurityManager) LoadCertificateAndKey(certFile, keyFile string) (*x509.Certificate, *ecdsa.PrivateKey, error) {
+func LoadCertificateAndKey(certFile, keyFile string) (*x509.Certificate, *ecdsa.PrivateKey, error) {
 	// 读取证书文件
 	certPEM, err := os.ReadFile(certFile)
 	if err != nil {
@@ -161,8 +141,57 @@ func (sm *SecurityManager) LoadCertificateAndKey(certFile, keyFile string) (*x50
 	return nil, nil, fmt.Errorf("invalid CA key")
 }
 
+// GenerateCA 生成根CA
+func GenerateCA() error {
+	// 生成私钥
+	caPrivateKey, err := ecdsa.GenerateKey(elliptic.P256(), rand.Reader)
+	if err != nil {
+		return err
+	}
+
+	// 创建证书模板
+	caTemplate := &x509.Certificate{
+		SerialNumber: big.NewInt(time.Now().Unix()),
+		Subject: pkix.Name{
+			Organization: []string{certOrganization},
+			CommonName:   "Humpback Root CA",
+		},
+		NotBefore:             time.Now().Add(-10 * time.Minute), // 10分钟前开始生效
+		NotAfter:              time.Now().Add(caCertValidity),
+		KeyUsage:              x509.KeyUsageCertSign | x509.KeyUsageCRLSign,
+		IsCA:                  true,
+		BasicConstraintsValid: true,
+	}
+
+	// 自签名生成CA证书
+	caBytes, err := x509.CreateCertificate(rand.Reader, caTemplate, caTemplate, &caPrivateKey.PublicKey, caPrivateKey)
+	if err != nil {
+		return err
+	}
+
+	// 解析证书对象
+	caCert, err := x509.ParseCertificate(caBytes)
+	if err != nil {
+		return err
+	}
+
+	sm.CACert = caCert
+	sm.caPrivateKey = caPrivateKey
+
+	// sm.SaveToFile(caCert, caPrivateKey, certPath, keyPath)
+
+	return nil
+}
+
+func GetRootCA() *x509.Certificate {
+	if sm == nil || sm.CACert == nil {
+		return nil
+	}
+	return sm.CACert
+}
+
 // 保存证书到文件（可选）
-func (sm *SecurityManager) SaveToFile(cert *x509.Certificate, privKey *ecdsa.PrivateKey, certPath, keyPath string) error {
+func SaveToFile(cert *x509.Certificate, privKey *ecdsa.PrivateKey, certPath, keyPath string) error {
 	// 保存证书
 	certFile, err := os.Create(certPath)
 	if err != nil {
@@ -196,7 +225,7 @@ func (sm *SecurityManager) SaveToFile(cert *x509.Certificate, privKey *ecdsa.Pri
 }
 
 // CreateCertificateBundle 为服务创建证书包
-func (sm *SecurityManager) CreateCertificateBundle(commonName string) (*CertificateBundle, error) {
+func CreateCertificateBundle(commonName string) (*CertificateBundle, error) {
 	if sm.CACert == nil || sm.caPrivateKey == nil {
 		return nil, errors.New("CA not initialized")
 	}
@@ -280,7 +309,7 @@ func (bundle *CertificateBundle) CreateTLSConfig(isWebsite bool) *tls.Config {
 }
 
 // GenerateWorkerToken 为worker生成JWT token
-func (sm *SecurityManager) GenerateWorkerToken(workerID string) (string, error) {
+func GenerateWorkerToken(workerID string) (string, error) {
 	claims := JWTClaims{
 		WorkerID: workerID,
 		RegisteredClaims: jwt.RegisteredClaims{
@@ -296,7 +325,7 @@ func (sm *SecurityManager) GenerateWorkerToken(workerID string) (string, error) 
 }
 
 // VerifyWorkerToken 验证worker token
-func (sm *SecurityManager) VerifyWorkerToken(tokenString string) (*JWTClaims, error) {
+func VerifyWorkerToken(tokenString string) (*JWTClaims, error) {
 	token, err := jwt.ParseWithClaims(tokenString, &JWTClaims{}, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])

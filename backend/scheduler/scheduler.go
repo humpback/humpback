@@ -2,12 +2,9 @@ package scheduler
 
 import (
 	"context"
-	"encoding/pem"
 	"fmt"
-	"log"
 	"log/slog"
 	"net/http"
-	"sync"
 	"time"
 
 	"humpback/config"
@@ -28,20 +25,15 @@ type HumpbackScheduler struct {
 	NodeHeartbeatChan   chan types.NodeSimpleInfo
 	ContainerChangeChan chan types.ContainerStatus
 	ServiceChangeChan   chan types.ServiceChangeInfo
-	security            *security.SecurityManager
-	workerCerts         map[string]*security.CertificateBundle
-	workerTokens        map[string]string // workerID -> token
-	sync.RWMutex
 }
 
-func NewHumpbackScheduler(sm *security.SecurityManager) *HumpbackScheduler {
+func NewHumpbackScheduler() *HumpbackScheduler {
 	hs := &HumpbackScheduler{}
 	hs.NodeHeartbeatChan = make(chan types.NodeSimpleInfo, 100)
 	hs.ContainerChangeChan = make(chan types.ContainerStatus, 100)
 	hs.ServiceChangeChan = make(chan types.ServiceChangeInfo, 100)
 	hs.serviceCtrl = NewServiceController(hs.NodeHeartbeatChan, hs.ContainerChangeChan, hs.ServiceChangeChan)
 	hs.nodeCtrl = NewNodeController(hs.NodeHeartbeatChan, hs.ContainerChangeChan)
-	hs.security = sm
 
 	node.NewCacheManager()
 
@@ -77,49 +69,12 @@ func doRegister(c *gin.Context) {
 
 	sc := c.MustGet("scheduler").(*HumpbackScheduler)
 
-	sc.Lock()
-	defer sc.Unlock()
-
-	var err error
-	certBundle, ok := sc.workerCerts[nodeId]
-
-	if !ok {
-		certBundle, err = sc.security.CreateCertificateBundle(nodeId)
-		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to create certificate"})
-			return
-		}
+	response, err := sc.nodeCtrl.HandlerNodeRegister(nodeId)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to create certificate"})
+	} else {
+		c.JSON(http.StatusOK, response)
 	}
-
-	token, ok := sc.workerTokens[nodeId]
-	if !ok {
-		token, err = sc.security.GenerateWorkerToken(nodeId)
-		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to generate token"})
-			return
-		}
-	}
-
-	sc.workerCerts[nodeId] = certBundle
-	sc.workerTokens[nodeId] = token
-
-	response := struct {
-		CertPEM string `json:"certPem"`
-		KeyPEM  string `json:"keyPem"`
-		Token   string `json:"token"`
-		CAPEM   string `json:"caPem"`
-	}{
-		CertPEM: string(certBundle.CertPEM),
-		KeyPEM:  string(certBundle.KeyPEM),
-		Token:   token,
-		CAPEM: string(pem.EncodeToMemory(&pem.Block{
-			Type:  "CERTIFICATE",
-			Bytes: sc.security.CACert.Raw,
-		})),
-	}
-
-	c.JSON(http.StatusOK, response)
-
 }
 
 func doHealth(c *gin.Context) {
@@ -139,23 +94,7 @@ func doHealth(c *gin.Context) {
 	sc := c.MustGet("scheduler").(*HumpbackScheduler)
 	sc.nodeCtrl.HeartBeat(payload)
 
-	sc.Lock()
-	defer sc.Unlock()
-
-	token := sc.workerTokens[nodeId]
-	var newToken string
-	claims, err := sc.security.VerifyWorkerToken(token)
-	if err == nil {
-		expiry := claims.ExpiresAt.Time
-		if time.Until(expiry) < tokenRefreshTime {
-			newToken, err := sc.security.GenerateWorkerToken(nodeId)
-			if err == nil {
-				sc.workerTokens[nodeId] = newToken
-				token = newToken
-				log.Printf("Refreshed token for worker %s\n", nodeId)
-			}
-		}
-	}
+	newToken := sc.nodeCtrl.RefreshNodeToken(nodeId)
 
 	c.JSON(http.StatusOK, gin.H{"token": newToken})
 }
@@ -177,8 +116,7 @@ func tokenAuthMiddleware(c *gin.Context) {
 	}
 
 	tokenString := token[7:]
-	sc := c.MustGet("scheduler").(*HumpbackScheduler)
-	_, err := sc.security.VerifyWorkerToken(tokenString)
+	_, err := security.VerifyWorkerToken(tokenString)
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "invalid token"})
 		c.Abort()

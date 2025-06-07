@@ -1,6 +1,7 @@
 package scheduler
 
 import (
+	"encoding/pem"
 	"log/slog"
 	"math/rand/v2"
 	"sync"
@@ -8,6 +9,7 @@ import (
 
 	"humpback/config"
 	"humpback/internal/db"
+	"humpback/security"
 	"humpback/types"
 )
 
@@ -15,6 +17,8 @@ type NodeController struct {
 	NodesInfo           map[string]*types.NodeSimpleInfo
 	NodeHeartbeatChan   chan types.NodeSimpleInfo
 	ContainerChangeChan chan types.ContainerStatus
+	WorkerCerts         map[string]*security.CertificateBundle
+	WorkerTokens        map[string]string // workerID -> token
 	CheckInterval       int64
 	CheckThreshold      int
 	ThresholdInvterval  int64
@@ -57,6 +61,66 @@ func (nc *NodeController) RestoreNodes() {
 			MemoryUsage:     node.MemoryUsage,
 		}
 	}
+}
+
+func (nc *NodeController) HandlerNodeRegister(nodeId string) (*types.NodeRegisterResponse, error) {
+	nc.Lock()
+	defer nc.Unlock()
+
+	var err error
+	certBundle, ok := nc.WorkerCerts[nodeId]
+
+	if !ok {
+		certBundle, err = security.CreateCertificateBundle(nodeId)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	token, ok := nc.WorkerTokens[nodeId]
+	if !ok {
+		token, err = security.GenerateWorkerToken(nodeId)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	nc.WorkerCerts[nodeId] = certBundle
+	nc.WorkerTokens[nodeId] = token
+
+	response := &types.NodeRegisterResponse{
+		CertPEM: string(certBundle.CertPEM),
+		KeyPEM:  string(certBundle.KeyPEM),
+		Token:   token,
+		CAPEM: string(pem.EncodeToMemory(&pem.Block{
+			Type:  "CERTIFICATE",
+			Bytes: security.GetRootCA().Raw,
+		})),
+	}
+
+	return response, nil
+}
+
+func (nc *NodeController) RefreshNodeToken(nodeId string) string {
+	nc.Lock()
+	defer nc.Unlock()
+
+	token := nc.WorkerTokens[nodeId]
+	var newToken string
+	claims, err := security.VerifyWorkerToken(token)
+	if err == nil {
+		expiry := claims.ExpiresAt.Time
+		if time.Until(expiry) < tokenRefreshTime {
+			newToken, err := security.GenerateWorkerToken(nodeId)
+			if err != nil {
+				slog.Error("Failed to generate new token", "node", nodeId, "error", err)
+			} else {
+				nc.WorkerTokens[nodeId] = newToken
+				slog.Info("Refreshed token", "node", nodeId)
+			}
+		}
+	}
+	return newToken
 }
 
 func (nc *NodeController) CheckNodes() {
