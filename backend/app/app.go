@@ -26,7 +26,7 @@ func InitApp() (*App, error) {
 		stopCh: make(chan struct{}),
 	}
 
-	err := security.InitSecurityManager()
+	err := security.InitSecurityManager(config.CertArgs().CertCacheFolder)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create security manager: %w", err)
 	}
@@ -56,7 +56,7 @@ func (app *App) Startup() {
 		panic(fmt.Errorf("failed to generate CA: %w", err))
 	}
 
-	websiteBundle, err := security.GenerateWebsiteCert(config.CertArgs().CertFile, config.CertArgs().KeyFile)
+	websiteBundle, err := security.GenerateWebsiteCert(config.CertArgs().SiteCertFile, config.CertArgs().SiteKeyFile)
 	if err != nil {
 		panic(fmt.Errorf("failed to create website certificate: %w", err))
 	}

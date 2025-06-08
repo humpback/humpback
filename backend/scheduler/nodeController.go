@@ -9,6 +9,7 @@ import (
 
 	"humpback/config"
 	"humpback/internal/db"
+	"humpback/internal/node"
 	"humpback/security"
 	"humpback/types"
 )
@@ -83,6 +84,14 @@ func (nc *NodeController) HandlerNodeRegister(nodeId string) (*types.NodeRegiste
 		if err != nil {
 			return nil, err
 		}
+		err = db.NodeUpdateAccessToken(nodeId, token)
+		if err != nil {
+			return nil, err
+		}
+		nodeInfo := types.NodeSimpleInfo{
+			NodeId: nodeId,
+		}
+		node.ClearNodeCache(nodeInfo)
 	}
 
 	nc.WorkerCerts[nodeId] = certBundle
@@ -115,8 +124,18 @@ func (nc *NodeController) RefreshNodeToken(nodeId string) string {
 			if err != nil {
 				slog.Error("Failed to generate new token", "node", nodeId, "error", err)
 			} else {
-				nc.WorkerTokens[nodeId] = newToken
-				slog.Info("Refreshed token", "node", nodeId)
+				err = db.NodeUpdateAccessToken(nodeId, newToken)
+				if err != nil {
+					slog.Error("Failed to update token in DB", "node", nodeId, "error", err)
+					newToken = ""
+				} else {
+					nodeInfo := types.NodeSimpleInfo{
+						NodeId: nodeId,
+					}
+					node.ClearNodeCache(nodeInfo)
+					nc.WorkerTokens[nodeId] = newToken
+					slog.Info("Refreshed token", "node", nodeId)
+				}
 			}
 		}
 	}

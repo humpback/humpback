@@ -9,10 +9,10 @@ node:
   hostIp: 0.0.0.0
   sitePort: 8100
 cert:
-  certFile: './certs/cert.crt'
-  keyFile: './certs/key.key'
-  host: 'localhost' # 证书绑定的域名或IP地址
-  enabled: false  # 只控制web站点是否启用
+  siteCertFile: './certs/cert.crt'
+  siteKeyFile: './certs/key.key'
+  siteCertEnabled: false  # 只控制web站点是否启用
+  certCacheFolder: './certs'
 db:
   root: './humpback.db'
   timeout: 5s

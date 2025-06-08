@@ -47,17 +47,19 @@ type CertificateBundle struct {
 
 // SecurityManager 安全管理器
 type SecurityManager struct {
-	CACert       *x509.Certificate
+	caCert       *x509.Certificate
 	caPrivateKey *ecdsa.PrivateKey
 	jwtSecret    []byte
+	cacheFolder  string
 }
 
 var sm *SecurityManager
 
 // NewSecurityManager 创建安全管理器实例
-func InitSecurityManager() error {
-	sm := &SecurityManager{}
+func InitSecurityManager(cacheFolder string) error {
+	sm = &SecurityManager{}
 
+	sm.cacheFolder = cacheFolder
 	// 生成安全的JWT密钥
 	sm.jwtSecret = make([]byte, 32) // 256-bit key
 	if _, err := rand.Read(sm.jwtSecret); err != nil {
@@ -141,8 +143,31 @@ func LoadCertificateAndKey(certFile, keyFile string) (*x509.Certificate, *ecdsa.
 	return nil, nil, fmt.Errorf("invalid CA key")
 }
 
+func generateFileName(commonName string) (string, string) {
+	// 生成证书和私钥的文件名
+	certFile := fmt.Sprintf("%s/%s.crt", sm.cacheFolder, commonName)
+	keyFile := fmt.Sprintf("%s/%s.key", sm.cacheFolder, commonName)
+	return certFile, keyFile
+}
+
 // GenerateCA 生成根CA
 func GenerateCA() error {
+
+	slog.Info("cache folder", "path", sm.cacheFolder)
+
+	commonName := "Humpback-Root-CA"
+	caFile, caKey := generateFileName(commonName)
+
+	if utils.FileExist(caFile) && utils.FileExist(caKey) {
+		caCert, caKey, err := LoadCertificateAndKey(caFile, caKey)
+		if err == nil {
+			slog.Info("[Cert] CA Certs already exist, skip generating new certs.")
+			sm.caCert = caCert
+			sm.caPrivateKey = caKey
+			return nil
+		}
+	}
+
 	// 生成私钥
 	caPrivateKey, err := ecdsa.GenerateKey(elliptic.P256(), rand.Reader)
 	if err != nil {
@@ -154,7 +179,7 @@ func GenerateCA() error {
 		SerialNumber: big.NewInt(time.Now().Unix()),
 		Subject: pkix.Name{
 			Organization: []string{certOrganization},
-			CommonName:   "Humpback Root CA",
+			CommonName:   commonName,
 		},
 		NotBefore:             time.Now().Add(-10 * time.Minute), // 10分钟前开始生效
 		NotAfter:              time.Now().Add(caCertValidity),
@@ -175,19 +200,19 @@ func GenerateCA() error {
 		return err
 	}
 
-	sm.CACert = caCert
+	sm.caCert = caCert
 	sm.caPrivateKey = caPrivateKey
 
-	// sm.SaveToFile(caCert, caPrivateKey, certPath, keyPath)
+	SaveToFile(caCert, caPrivateKey, caFile, caKey)
 
 	return nil
 }
 
 func GetRootCA() *x509.Certificate {
-	if sm == nil || sm.CACert == nil {
+	if sm == nil || sm.caCert == nil {
 		return nil
 	}
-	return sm.CACert
+	return sm.caCert
 }
 
 // 保存证书到文件（可选）
@@ -226,44 +251,59 @@ func SaveToFile(cert *x509.Certificate, privKey *ecdsa.PrivateKey, certPath, key
 
 // CreateCertificateBundle 为服务创建证书包
 func CreateCertificateBundle(commonName string) (*CertificateBundle, error) {
-	if sm.CACert == nil || sm.caPrivateKey == nil {
+	if sm.caCert == nil || sm.caPrivateKey == nil {
 		return nil, errors.New("CA not initialized")
 	}
 
-	// 生成私钥
-	privateKey, err := ecdsa.GenerateKey(elliptic.P256(), rand.Reader)
-	if err != nil {
-		return nil, err
-	}
+	certFile, certKey := generateFileName(commonName)
 
-	// 创建CSR模板
-	csrTemplate := &x509.Certificate{
-		SerialNumber: big.NewInt(time.Now().UnixNano()),
-		Subject: pkix.Name{
-			CommonName:   commonName,
-			Organization: []string{certOrganization},
-		},
-		NotBefore:   time.Now(),
-		NotAfter:    time.Now().Add(certValidity),
-		KeyUsage:    x509.KeyUsageDigitalSignature | x509.KeyUsageKeyEncipherment,
-		ExtKeyUsage: []x509.ExtKeyUsage{x509.ExtKeyUsageServerAuth, x509.ExtKeyUsageClientAuth},
-	}
+	var cert *x509.Certificate
+	var privateKey *ecdsa.PrivateKey
+	var err error
 
-	// 使用CA签名生成证书
-	certBytes, err := x509.CreateCertificate(rand.Reader, csrTemplate, sm.CACert, &privateKey.PublicKey, sm.caPrivateKey)
-	if err != nil {
-		return nil, err
-	}
+	if utils.FileExist(certFile) && utils.FileExist(certKey) {
+		cert, privateKey, err = LoadCertificateAndKey(certFile, certKey)
+		if err == nil {
+			slog.Info("[Cert] Certs already exist, skip generating new certs.", "commonName", commonName)
+		}
+	} else {
+		// 生成私钥
+		privateKey, err = ecdsa.GenerateKey(elliptic.P256(), rand.Reader)
+		if err != nil {
+			return nil, err
+		}
 
-	// 解析生成的证书
-	cert, err := x509.ParseCertificate(certBytes)
-	if err != nil {
-		return nil, err
+		// 创建CSR模板
+		csrTemplate := &x509.Certificate{
+			SerialNumber: big.NewInt(time.Now().UnixNano()),
+			Subject: pkix.Name{
+				CommonName:   commonName,
+				Organization: []string{certOrganization},
+			},
+			NotBefore:   time.Now(),
+			NotAfter:    time.Now().Add(certValidity),
+			KeyUsage:    x509.KeyUsageDigitalSignature | x509.KeyUsageKeyEncipherment,
+			ExtKeyUsage: []x509.ExtKeyUsage{x509.ExtKeyUsageServerAuth, x509.ExtKeyUsageClientAuth},
+		}
+
+		// 使用CA签名生成证书
+		certBytes, err := x509.CreateCertificate(rand.Reader, csrTemplate, sm.caCert, &privateKey.PublicKey, sm.caPrivateKey)
+		if err != nil {
+			return nil, err
+		}
+
+		// 解析生成的证书
+		cert, err = x509.ParseCertificate(certBytes)
+		if err != nil {
+			return nil, err
+		}
+
+		SaveToFile(cert, privateKey, certFile, certKey)
 	}
 
 	// 创建证书池
 	certPool := x509.NewCertPool()
-	certPool.AddCert(sm.CACert)
+	certPool.AddCert(sm.caCert)
 
 	// PEM编码
 	certPEM := pem.EncodeToMemory(&pem.Block{

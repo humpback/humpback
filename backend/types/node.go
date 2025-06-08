@@ -19,10 +19,11 @@ type Node struct {
 }
 
 type NodeRegisterInfo struct {
-	Token      string `json:"token"`
-	ExpireAt   int64  `json:"expireAt"`
-	IsRegister bool   `json:"isRegister"`
-	RegisterAt int64  `json:"registerAt"`
+	Token       string `json:"token"`
+	ExpireAt    int64  `json:"expireAt"`
+	IsRegister  bool   `json:"isRegister"`
+	RegisterAt  int64  `json:"registerAt"`
+	AccessToken string `json:"accessToken"`
 }
 
 type NodesGroups struct {

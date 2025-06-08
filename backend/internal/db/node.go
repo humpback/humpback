@@ -49,6 +49,16 @@ func NodesGetAll() ([]*types.Node, error) {
 	return GetDataAll[types.Node](BucketNodes)
 }
 
+func NodeUpdateAccessToken(nodeId, accessToken string) error {
+	node, err := GetDataById[types.Node](BucketNodes, nodeId)
+	if err != nil {
+		return err
+	}
+
+	node.RegisterInfo.AccessToken = accessToken
+	return SaveData(BucketNodes, nodeId, node)
+}
+
 func NodeUpdateStatus(nodeInfo *types.NodeSimpleInfo) error {
 	node, err := GetDataById[types.Node](BucketNodes, nodeInfo.NodeId)
 	if err != nil {

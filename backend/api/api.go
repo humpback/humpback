@@ -39,7 +39,7 @@ func (api *Router) Start(cert *security.CertificateBundle) {
 			Handler: api.engine,
 		}
 		var err error
-		if config.CertArgs().Enabled {
+		if config.CertArgs().SiteCertEnabled {
 			api.httpSrv.TLSConfig = cert.CreateTLSConfig(true)
 			err = api.httpSrv.ListenAndServeTLS("", "")
 		} else {
