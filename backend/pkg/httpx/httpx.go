@@ -7,6 +7,7 @@ import (
 	"humpback/common/response"
 
 	reqv3 "github.com/imroc/req/v3"
+	"golang.org/x/exp/slog"
 )
 
 type HttpXClient interface {
@@ -106,6 +107,7 @@ func (hx *httpxClient) Post(url string, query map[string]string, header map[stri
 func (hx *httpxClient) Delete(url string, query map[string]string, header map[string]string, data any, token string) error {
 	resp, err := hx.client.R().SetBearerAuthToken(token).SetQueryParams(query).SetHeaders(header).SetSuccessResult(data).Delete(url)
 	if err != nil {
+		slog.Error("HTTP DELETE request failed", "error", err)
 		return response.NewRespServerErr(err.Error())
 	}
 	if resp.IsSuccessState() || resp.GetStatusCode() == 404 {

@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"slices"
+	"time"
 
 	bolt "go.etcd.io/bbolt"
 
@@ -56,6 +57,10 @@ func NodeUpdateAccessToken(nodeId, accessToken string) error {
 	}
 
 	node.RegisterInfo.AccessToken = accessToken
+	if !node.RegisterInfo.IsRegister {
+		node.RegisterInfo.IsRegister = true
+		node.RegisterInfo.RegisterAt = time.Now().Unix()
+	}
 	return SaveData(BucketNodes, nodeId, node)
 }
 

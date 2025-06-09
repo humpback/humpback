@@ -36,6 +36,7 @@ func NewHumpbackScheduler() *HumpbackScheduler {
 	hs.nodeCtrl = NewNodeController(hs.NodeHeartbeatChan, hs.ContainerChangeChan)
 
 	node.NewCacheManager()
+	node.NewAgentManager()
 
 	return hs
 }
@@ -60,16 +61,21 @@ func doRegister(c *gin.Context) {
 		return
 	}
 
-	if !node.RegisterInfo.IsRegister ||
-		node.RegisterInfo.Token != payload.Token ||
-		time.Now().UnixMilli() > node.RegisterInfo.ExpireAt {
+	if !node.RegisterInfo.IsRegister &&
+		(node.RegisterInfo.Token != payload.Token ||
+			time.Now().Unix() > node.RegisterInfo.ExpireAt) {
+		c.JSON(http.StatusForbidden, gin.H{"error": "invalid token or expired"})
+		return
+	}
+
+	if node.RegisterInfo.IsRegister && node.RegisterInfo.Token != payload.Token {
 		c.JSON(http.StatusForbidden, gin.H{"error": "invalid token or expired"})
 		return
 	}
 
 	sc := c.MustGet("scheduler").(*HumpbackScheduler)
 
-	response, err := sc.nodeCtrl.HandlerNodeRegister(nodeId)
+	response, err := sc.nodeCtrl.HandlerNodeRegister(nodeId, payload.IpAddress)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to create certificate"})
 	} else {
@@ -143,25 +149,29 @@ func (scheduler *HumpbackScheduler) Start(cert *security.CertificateBundle) {
 
 		e.GET("/api/config/:name", tokenAuthMiddleware, getConfigByName)
 
-		e.GET("/mock/nodes", mockNodes)
+		/*
+			e.GET("/mock/nodes", mockNodes)
 
-		e.GET("/nodes", getAllNodes)
+			e.GET("/nodes", getAllNodes)
 
-		e.GET("/groups", getAllGroups)
+			e.GET("/groups", getAllGroups)
 
-		e.GET("/services", getAllServices)
+			e.GET("/services", getAllServices)
 
-		e.GET("/configs", getAllConfig)
+			e.GET("/configs", getAllConfig)
 
-		e.GET("/mock/service/:groupId/gateway", mockGatewayServices)
+			e.GET("/mock/node/:nodeId/container/:cid/stats", mockContainerStats)
 
-		e.GET("/mock/service/:groupId/web", mockWebServices)
+			e.GET("/mock/service/:groupId/gateway", mockGatewayServices)
 
-		e.GET("/mock/configs", mockConfigs)
+			e.GET("/mock/service/:groupId/web", mockWebServices)
 
-		e.GET("/mock/service/:groupId/schedule", mockScheduleServices)
+			e.GET("/mock/configs", mockConfigs)
 
-		e.GET("/mock/action/:serviceId/:action", mockServiceAction)
+			e.GET("/mock/service/:groupId/schedule", mockScheduleServices)
+
+			e.GET("/mock/action/:serviceId/:action", mockServiceAction)
+		*/
 
 		listeningAddress := fmt.Sprintf("%s:%s", config.NodeArgs().HostIp, config.BackendArgs().BackendPort)
 		slog.Info("[Scheduler Api] Listening...", "Address", listeningAddress)

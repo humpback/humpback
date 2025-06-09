@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"humpback/internal/db"
+	"humpback/internal/node"
 	"humpback/pkg/utils"
 	"humpback/types"
 
@@ -39,11 +40,16 @@ func mockNodes(c *gin.Context) {
 	node1 := &types.Node{
 		NodeId:    utils.GenerateRandomStringWithLength(8),
 		Name:      "hb001",
-		IpAddress: "172.30.198.172",
+		IpAddress: "172.30.124.234",
 		Port:      8018,
 		Status:    "Online",
 		IsEnable:  true,
 		CreatedAt: time.Now().Unix(),
+		RegisterInfo: types.NodeRegisterInfo{
+			IsRegister: false,
+			Token:      utils.GenerateRandomStringWithLength(16),
+			ExpireAt:   time.Now().Add(24 * time.Hour).Unix(),
+		},
 	}
 
 	db.SaveData(db.BucketNodes, node1.NodeId, node1)
@@ -134,6 +140,18 @@ func mockGatewayServices(c *gin.Context) {
 	sc.ServiceChangeChan <- svcChange
 
 	c.JSON(http.StatusOK, gin.H{"status": "ok"})
+}
+
+func mockContainerStats(c *gin.Context) {
+	nodeId := c.Param("nodeId")
+	cId := c.Param("cid")
+
+	cStatus, err := node.GetContainerStats(nodeId, cId)
+	if err != nil {
+		c.String(http.StatusInternalServerError, err.Error())
+	} else {
+		c.JSON(http.StatusOK, cStatus)
+	}
 }
 
 func mockWebServices(c *gin.Context) {

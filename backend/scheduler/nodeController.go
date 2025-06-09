@@ -4,6 +4,7 @@ import (
 	"encoding/pem"
 	"log/slog"
 	"math/rand/v2"
+	"net"
 	"sync"
 	"time"
 
@@ -12,6 +13,8 @@ import (
 	"humpback/internal/node"
 	"humpback/security"
 	"humpback/types"
+
+	"github.com/samber/lo"
 )
 
 type NodeController struct {
@@ -31,6 +34,8 @@ func NewNodeController(nodeChan chan types.NodeSimpleInfo, containerChan chan ty
 		NodesInfo:           make(map[string]*types.NodeSimpleInfo),
 		NodeHeartbeatChan:   nodeChan,
 		ContainerChangeChan: containerChan,
+		WorkerCerts:         make(map[string]*security.CertificateBundle),
+		WorkerTokens:        make(map[string]string),
 		CheckInterval:       int64(config.BackendArgs().CheckInterval),
 		CheckThreshold:      config.BackendArgs().CheckThreshold,
 		ThresholdInvterval:  int64(config.BackendArgs().CheckInterval) * int64(config.BackendArgs().CheckThreshold),
@@ -64,35 +69,36 @@ func (nc *NodeController) RestoreNodes() {
 	}
 }
 
-func (nc *NodeController) HandlerNodeRegister(nodeId string) (*types.NodeRegisterResponse, error) {
+func (nc *NodeController) HandlerNodeRegister(nodeId string, ipAddress []string) (*types.NodeRegisterResponse, error) {
 	nc.Lock()
 	defer nc.Unlock()
 
 	var err error
+
 	certBundle, ok := nc.WorkerCerts[nodeId]
-
 	if !ok {
-		certBundle, err = security.CreateCertificateBundle(nodeId)
+		ips := lo.Map(ipAddress, func(ip string, _ int) net.IP {
+			return net.ParseIP(ip)
+		})
+		certBundle, err = security.CreateCertificateBundle(nodeId, ips)
+
 		if err != nil {
 			return nil, err
 		}
 	}
 
-	token, ok := nc.WorkerTokens[nodeId]
-	if !ok {
-		token, err = security.GenerateWorkerToken(nodeId)
-		if err != nil {
-			return nil, err
-		}
-		err = db.NodeUpdateAccessToken(nodeId, token)
-		if err != nil {
-			return nil, err
-		}
-		nodeInfo := types.NodeSimpleInfo{
-			NodeId: nodeId,
-		}
-		node.ClearNodeCache(nodeInfo)
+	token, err := security.GenerateWorkerToken(nodeId)
+	if err != nil {
+		return nil, err
 	}
+	err = db.NodeUpdateAccessToken(nodeId, token)
+	if err != nil {
+		return nil, err
+	}
+	nodeInfo := types.NodeSimpleInfo{
+		NodeId: nodeId,
+	}
+	node.ClearNodeCache(nodeInfo)
 
 	nc.WorkerCerts[nodeId] = certBundle
 	nc.WorkerTokens[nodeId] = token
@@ -120,7 +126,7 @@ func (nc *NodeController) RefreshNodeToken(nodeId string) string {
 	if err == nil {
 		expiry := claims.ExpiresAt.Time
 		if time.Until(expiry) < tokenRefreshTime {
-			newToken, err := security.GenerateWorkerToken(nodeId)
+			newToken, err = security.GenerateWorkerToken(nodeId)
 			if err != nil {
 				slog.Error("Failed to generate new token", "node", nodeId, "error", err)
 			} else {

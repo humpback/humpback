@@ -36,20 +36,20 @@ func getAgent(nodeId string) httpx.HttpXClient {
 	var ok bool
 	agentManager.RLock()
 	agent, ok = agentManager.NodeAgents[nodeId]
-	defer agentManager.RUnlock()
+	agentManager.RUnlock()
 	if ok {
 		return agent
 	} else {
-		serverBundle, err := security.CreateCertificateBundle("humpback-server")
+		ip := utils.HostIP()
+		serverBundle, err := security.CreateCertificateBundle("humpback-server", ip)
 		if err != nil {
 			return nil
 		}
 		agent = httpx.NewHttpXClient(serverBundle.CreateTLSConfig(false))
 		agentManager.Lock()
 		agentManager.NodeAgents[nodeId] = agent
-		defer agentManager.Unlock()
+		agentManager.Unlock()
 		return agent
-
 	}
 }
 
@@ -57,7 +57,7 @@ func RemoveNodeContainer(nodeId string, containerId string, containerName string
 	// remove container
 	node := GetNodeInfo(nodeId)
 	if node != nil {
-		url := fmt.Sprintf("http://%s:%d/api/v1/container/%s?force=true&containerName=%s", node.IpAddress, node.Port, containerId, containerName)
+		url := fmt.Sprintf("https://%s:%d/api/v1/container/%s?force=true&containerName=%s", node.IpAddress, node.Port, containerId, containerName)
 		slog.Info("[Agent Helper] Remove container", "url", url)
 		agent := getAgent(nodeId)
 		if agent == nil {
@@ -78,7 +78,7 @@ func OperateNodeContainer(nodeId string, containerId string, action string) erro
 	if node == nil {
 		return ErrNodeNotExist
 	}
-	url := fmt.Sprintf("http://%s:%d/api/v1/container/%s/%s", node.IpAddress, node.Port, containerId, strings.ToLower(action))
+	url := fmt.Sprintf("https://%s:%d/api/v1/container/%s/%s", node.IpAddress, node.Port, containerId, strings.ToLower(action))
 	slog.Info("[Agent Helper] Operate container", "url", url)
 	agent := getAgent(nodeId)
 	if agent == nil {
@@ -113,7 +113,7 @@ func StartNewContainer(nodeId, containerName string, svc *types.Service) error {
 		}
 
 		utils.PrintJson(task)
-		url := fmt.Sprintf("http://%s:%d/api/v1/container", node.IpAddress, node.Port)
+		url := fmt.Sprintf("https://%s:%d/api/v1/container", node.IpAddress, node.Port)
 		slog.Info("[Agent Helper] Create container", "url", url)
 		agent := getAgent(nodeId)
 		if agent == nil {
@@ -142,7 +142,7 @@ func QueryContainerLogs(nodeId string, containerId string, querys map[string]str
 	if node == nil {
 		return nil, ErrNodeNotExist
 	}
-	url := fmt.Sprintf("http://%s:%d/api/v1/container/%s/logs", node.IpAddress, node.Port, containerId)
+	url := fmt.Sprintf("https://%s:%d/api/v1/container/%s/logs", node.IpAddress, node.Port, containerId)
 	data := make([]string, 0)
 	agent := getAgent(nodeId)
 	if agent == nil {
@@ -161,7 +161,7 @@ func GetContainerStats(nodeId string, containerId string) (*ContainerStats, erro
 		return nil, ErrNodeNotExist
 	}
 	var stats = new(ContainerStats)
-	url := fmt.Sprintf("http://%s:%d/api/v1/container/%s/stats", node.IpAddress, node.Port, containerId)
+	url := fmt.Sprintf("https://%s:%d/api/v1/container/%s/stats", node.IpAddress, node.Port, containerId)
 	agent := getAgent(nodeId)
 	if agent == nil {
 		return nil, ErrNodeNotExist

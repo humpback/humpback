@@ -10,6 +10,7 @@ import (
 	"humpback/config"
 	"humpback/internal/controller"
 	"humpback/internal/db"
+	"humpback/pkg/utils"
 	"humpback/scheduler"
 	"humpback/security"
 )
@@ -56,12 +57,14 @@ func (app *App) Startup() {
 		panic(fmt.Errorf("failed to generate CA: %w", err))
 	}
 
-	websiteBundle, err := security.GenerateWebsiteCert(config.CertArgs().SiteCertFile, config.CertArgs().SiteKeyFile)
+	ip := utils.HostIP()
+
+	websiteBundle, err := security.GenerateWebsiteCert(config.CertArgs().SiteCertFile, config.CertArgs().SiteKeyFile, ip)
 	if err != nil {
 		panic(fmt.Errorf("failed to create website certificate: %w", err))
 	}
 
-	serverBundle, err := security.CreateCertificateBundle("humpback-server")
+	serverBundle, err := security.CreateCertificateBundle("humpback-server", ip)
 	if err != nil {
 		panic(fmt.Errorf("failed to create master certificate: %w", err))
 	}

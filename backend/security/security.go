@@ -13,6 +13,7 @@ import (
 	"humpback/pkg/utils"
 	"log/slog"
 	"math/big"
+	"net"
 	"os"
 	"time"
 
@@ -26,8 +27,8 @@ const (
 	certOrganization = "Humpback"
 
 	// JWT相关常量
-	tokenValidity    = 24 * time.Hour // 24小时
-	tokenRefreshTime = 1 * time.Hour  // 在token还有1小时过期时刷新
+	tokenValidity = 24 * time.Hour // 24小时
+	// tokenRefreshTime = 30 * time.Minute // 在token还有1小时过期时刷新
 )
 
 // JWTClaims 自定义的JWT声明
@@ -60,16 +61,40 @@ func InitSecurityManager(cacheFolder string) error {
 	sm = &SecurityManager{}
 
 	sm.cacheFolder = cacheFolder
-	// 生成安全的JWT密钥
-	sm.jwtSecret = make([]byte, 32) // 256-bit key
-	if _, err := rand.Read(sm.jwtSecret); err != nil {
-		return fmt.Errorf("failed to generate JWT secret: %w", err)
+
+	fn := "system-secret"
+	data, err := loadSecurityFromFile(fn)
+
+	if err != nil || data == nil {
+		sm.jwtSecret = make([]byte, 32) // 256-bit key
+		if _, err := rand.Read(sm.jwtSecret); err != nil {
+			return fmt.Errorf("failed to generate JWT secret: %w", err)
+		}
+
+		// 保存到文件
+		os.WriteFile(fmt.Sprintf("%s/%s.txt", sm.cacheFolder, fn), sm.jwtSecret, 0600)
+
+	} else {
+		sm.jwtSecret = data
+		slog.Info("[Security] Loaded JWT secret from file", "file", fn)
 	}
 
 	return nil
 }
 
-func GenerateWebsiteCert(certPath, keyPath string) (*CertificateBundle, error) {
+func loadSecurityFromFile(fn string) ([]byte, error) {
+	keyFile := fmt.Sprintf("%s/%s.txt", sm.cacheFolder, fn)
+	if utils.FileExist(keyFile) {
+		data, err := os.ReadFile(keyFile)
+		if err != nil {
+			return nil, fmt.Errorf("read %s failed: %v", keyFile, err)
+		}
+		return data, nil
+	}
+	return nil, fmt.Errorf("file %s does not exist", keyFile)
+}
+
+func GenerateWebsiteCert(certPath, keyPath string, ipAddresses []net.IP) (*CertificateBundle, error) {
 
 	if utils.FileExist(certPath) && utils.FileExist(keyPath) {
 		ca, key, err := LoadCertificateAndKey(certPath, keyPath)
@@ -101,7 +126,7 @@ func GenerateWebsiteCert(certPath, keyPath string) (*CertificateBundle, error) {
 		}
 	}
 
-	return CreateCertificateBundle("humpback-website")
+	return CreateCertificateBundle("humpback-website", ipAddresses)
 }
 
 // 从文件加载证书和私钥
@@ -250,7 +275,7 @@ func SaveToFile(cert *x509.Certificate, privKey *ecdsa.PrivateKey, certPath, key
 }
 
 // CreateCertificateBundle 为服务创建证书包
-func CreateCertificateBundle(commonName string) (*CertificateBundle, error) {
+func CreateCertificateBundle(commonName string, ipAddresses []net.IP) (*CertificateBundle, error) {
 	if sm.caCert == nil || sm.caPrivateKey == nil {
 		return nil, errors.New("CA not initialized")
 	}
@@ -280,6 +305,7 @@ func CreateCertificateBundle(commonName string) (*CertificateBundle, error) {
 				CommonName:   commonName,
 				Organization: []string{certOrganization},
 			},
+			IPAddresses: ipAddresses,
 			NotBefore:   time.Now(),
 			NotAfter:    time.Now().Add(certValidity),
 			KeyUsage:    x509.KeyUsageDigitalSignature | x509.KeyUsageKeyEncipherment,
