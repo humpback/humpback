@@ -8,13 +8,7 @@ To get started, you will need the latest version of Docker installed and working
 
 ## Deployment Humpback
 
-First, create the volume that Humpback will use to store its database:
-
-```bash
-docker volume create humpback_data
-```
-
-Then, install the Humpback container:
+Install the Humpback container:
 
 ```bash
 docker run -d \
@@ -23,7 +17,7 @@ docker run -d \
   -p 8101:8101 \
   --restart=always \
   -v humpback_data:/workspace/data \
-  -e LOCATION=prd \
+  -v humpback_certs:/workspace/certs \
   humpbacks/humpback:latest
 ```
 

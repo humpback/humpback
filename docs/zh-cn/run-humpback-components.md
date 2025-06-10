@@ -8,13 +8,7 @@ Humpback 由两个核心组件构成：Humpback 和 Humpback Agent。这两个�
 
 ## 部署Hummpback
 
-首先，创建一个volume用于存储Humpback的数据库：
-
-```bash
-docker volume create humpback_data
-```
-
-接下，使用下面的命令创建Humpback容器：
+使用下面的命令创建Humpback容器：
 
 ```bash
 docker run -d \
@@ -23,7 +17,7 @@ docker run -d \
   -p 8101:8101 \
   --restart=always \
   -v humpback_data:/workspace/data \
-  -e LOCATION=prd \
+  -v humpback_certs:/workspace/certs \
   humpbacks/humpback
 ```
 

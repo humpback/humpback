@@ -497,6 +497,13 @@ declare module 'vue' {
     readonly IconMdiTextBoxOutline: UnwrapRef<typeof import('~icons/mdi/text-box-outline')['default']>
     readonly IconMdiUserOutline: UnwrapRef<typeof import('~icons/mdi/user-outline')['default']>
     readonly IconMdiViewDashboard: UnwrapRef<typeof import('~icons/mdi/view-dashboard')['default']>
+    readonly IconNotoGrinningFace: UnwrapRef<typeof import('~icons/noto/grinning-face')['default']>
+    readonly IconNotoMeltingFace: UnwrapRef<typeof import('~icons/noto/melting-face')['default']>
+    readonly IconNotoSalutingFace: UnwrapRef<typeof import('~icons/noto/saluting-face')['default']>
+    readonly IconNotoSleepingFace: UnwrapRef<typeof import('~icons/noto/sleeping-face')['default']>
+    readonly IconNotoSmilingFaceWithSunglasses: UnwrapRef<typeof import('~icons/noto/smiling-face-with-sunglasses')['default']>
+    readonly IconNotoWinkingFace: UnwrapRef<typeof import('~icons/noto/winking-face')['default']>
+    readonly IconNotoYawningFace: UnwrapRef<typeof import('~icons/noto/yawning-face')['default']>
     readonly IncludesIgnoreCase: UnwrapRef<typeof import('./src/utils/common')['IncludesIgnoreCase']>
     readonly IsAdmin: UnwrapRef<typeof import('./src/utils/common')['IsAdmin']>
     readonly IsEmpty: UnwrapRef<typeof import('./src/utils/rule')['IsEmpty']>
