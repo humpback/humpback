@@ -11,7 +11,7 @@ docker run -d \
 -v /var/lib/humpback/certs:/workspace/certs \
 -e SITE_PORT=8300 \
 -e BACKEND_PORT=8301 \
-docker.io/humpbacks/humpback-server:latest
+docker.io/humpbacks/humpback:latest
 
 
 ## 使用volune挂载
@@ -25,6 +25,6 @@ docker run -d \
 -v humpback_certs:/workspace/certs \
 -e SITE_PORT=8300 \
 -e BACKEND_PORT=8301 \
-docker.io/humpbacks/humpback-server:latest
+docker.io/humpbacks/humpback:latest
 
 ```
