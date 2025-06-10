@@ -1,4 +1,4 @@
-FROM harbor.newegg.org/base/alpine:3
+FROM alpine:latest
 
 LABEL maintainer="skyler.w.yang"
 
