@@ -17,6 +17,13 @@ type NodeConfig struct {
     SitePort string `yaml:"sitePort" json:"sitePort" env:"SITE_PORT"`
 }
 
+type CertConfig struct {
+    SiteCertFile    string `yaml:"siteCertFile" json:"siteCertFile" env:"SITE_CERT_FILE"`
+    SiteKeyFile     string `yaml:"siteKeyFile" json:"siteKeyFile" env:"SITE_KEY_FILE"`
+    SiteCertEnabled bool   `yaml:"siteCertEnabled" json:"siteCertEnabled" env:"SITE_CERT_ENABLED"`
+    CertCacheFolder string `yaml:"certCacheFolder" json:"certCacheFolder" env:"CERT_CACHE_FOLDER"`
+}
+
 type BackendConfig struct {
     BackendPort          string `yaml:"backendPort" json:"backendPort" env:"BACKEND_PORT"`
     CheckInterval        int    `yaml:"checkInterval" json:"checkInterval" env:"BACKEND_CHECKINTERVAL"`
@@ -48,6 +55,7 @@ type AdminConfig struct {
 type config struct {
     Version  string        `yaml:"version" json:"version"`
     Location string        `yaml:"location" json:"location" env:"LOCATION"`
+    Cert     CertConfig    `yaml:"cert" json:"cert"`
     Html     HtmlConfig    `yaml:"html" json:"html"`
     Node     NodeConfig    `yaml:"node" json:"node"`
     DB       DBConfig      `yaml:"db" json:"db"`
@@ -56,15 +64,16 @@ type config struct {
 }
 
 func InitConfig() error {
-    configuration = new(config)
-    if err := readConfigFile("./config/config.yaml"); err != nil {
-        return err
+    var (
+        location   = strings.ToLower(getEnvLocation())
+        configPath = "./config/config.yaml"
+    )
+    if location == "local" {
+        configPath = "./config/config_local.yaml"
     }
-    
-    if location := getEnvLocation(); location != "" {
-        if err := readConfigFile(fmt.Sprintf("./config/config_%s.yaml", strings.ToLower(location))); err != nil {
-            return err
-        }
+    configuration = new(config)
+    if err := readConfigFile(configPath); err != nil {
+        return err
     }
     if err := env.Parse(configuration); err != nil {
         return err
@@ -97,6 +106,10 @@ func getEnvLocation() string {
 
 func Location() string {
     return configuration.Location
+}
+
+func CertArgs() CertConfig {
+    return configuration.Cert
 }
 
 func HtmlArgs() HtmlConfig {

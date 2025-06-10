@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"slices"
+	"time"
 
 	bolt "go.etcd.io/bbolt"
 
@@ -47,6 +48,20 @@ func NodesGetTotalAndAbnormalByIds(nodes map[string]bool) (int, int, []*types.No
 
 func NodesGetAll() ([]*types.Node, error) {
 	return GetDataAll[types.Node](BucketNodes)
+}
+
+func NodeUpdateAccessToken(nodeId, accessToken string) error {
+	node, err := GetDataById[types.Node](BucketNodes, nodeId)
+	if err != nil {
+		return err
+	}
+
+	node.RegisterInfo.AccessToken = accessToken
+	if !node.RegisterInfo.IsRegister {
+		node.RegisterInfo.IsRegister = true
+		node.RegisterInfo.RegisterAt = time.Now().Unix()
+	}
+	return SaveData(BucketNodes, nodeId, node)
 }
 
 func NodeUpdateStatus(nodeInfo *types.NodeSimpleInfo) error {

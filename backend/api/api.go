@@ -5,11 +5,13 @@ import (
 	"fmt"
 	"log/slog"
 	"net/http"
+	"os"
 
 	"humpback/api/handle"
 	"humpback/api/middleware"
 	"humpback/api/static"
 	"humpback/config"
+	"humpback/security"
 	"humpback/types"
 
 	"github.com/gin-gonic/gin"
@@ -28,7 +30,7 @@ func InitRouter(nodeCh chan types.NodeSimpleInfo, serviceCh chan types.ServiceCh
 	return r
 }
 
-func (api *Router) Start() {
+func (api *Router) Start(cert *security.CertificateBundle) {
 	go func() {
 		listeningAddress := fmt.Sprintf("%s:%s", config.NodeArgs().HostIp, config.NodeArgs().SitePort)
 		slog.Info("[Site Api] Listening...", "Address", listeningAddress)
@@ -36,8 +38,16 @@ func (api *Router) Start() {
 			Addr:    listeningAddress,
 			Handler: api.engine,
 		}
-		if err := api.httpSrv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+		var err error
+		if config.CertArgs().SiteCertEnabled {
+			api.httpSrv.TLSConfig = cert.CreateTLSConfig(true)
+			err = api.httpSrv.ListenAndServeTLS("", "")
+		} else {
+			err = api.httpSrv.ListenAndServe()
+		}
+		if err != nil && err != http.ErrServerClosed {
 			slog.Error("[Site Api] Listening failed", "Address", listeningAddress, "Error", err)
+			os.Exit(98)
 		}
 	}()
 }

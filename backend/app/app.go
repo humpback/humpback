@@ -2,13 +2,17 @@ package app
 
 import (
 	"context"
+	"fmt"
 	"log/slog"
 
 	"humpback/api"
 	"humpback/api/static"
+	"humpback/config"
 	"humpback/internal/controller"
 	"humpback/internal/db"
+	"humpback/pkg/utils"
 	"humpback/scheduler"
+	"humpback/security"
 )
 
 type App struct {
@@ -18,12 +22,21 @@ type App struct {
 }
 
 func InitApp() (*App, error) {
-	scheduler := scheduler.NewHumpbackScheduler()
+
 	app := &App{
-		webSite:   api.InitRouter(scheduler.NodeHeartbeatChan, scheduler.ServiceChangeChan),
-		scheduler: scheduler,
-		stopCh:    make(chan struct{}),
+		stopCh: make(chan struct{}),
 	}
+
+	err := security.InitSecurityManager(config.CertArgs().CertCacheFolder)
+	if err != nil {
+		return nil, fmt.Errorf("failed to create security manager: %w", err)
+	}
+
+	scheduler := scheduler.NewHumpbackScheduler()
+	app.scheduler = scheduler
+
+	app.webSite = api.InitRouter(scheduler.NodeHeartbeatChan, scheduler.ServiceChangeChan)
+
 	slog.Info("[Init DB] Init DB driver...")
 	if err := db.InitDB(); err != nil {
 		return nil, err
@@ -39,9 +52,26 @@ func InitApp() (*App, error) {
 }
 
 func (app *App) Startup() {
+
+	if err := security.GenerateCA(); err != nil {
+		panic(fmt.Errorf("failed to generate CA: %w", err))
+	}
+
+	ip := utils.HostIP()
+
+	websiteBundle, err := security.GenerateWebsiteCert(config.CertArgs().SiteCertFile, config.CertArgs().SiteKeyFile, ip)
+	if err != nil {
+		panic(fmt.Errorf("failed to create website certificate: %w", err))
+	}
+
+	serverBundle, err := security.CreateCertificateBundle("humpback-server", ip)
+	if err != nil {
+		panic(fmt.Errorf("failed to create master certificate: %w", err))
+	}
+
 	controller.Start(app.stopCh)
-	app.scheduler.Start()
-	app.webSite.Start()
+	app.scheduler.Start(serverBundle)
+	app.webSite.Start(websiteBundle)
 }
 
 func (app *App) Close(c context.Context) error {

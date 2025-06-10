@@ -1,5 +1,5 @@
 version: 1.0.0
-location: prd
+location: local # local / dev / prd
 backend:
   checkInterval: 30
   serviceCheckInterval: 10
@@ -9,15 +9,15 @@ node:
   hostIp: 0.0.0.0
   sitePort: 8100
 html:
-  dir: './web'
-  load: true
+  dir: '../front/projects/web/dist'
+  load: false
 cert:
-  siteCertFile: '/workspace/certs/cert.pem'
-  siteKeyFile: '/workspace/certs/key.pem'
-  siteCertEnabled: true  # 只控制web站点是否启用
-  certCacheFolder: '/workspace/certs'
+  siteCertFile: './certs/cert.crt'
+  siteKeyFile: './certs/key.key'
+  siteCertEnabled: false  # 只控制web站点是否启用
+  certCacheFolder: './certs'
 db:
-  root: '/workspace/data/humpback.db'
+  root: './humpback.db'
   timeout: 5s
   sessionTimeout: 12h
   sessionGCInterval: 24h

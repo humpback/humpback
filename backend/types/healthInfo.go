@@ -34,3 +34,8 @@ type HealthInfo struct {
 	DockerEngine  DockerEngine      `json:"dockerEngine"`
 	ContainerList []ContainerStatus `json:"containers"`
 }
+
+type RegisterInfo struct {
+	IpAddress []string `json:"hostIPs"`
+	Token     string   `json:"token"`
+}

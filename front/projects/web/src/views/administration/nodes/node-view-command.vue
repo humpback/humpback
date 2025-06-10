@@ -11,7 +11,7 @@ const dialogInfo = ref({
   info: {} as NodeInfo
 })
 
-const command = computed(() => NewCommand(dialogInfo.value.info?.ipAddress, dialogInfo.value.isUninstall))
+const command = computed(() => NewCommand(dialogInfo.value.info?.ipAddress, dialogInfo.value.info?.registerInfo.token, dialogInfo.value.isUninstall))
 
 function open(info: NodeInfo) {
   dialogInfo.value.info = cloneDeep(info)
