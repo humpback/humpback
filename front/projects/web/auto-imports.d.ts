@@ -493,7 +493,11 @@ declare module 'vue' {
     readonly IconMdiCogOutline: UnwrapRef<typeof import('~icons/mdi/cog-outline')['default']>
     readonly IconMdiCompany: UnwrapRef<typeof import('~icons/mdi/company')['default']>
     readonly IconMdiLogoutVariant: UnwrapRef<typeof import('~icons/mdi/logout-variant')['default']>
+    readonly IconMdiPlay: UnwrapRef<typeof import('~icons/mdi/play')['default']>
+    readonly IconMdiRestart: UnwrapRef<typeof import('~icons/mdi/restart')['default']>
     readonly IconMdiServer: UnwrapRef<typeof import('~icons/mdi/server')['default']>
+    readonly IconMdiSquare: UnwrapRef<typeof import('~icons/mdi/square')['default']>
+    readonly IconMdiStopCircleOutline: UnwrapRef<typeof import('~icons/mdi/stop-circle-outline')['default']>
     readonly IconMdiTextBoxOutline: UnwrapRef<typeof import('~icons/mdi/text-box-outline')['default']>
     readonly IconMdiUserOutline: UnwrapRef<typeof import('~icons/mdi/user-outline')['default']>
     readonly IconMdiViewDashboard: UnwrapRef<typeof import('~icons/mdi/view-dashboard')['default']>
