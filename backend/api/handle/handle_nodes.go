@@ -15,6 +15,7 @@ import (
 
 func RouteNodes(router *gin.RouterGroup) {
     router.POST("", middleware.CheckAdminPermissions(), nodesCreate)
+    router.PUT("/:id/refresh-register-token", middleware.CheckAdminPermissions(), nodeRefreshToken)
     router.PUT("/labels", middleware.CheckAdminPermissions(), nodeUpdateLabels)
     router.PUT("/switch", middleware.CheckAdminPermissions(), nodeUpdateSwitch)
     router.GET("/:id/info", node)
@@ -36,6 +37,15 @@ func nodesCreate(c *gin.Context) {
     }
     
     c.JSON(http.StatusOK, list)
+}
+
+func nodeRefreshToken(c *gin.Context) {
+    result, err := controller.NodeRefreshToken(middleware.GetUserInfo(c), middleware.GetNodeChannel(c), c.Param("id"))
+    if err != nil {
+        middleware.AbortErr(c, err)
+        return
+    }
+    c.JSON(http.StatusOK, result)
 }
 
 func nodeUpdateLabels(c *gin.Context) {

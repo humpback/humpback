@@ -7,6 +7,7 @@ import NodeDelete from "./node-delete.vue"
 import NodeEnable from "./node-enable.vue"
 import NodeEditLabel from "./node-edit-label.vue"
 import NodeViewCommand from "./node-view-command.vue"
+import NodeRefreshRegisterToken from "./node-refresh-register-token.vue"
 import { QueryNodesInfo, statusOptions } from "./common.ts"
 
 const { t } = useI18n()
@@ -28,6 +29,7 @@ const editLabelRef = useTemplateRef<InstanceType<typeof NodeEditLabel>>("editLab
 const viewValueRef = useTemplateRef<InstanceType<typeof NodeViewCommand>>("viewValueRef")
 const enableRef = useTemplateRef<InstanceType<typeof NodeEnable>>("enableRef")
 const deleteRef = useTemplateRef<InstanceType<typeof NodeDelete>>("deleteRef")
+const refreshRegisterTokenRef = useTemplateRef<InstanceType<typeof NodeRefreshRegisterToken>>("refreshRegisterTokenRef")
 
 async function search() {
   await router.replace(queryInfo.value.urlQuery())
@@ -45,6 +47,9 @@ function openAction(action: string, info?: NodeInfo) {
   switch (action) {
     case Action.Add:
       addRef.value?.open()
+      break
+    case Action.RefreshRegisterToken:
+      refreshRegisterTokenRef.value?.open(info!)
       break
     case Action.EditLabel:
       editLabelRef.value?.open(info!)
@@ -177,6 +182,9 @@ onMounted(() => search())
                   <el-dropdown-item :command="Action.EditLabel">
                     <el-link :underline="false" type="primary">{{ t("btn.editLabel") }}</el-link>
                   </el-dropdown-item>
+                  <el-dropdown-item v-if="!scope.row.registerInfo.isRegister" :command="Action.RefreshRegisterToken">
+                    <el-link :underline="false" type="primary">{{ t("btn.refreshRegisterToken") }}</el-link>
+                  </el-dropdown-item>
                   <el-dropdown-item :command="Action.Enable">
                     <el-link :type="scope.row.isEnable ? 'info' : 'success'" :underline="false">
                       {{ scope.row.isEnable ? t("btn.disable") : t("btn.enable") }}
@@ -202,6 +210,8 @@ onMounted(() => search())
     <node-enable ref="enableRef" @refresh="search()" />
 
     <node-delete ref="deleteRef" @refresh="search()" />
+
+    <node-refresh-register-token ref="refreshRegisterTokenRef" @refresh="search()" />
   </div>
 </template>
 

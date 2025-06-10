@@ -1,6 +1,8 @@
 package controller
 
 import (
+    "time"
+    
     "github.com/jinzhu/copier"
     "humpback/api/handle/models"
     "humpback/common/locales"
@@ -42,6 +44,31 @@ func NodeCreate(operator *types.User, nodeCh chan types.NodeSimpleInfo, nodes mo
         UserId:   operator.UserId,
     })
     return addNodes, nil
+}
+
+func NodeRefreshToken(operator *types.User, nodeCh chan types.NodeSimpleInfo, nodeId string) (string, error) {
+    node, err := Node(nodeId)
+    if err != nil {
+        return "", err
+    }
+    if node.RegisterInfo.IsRegister {
+        return node.NodeId, response.NewBadRequestErr(locales.CodeNodesIsRegistered)
+    }
+    node.RegisterInfo.Token = utils.NewGuidStr()
+    node.RegisterInfo.ExpireAt = time.Now().Add(60 * time.Minute).UnixMilli()
+    node.UpdatedAt = utils.NewActionTimestamp()
+    if err = db.NodeUpdate(node); err != nil {
+        return "", response.NewRespServerErr(err.Error())
+    }
+    sendNodeEvent(nodeCh, node.NodeId, "")
+    InsertNodeActivity(&ActivityNodeInfo{
+        OldNodeInfo:  node,
+        NewNodeInfo:  node,
+        Action:       types.ActivityActionRefreshRegisterToken,
+        OperatorInfo: operator,
+        OperateAt:    node.UpdatedAt,
+    })
+    return node.NodeId, nil
 }
 
 func NodeUpdateLabel(operator *types.User, nodeCh chan types.NodeSimpleInfo, info *models.NodeUpdateLabelReqInfo) (string, error) {

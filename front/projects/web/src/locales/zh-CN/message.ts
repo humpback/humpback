@@ -7,6 +7,7 @@ export default {
     "cloneSuccess": "克隆成功",
     "deleteSuccess": "删除成功",
     "removeSuccess": "移除成功",
+    "refreshSuccess": "刷新成功",
     "operateSuccess": "操作成功",
     "loginSuccess": "登录成功",
     "copySucceed": "复制成功",
@@ -33,6 +34,7 @@ export default {
     "removeNodeFromGroup": "您确定要从分组中移除机器吗？",
     "enterKeywordsContinue": "请输入<span class='keywords-danger'>{ name }</span>以继续。",
     "enableNode": "您确定要启用机器<span class='keywords-warning'>{ ip }</span>吗？",
-    "disableNode": "您确定要停用机器<span class='keywords-warning'>{ ip }</span>吗？"
+    "disableNode": "您确定要停用机器<span class='keywords-warning'>{ ip }</span>吗？",
+    "refreshRegisterToken": "<span style='line-height:24px'>您确定要刷新机器<span class='keywords-warning'>{ip}</span>的注册令牌? 刷新后请重新安装！</span>"
   }
 }

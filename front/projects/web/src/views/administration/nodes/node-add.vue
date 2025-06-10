@@ -86,7 +86,7 @@ defineExpose({ open })
 </script>
 
 <template>
-  <v-dialog v-model="dialogInfo.show" :close-on-press-escape="false" width="660px" @closed="close()">
+  <v-dialog v-model="dialogInfo.show" :close-on-press-escape="false" width="800px" @closed="close()">
     <template #header>{{ t("header.addNodes") }}</template>
     <div v-if="!dialogInfo.success">
       <v-tips>{{ t("tips.addNodesTips") }}</v-tips>
