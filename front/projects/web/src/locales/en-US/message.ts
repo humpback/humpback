@@ -7,6 +7,7 @@ export default {
     "cloneSuccess": "Clone Successfully",
     "deleteSuccess": "Delete Successfully",
     "removeSuccess": "Remove Successfully",
+    "refreshSuccess": "Refresh Successfully",
     "operateSuccess": "Successful operation",
     "loginSuccess": "Login Successful",
     "copySucceed": "Copy successful",
@@ -33,6 +34,8 @@ export default {
     "removeNodeFromGroup": "Are you sure you want to remove node from the group?",
     "enterKeywordsContinue": "Please enter <span class='keywords-danger'>{name}</span> to continue.",
     "enableNode": "Are you sure you want to enable node <span class='keywords-warning'>{ip}</span> ?",
-    "disableNode": "Are you sure you want to disable node <span class='keywords-danger'>{ip}</span> ?"
+    "disableNode": "Are you sure you want to disable node <span class='keywords-danger'>{ip}</span> ?",
+    "refreshRegisterToken":
+      "<span style='line-height:24px'>Are you sure you want to refresh node <span class='keywords-warning'>{ip}</span> register token? Please reinstall after refreshing!</span>"
   }
 }

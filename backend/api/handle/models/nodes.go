@@ -35,7 +35,7 @@ func (n *NodesCreateReqInfo) Check() error {
 func (n *NodesCreateReqInfo) NewNodesInfo() []*types.Node {
     result := make([]*types.Node, 0)
     nowT := utils.NewActionTimestamp()
-    expireAt := time.Now().Add(30 * time.Minute).UnixMilli()
+    expireAt := time.Now().Add(60 * time.Minute).UnixMilli()
     for _, ip := range *n {
         result = append(result, &types.Node{
             NodeId:      utils.NewGuidStr(),

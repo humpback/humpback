@@ -18,6 +18,7 @@ export default {
     "removeNode": "Remove Node",
     "enableNode": "Enable Node",
     "disableNode": "Enable Node",
+    "refreshRegisterToken": "Refresh Register Token",
     "addRegistry": "Add Registry",
     "editRegistry": "Edit Registry",
     "deleteRegistry": "Delete Registry",

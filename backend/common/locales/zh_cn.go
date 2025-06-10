@@ -79,6 +79,7 @@ var zhCnMsg = map[string]string{
     CodeNodesLabelValueIsEmpty:     "标签值不能为空。",
     CodeNodesLabelKeyIsDuplicated:  "标签名重复。",
     CodeNodesIpAddressAlreadyExist: "IP地址已存在。",
+    CodeNodesIsRegistered:          "机器已经注册。",
     
     CodeGroupIdNotEmpty:       "分组ID不能为空。",
     CodeGroupNotExist:         "分组不存在。",

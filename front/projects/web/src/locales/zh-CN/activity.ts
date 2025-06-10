@@ -18,6 +18,7 @@ export default {
     },
     node: {
       "Add": "添加机器",
+      "RefreshRegisterToken": "刷新机器注册令牌",
       "UpdateLabel": "更新机器标签。",
       "Delete": "删除机器。",
       "Enable": "启用机器。",

@@ -79,6 +79,7 @@ var enUSMsg = map[string]string{
     CodeNodesLabelValueIsEmpty:     "The label value cannot be empty.",
     CodeNodesLabelKeyIsDuplicated:  "The label key is duplicated.",
     CodeNodesIpAddressAlreadyExist: "The IP address is already.",
+    CodeNodesIsRegistered:          "The node is registered.",
     
     CodeGroupIdNotEmpty:       "The group ID cannot be empty.",
     CodeGroupNotExist:         "The group does not exist.",
