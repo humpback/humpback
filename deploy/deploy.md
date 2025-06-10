@@ -9,7 +9,6 @@ docker run -d \
 -v /etc/localtime:/etc/localtime \
 -v /var/lib/humpback/data:/workspace/data \
 -v /var/lib/humpback/certs:/workspace/certs \
--e LOCATION=dev \
 -e SITE_PORT=8300 \
 -e BACKEND_PORT=8301 \
 docker.io/humpbacks/humpback-server:latest
@@ -24,7 +23,6 @@ docker run -d \
 -v /etc/localtime:/etc/localtime \
 -v humpback_data:/workspace/data \
 -v humpback_certs:/workspace/certs \
--e LOCATION=dev \
 -e SITE_PORT=8300 \
 -e BACKEND_PORT=8301 \
 docker.io/humpbacks/humpback-server:latest
