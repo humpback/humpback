@@ -136,6 +136,7 @@ export default {
     "restart": "重启",
     "createTime": "创建时间",
     "startTime": "开始时间",
+    "startupTime": "启动时间",
     "nextTime": "下次运行时间",
     "instance": "实例",
     "lines": "行数",

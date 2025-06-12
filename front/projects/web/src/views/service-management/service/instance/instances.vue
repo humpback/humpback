@@ -96,7 +96,7 @@ onMounted(async () => {
                       <el-icon :size="14">
                         <IconMdiClockTimeFourOutline />
                       </el-icon>
-                      {{ t("label.startTime") }}
+                      {{ t("label.startupTime") }}
                     </el-text>
                   </template>
                   <v-date-view :timestamp="scope.row.started" />
