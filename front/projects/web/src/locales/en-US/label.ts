@@ -136,6 +136,7 @@ export default {
     "restart": "Restart",
     "createTime": "Create Time",
     "startTime": "Start Time",
+    "startupTime": "Startup Time",
     "nextTime": "Next Time",
     "instance": "Instance",
     "lines": "Lines",

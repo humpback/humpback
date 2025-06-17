@@ -10,20 +10,21 @@ import (
 	"encoding/pem"
 	"errors"
 	"fmt"
-	"humpback/pkg/utils"
 	"log/slog"
 	"math/big"
 	"net"
 	"os"
 	"time"
 
+	"humpback/pkg/utils"
+
 	"github.com/golang-jwt/jwt/v5"
 )
 
 const (
 	// 证书相关常量
-	caCertValidity   = 365 * 24 * time.Hour // 1年
-	certValidity     = 90 * 24 * time.Hour  // 3个月
+	caCertValidity   = 3 * 365 * 24 * time.Hour // 3年
+	certValidity     = 365 * 24 * time.Hour     // 1年
 	certOrganization = "Humpback"
 
 	// JWT相关常量

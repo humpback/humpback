@@ -18,7 +18,7 @@ const resetLoopSearch = inject<() => void>(InjectKeyResetLoopSearch)
 const menuChange = inject<(v: string, query?: any) => void>(InjectKeyChangeTab)
 
 function portDeduplication(ports: Array<{ bindIP: string; privatePort: number; publicPort: number; type: string }>) {
-  return uniqWith(ports, (a, b) => a.privatePort === b.privatePort && a.publicPort === b.publicPort)
+  return uniqWith(ports, (a, b) => a.type === b.type && a.privatePort === b.privatePort && a.publicPort === b.publicPort)
 }
 
 function routerToLogs(containerId: string) {
@@ -96,7 +96,7 @@ onMounted(async () => {
                       <el-icon :size="14">
                         <IconMdiClockTimeFourOutline />
                       </el-icon>
-                      {{ t("label.startTime") }}
+                      {{ t("label.startupTime") }}
                     </el-text>
                   </template>
                   <v-date-view :timestamp="scope.row.started" />
