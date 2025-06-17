@@ -59,6 +59,8 @@ func (app *App) Startup() {
 
 	ip := utils.HostIP()
 
+	slog.Info("[App] Listening...", "Address", ip)
+
 	websiteBundle, err := security.GenerateWebsiteCert(config.CertArgs().SiteCertFile, config.CertArgs().SiteKeyFile, ip)
 	if err != nil {
 		panic(fmt.Errorf("failed to create website certificate: %w", err))
