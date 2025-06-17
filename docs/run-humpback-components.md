@@ -13,8 +13,7 @@ Install the Humpback container:
 ```bash
 docker run -d \
   --name humpback \
-  -p 8100:8100 \
-  -p 8101:8101 \
+  --net=host \
   --restart=always \
   -v humpback_data:/workspace/data \
   -v humpback_certs:/workspace/certs \
