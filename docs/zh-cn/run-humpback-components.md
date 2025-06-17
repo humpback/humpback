@@ -26,8 +26,10 @@ Humpback默认会监听两个端口，`8100`端口是web站点，`8101`是API服
 命令运行成功后，你可以通过打开下面的站点检查Humpback是否启动成功。
 
 ```
-http://localhost:8100
+https://localhost:8100
 ```
+
+Web站点和API站点默认都使用https进行通信。Humpback内部有一套自签名证书的管理体系。如果你的web站点前面还有反向代理，并且https证书在上面进行管理，那么你可以通过环境变量`SITE_CERT_ENABLED=false`关闭web站点的https通信。但是API站点和agent的通信出于安全考虑是不能关闭https通信的，不过你也无需操心这个部分，因为Humpback会为你做好证书的管理。
 
 你可以使用系统初始化的用户登录，用户名和密码都是 `humpback`。
 
