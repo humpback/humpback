@@ -48,12 +48,11 @@ Then, install the Humpback container:
 ```bash
 docker run -d \
   --name humpback \
-  -p 8100:8100 \
-  -p 8101:8101 \
+  --net=host \
   --restart=always \
   -v humpback_data:/workspace/data \
-  -e LOCATION=prd \
-  humpbacks/humpback:latest
+  -v humpback_certs:/workspace/certs \
+  humpbacks/humpback
 ```
 
 By default, Humpback will expose the UI over port `8100` and expose a API server over port `8101` for receiving
