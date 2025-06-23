@@ -53,7 +53,6 @@ export function NewCommand(ip?: string, token?: string, isUninstall?: boolean) {
 -v /var/run/docker.sock:/var/run/docker.sock \\
 -v /var/lib/docker:/var/lib/docker \\
 -e HUMPBACK_SERVER_REGISTER_TOKEN=${token} \\
--e HUMPBACK_AGENT_API_BIND=${ip}:8018 \\
 -e HUMPBACK_SERVER_HOST={server-address}:8101 \\
 -e HUMPBACK_VOLUMES_ROOT_DIRECTORY=/var/lib/docker \\
 docker.io/humpbacks/humpback-agent:latest`

@@ -14,7 +14,7 @@ docker run -d \
 docker.io/humpbacks/humpback:latest
 
 
-## 使用volune挂载
+## 使用volume挂载
 
 docker run -d \
 --name=humpback \
