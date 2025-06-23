@@ -32,7 +32,7 @@ func InitRouter(nodeCh chan types.NodeSimpleInfo, serviceCh chan types.ServiceCh
 
 func (api *Router) Start(cert *security.CertificateBundle) {
 	go func() {
-		listeningAddress := fmt.Sprintf("%s:%s", config.NodeArgs().HostIp, config.NodeArgs().SitePort)
+		listeningAddress := fmt.Sprintf(":%s", config.HtmlArgs().SitePort)
 		slog.Info("[Site Api] Listening...", "Address", listeningAddress)
 		api.httpSrv = &http.Server{
 			Addr:    listeningAddress,

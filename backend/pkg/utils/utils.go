@@ -3,6 +3,7 @@ package utils
 import (
 	"encoding/json"
 	"fmt"
+	"log/slog"
 	"net"
 	"time"
 )
@@ -62,6 +63,8 @@ func HostIP() []net.IP {
 			}
 		}
 	}
+
+	slog.Info("[Util] Host IP...", "Address", ipAddresses)
 
 	return ipAddresses
 }

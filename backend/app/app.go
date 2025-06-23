@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log/slog"
+	"net"
 
 	"humpback/api"
 	"humpback/api/static"
@@ -57,16 +58,20 @@ func (app *App) Startup() {
 		panic(fmt.Errorf("failed to generate CA: %w", err))
 	}
 
+	hostIp := config.HostIP()
+	domain := config.CertArgs().SiteCertDomain
+
 	ip := utils.HostIP()
+	if hostIp != "" {
+		ip = []net.IP{net.ParseIP(hostIp)}
+	}
 
-	slog.Info("[App] Listening...", "Address", ip)
-
-	websiteBundle, err := security.GenerateWebsiteCert(config.CertArgs().SiteCertFile, config.CertArgs().SiteKeyFile, ip)
+	websiteBundle, err := security.GenerateWebsiteCert(config.CertArgs().SiteCertFile, config.CertArgs().SiteKeyFile, domain, ip)
 	if err != nil {
 		panic(fmt.Errorf("failed to create website certificate: %w", err))
 	}
 
-	serverBundle, err := security.CreateCertificateBundle("humpback-server", ip)
+	serverBundle, err := security.CreateCertificateBundle("humpback-server", "", ip)
 	if err != nil {
 		panic(fmt.Errorf("failed to create master certificate: %w", err))
 	}

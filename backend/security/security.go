@@ -95,7 +95,7 @@ func loadSecurityFromFile(fn string) ([]byte, error) {
 	return nil, fmt.Errorf("file %s does not exist", keyFile)
 }
 
-func GenerateWebsiteCert(certPath, keyPath string, ipAddresses []net.IP) (*CertificateBundle, error) {
+func GenerateWebsiteCert(certPath, keyPath, domain string, ipAddresses []net.IP) (*CertificateBundle, error) {
 
 	if utils.FileExist(certPath) && utils.FileExist(keyPath) {
 		ca, key, err := LoadCertificateAndKey(certPath, keyPath)
@@ -127,7 +127,7 @@ func GenerateWebsiteCert(certPath, keyPath string, ipAddresses []net.IP) (*Certi
 		}
 	}
 
-	return CreateCertificateBundle("humpback-website", ipAddresses)
+	return CreateCertificateBundle("humpback-website", domain, ipAddresses)
 }
 
 // 从文件加载证书和私钥
@@ -276,7 +276,7 @@ func SaveToFile(cert *x509.Certificate, privKey *ecdsa.PrivateKey, certPath, key
 }
 
 // CreateCertificateBundle 为服务创建证书包
-func CreateCertificateBundle(commonName string, ipAddresses []net.IP) (*CertificateBundle, error) {
+func CreateCertificateBundle(commonName string, domain string, ipAddresses []net.IP) (*CertificateBundle, error) {
 	if sm.caCert == nil || sm.caPrivateKey == nil {
 		return nil, errors.New("CA not initialized")
 	}
@@ -313,6 +313,10 @@ func CreateCertificateBundle(commonName string, ipAddresses []net.IP) (*Certific
 			ExtKeyUsage: []x509.ExtKeyUsage{x509.ExtKeyUsageServerAuth, x509.ExtKeyUsageClientAuth},
 		}
 
+		if domain != "" {
+			csrTemplate.DNSNames = []string{domain}
+		}
+
 		// 使用CA签名生成证书
 		certBytes, err := x509.CreateCertificate(rand.Reader, csrTemplate, sm.caCert, &privateKey.PublicKey, sm.caPrivateKey)
 		if err != nil {
@@ -324,6 +328,8 @@ func CreateCertificateBundle(commonName string, ipAddresses []net.IP) (*Certific
 		if err != nil {
 			return nil, err
 		}
+
+		slog.Info("[Cert] Generated new certificate", "commonName", commonName, "domain", domain, "ipAddresses", ipAddresses)
 
 		SaveToFile(cert, privateKey, certFile, certKey)
 	}
