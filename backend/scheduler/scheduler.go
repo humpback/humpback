@@ -5,14 +5,18 @@ import (
 	"fmt"
 	"log/slog"
 	"net/http"
+	"time"
 
 	"humpback/config"
 	"humpback/internal/db"
 	"humpback/internal/node"
+	"humpback/security"
 	"humpback/types"
 
 	"github.com/gin-gonic/gin"
 )
+
+const tokenRefreshTime = 1 * time.Hour // 在token还有1小时过期时刷新
 
 type HumpbackScheduler struct {
 	httpSrv             *http.Server
@@ -32,8 +36,52 @@ func NewHumpbackScheduler() *HumpbackScheduler {
 	hs.nodeCtrl = NewNodeController(hs.NodeHeartbeatChan, hs.ContainerChangeChan)
 
 	node.NewCacheManager()
+	node.NewAgentManager()
 
 	return hs
+}
+
+func doRegister(c *gin.Context) {
+
+	payload := types.RegisterInfo{}
+
+	if c.BindJSON(&payload) != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid json"})
+		return
+	}
+
+	nodeId, _ := node.MatchNodeWithIpAddress(payload.IpAddress)
+	if nodeId == "" {
+		c.JSON(http.StatusNotFound, gin.H{"error": "node not found"})
+		return
+	}
+
+	node := node.GetNodeInfo(nodeId)
+	if node == nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "node not found"})
+		return
+	}
+
+	if !node.RegisterInfo.IsRegister &&
+		(node.RegisterInfo.Token != payload.Token ||
+			time.Now().Unix() > node.RegisterInfo.ExpireAt) {
+		c.JSON(http.StatusForbidden, gin.H{"error": "invalid token or expired"})
+		return
+	}
+
+	if node.RegisterInfo.IsRegister && node.RegisterInfo.Token != payload.Token {
+		c.JSON(http.StatusForbidden, gin.H{"error": "invalid token or expired"})
+		return
+	}
+
+	sc := c.MustGet("scheduler").(*HumpbackScheduler)
+
+	response, err := sc.nodeCtrl.HandlerNodeRegister(nodeId, payload.IpAddress)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to create certificate"})
+	} else {
+		c.JSON(http.StatusOK, response)
+	}
 }
 
 func doHealth(c *gin.Context) {
@@ -52,10 +100,40 @@ func doHealth(c *gin.Context) {
 	payload.IpAddress = ip
 	sc := c.MustGet("scheduler").(*HumpbackScheduler)
 	sc.nodeCtrl.HeartBeat(payload)
-	c.JSON(http.StatusOK, gin.H{"status": "ok"})
+
+	newToken := sc.nodeCtrl.RefreshNodeToken(nodeId)
+
+	c.JSON(http.StatusOK, gin.H{"token": newToken})
 }
 
-func (scheduler *HumpbackScheduler) Start() {
+func tokenAuthMiddleware(c *gin.Context) {
+
+	token := c.GetHeader("Authorization")
+	if token == "" {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "missing token"})
+		c.Abort()
+		return
+	}
+
+	// 验证Bearer token格式
+	if len(token) < 7 || token[:7] != "Bearer " {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "invalid token"})
+		c.Abort()
+		return
+	}
+
+	tokenString := token[7:]
+	_, err := security.VerifyWorkerToken(tokenString)
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "invalid token"})
+		c.Abort()
+		return
+	}
+
+	c.Next()
+}
+
+func (scheduler *HumpbackScheduler) Start(cert *security.CertificateBundle) {
 	scheduler.serviceCtrl.RestoreServiceManager()
 	scheduler.nodeCtrl.RestoreNodes()
 	go func() {
@@ -66,37 +144,44 @@ func (scheduler *HumpbackScheduler) Start() {
 			c.Next()
 		})
 
-		e.POST("/api/health", doHealth)
+		e.POST("/api/register", doRegister)
 
-		e.GET("/api/config/:name", getConfigByName)
+		e.POST("/api/health", tokenAuthMiddleware, doHealth)
 
-		e.GET("/mock/nodes", mockNodes)
+		e.GET("/api/config/:name", tokenAuthMiddleware, getConfigByName)
 
-		e.GET("/nodes", getAllNodes)
+		/*
+			e.GET("/mock/nodes", mockNodes)
 
-		e.GET("/groups", getAllGroups)
+			e.GET("/nodes", getAllNodes)
 
-		e.GET("/services", getAllServices)
+			e.GET("/groups", getAllGroups)
 
-		e.GET("/configs", getAllConfig)
+			e.GET("/services", getAllServices)
 
-		e.GET("/mock/service/:groupId/gateway", mockGatewayServices)
+			e.GET("/configs", getAllConfig)
 
-		e.GET("/mock/service/:groupId/web", mockWebServices)
+			e.GET("/mock/node/:nodeId/container/:cid/stats", mockContainerStats)
 
-		e.GET("/mock/configs", mockConfigs)
+			e.GET("/mock/service/:groupId/gateway", mockGatewayServices)
 
-		e.GET("/mock/service/:groupId/schedule", mockScheduleServices)
+			e.GET("/mock/service/:groupId/web", mockWebServices)
 
-		e.GET("/mock/action/:serviceId/:action", mockServiceAction)
+			e.GET("/mock/configs", mockConfigs)
 
-		listeningAddress := fmt.Sprintf("%s:%s", config.NodeArgs().HostIp, config.BackendArgs().BackendPort)
+			e.GET("/mock/service/:groupId/schedule", mockScheduleServices)
+
+			e.GET("/mock/action/:serviceId/:action", mockServiceAction)
+		*/
+
+		listeningAddress := fmt.Sprintf(":%s", config.BackendArgs().BackendPort)
 		slog.Info("[Scheduler Api] Listening...", "Address", listeningAddress)
 		scheduler.httpSrv = &http.Server{
-			Addr:    listeningAddress,
-			Handler: e,
+			Addr:      listeningAddress,
+			Handler:   e,
+			TLSConfig: cert.CreateTLSConfig(true),
 		}
-		if err := scheduler.httpSrv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+		if err := scheduler.httpSrv.ListenAndServeTLS("", ""); err != nil && err != http.ErrServerClosed {
 			slog.Error("[Scheduler Api] Listening failed", "Address", listeningAddress, "Error", err)
 		}
 	}()

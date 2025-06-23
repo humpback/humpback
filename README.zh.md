@@ -3,7 +3,7 @@
 [![PkgGoDev](https://pkg.go.dev/badge/github.com/docker/docker)](https://golang.org/)
 [![Vue 3](https://img.shields.io/badge/vue-3.x-brightgreen.svg)](https://v3.vuejs.org/)
 [![Docker](https://img.shields.io/badge/docker-pull-blue?logo=docker)](https://hub.docker.com/r/humpbacks)
-[![Release](https://img.shields.io/badge/release-v2.0.0-blue)](https://github.com/humpbacks/humpback/releases/latest)
+[![Release](https://img.shields.io/badge/release-v2.0.0-blue)](https://github.com/humpback/humpback/releases/tag/v2.0.0)
 
 ![Humpback logo](/docs/_media/logo-nobg.png)
 
@@ -48,12 +48,11 @@ docker volume create humpback_data
 ```bash
 docker run -d \
   --name humpback \
-  -p 8100:8100 \
-  -p 8101:8101 \
+  --net=host \
   --restart=always \
   -v humpback_data:/workspace/data \
-  -e LOCATION=prd \
-  humpbacks/humpback:latest
+  -v humpback_certs:/workspace/certs \
+  humpbacks/humpback
 ```
 
 Humpback默认会监听两个端口，`8100`端口是web站点，`8101`是API服务器，主要接受agent汇报的数据。

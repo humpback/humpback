@@ -31,6 +31,7 @@ export default {
     "command": "Command",
     "editLabel": "Edit Label",
     "addLabel": "Add Label",
+    "refreshRegisterToken": "Refresh Register Token",
     "enable": "Enable",
     "disable": "Disable",
     "addGroup": "Add Group",

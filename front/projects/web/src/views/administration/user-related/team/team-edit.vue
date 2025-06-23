@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { cloneDeep } from "lodash-es"
+import { cloneDeep, omit } from "lodash-es"
 import { FormInstance, FormRules } from "element-plus"
 import { RulePleaseEnter } from "@/utils"
 import { RuleLength } from "@/models"
@@ -53,31 +53,19 @@ async function save() {
   }
 
   const body: any = {
+    teamId: dialogInfo.value.info.teamId,
     name: dialogInfo.value.info.name,
     description: dialogInfo.value.info.description,
     users: dialogInfo.value.info.users
   }
   isAction.value = true
-  if (dialogInfo.value.info.teamId) {
-    body.teamId = dialogInfo.value.info.teamId
-    teamService
-      .update(body)
-      .then(() => {
-        ShowSuccessMsg(t("message.saveSuccess"))
-        dialogInfo.value.show = false
-        emits("refresh")
-      })
-      .finally(() => (isAction.value = false))
-  } else {
-    teamService
-      .create(body)
-      .then(() => {
-        ShowSuccessMsg(t("message.addSuccess"))
-        dialogInfo.value.show = false
-        emits("refresh")
-      })
-      .finally(() => (isAction.value = false))
-  }
+  return await Promise.all([dialogInfo.value.info.teamId ? teamService.update(body) : teamService.create(omit(body, ["teamId"]))])
+    .then(() => {
+      ShowSuccessMsg(dialogInfo.value.info.teamId ? t("message.saveSuccess") : t("message.addSuccess"))
+      dialogInfo.value.show = false
+      emits("refresh")
+    })
+    .finally(() => (isAction.value = false))
 }
 
 defineExpose({ open })

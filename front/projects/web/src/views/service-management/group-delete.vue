@@ -44,7 +44,7 @@ defineExpose({ open })
     <template #header>{{ t("header.deleteGroup") }}</template>
     <v-alert type="warning">{{ t("tips.deleteGroupTips") }}</v-alert>
     <div class="my-3 f-bold">{{ t("notify.delete") }}</div>
-    <v-delete-input-continue v-model="isChecked" :keywords="dialogInfo.info.groupName" class="mt-5" />
+    <v-delete-input-continue v-model="isChecked" :keywords="dialogInfo.info.groupName" class="mt-5" @enter="confirmDelete()" />
     <template #footer>
       <el-button @click="dialogInfo.show = false">{{ t("btn.cancel") }}</el-button>
       <el-button :disabled="!isChecked" :loading="isAction" type="danger" @click="confirmDelete">{{ t("btn.delete") }}</el-button>

@@ -162,7 +162,7 @@ onMounted(async () => {
                 <v-date-view :timestamp="cscope.row.created" />
               </template>
             </el-table-column>
-            <el-table-column :label="t('label.startTime')" min-width="140">
+            <el-table-column :label="t('label.startupTime')" min-width="140">
               <template #default="cscope">
                 <v-date-view :timestamp="cscope.row.started" />
               </template>

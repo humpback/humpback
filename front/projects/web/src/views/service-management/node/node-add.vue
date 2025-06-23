@@ -113,7 +113,10 @@ defineExpose({ open })
       </v-input>
       <el-button plain type="primary" @click="getNodeList()">{{ t("btn.refresh") }}</el-button>
     </div>
-    <v-table ref="tableRef" v-loading="isLoading" :data="validNodes" :max-height="400" class="mt-3">
+    <v-table ref="tableRef" v-loading="isLoading" :data="validNodes" :max-height="400" class="mt-3" min-height="100px">
+      <template #empty>
+        <el-empty :image-size="80" />
+      </template>
       <el-table-column :label="t('label.ip')" fixed="left" prop="ipAddress" sortable width="160">
         <template #default="scope">
           <el-text type="primary">{{ scope.row.ipAddress }}</el-text>

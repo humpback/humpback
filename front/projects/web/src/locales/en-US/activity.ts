@@ -18,6 +18,7 @@ export default {
     },
     node: {
       "Add": "Add node.",
+      "RefreshRegisterToken": "Refresh node register token",
       "UpdateLabel": "Update node labels.",
       "Delete": "Delete node.",
       "Enable": "Enable node.",

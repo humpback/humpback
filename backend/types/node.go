@@ -1,20 +1,29 @@
 package types
 
 type Node struct {
-	NodeId      string            `json:"nodeId"`
-	Name        string            `json:"name"`
-	IpAddress   string            `json:"ipAddress"`
-	Port        int               `json:"port"`
-	Status      string            `json:"status"`
-	IsEnable    bool              `json:"isEnable"`
-	CreatedAt   int64             `json:"createdAt"`
-	UpdatedAt   int64             `json:"updatedAt"`
-	CPUUsage    float32           `json:"cpuUsage"`
-	CPU         uint              `json:"cpu"`
-	MemoryUsage float32           `json:"memoryUsage"`
-	MemoryTotal uint64            `json:"memoryTotal"`
-	MemoryUsed  uint64            `json:"memoryUsed"`
-	Labels      map[string]string `json:"labels"`
+	NodeId       string            `json:"nodeId"`
+	Name         string            `json:"name"`
+	IpAddress    string            `json:"ipAddress"`
+	Port         int               `json:"port"`
+	Status       string            `json:"status"`
+	IsEnable     bool              `json:"isEnable"`
+	CreatedAt    int64             `json:"createdAt"`
+	UpdatedAt    int64             `json:"updatedAt"`
+	CPUUsage     float32           `json:"cpuUsage"`
+	CPU          uint              `json:"cpu"`
+	MemoryUsage  float32           `json:"memoryUsage"`
+	MemoryTotal  uint64            `json:"memoryTotal"`
+	MemoryUsed   uint64            `json:"memoryUsed"`
+	Labels       map[string]string `json:"labels"`
+	RegisterInfo NodeRegisterInfo  `json:"registerInfo"`
+}
+
+type NodeRegisterInfo struct {
+	Token       string `json:"token"`
+	ExpireAt    int64  `json:"expireAt"`
+	IsRegister  bool   `json:"isRegister"`
+	RegisterAt  int64  `json:"registerAt"`
+	AccessToken string `json:"accessToken"`
 }
 
 type NodesGroups struct {
@@ -41,4 +50,11 @@ type NodeSimpleInfo struct {
 	TotalCPU        uint
 	TotalMemory     uint64
 	UsedMemory      uint64
+}
+
+type NodeRegisterResponse struct {
+	CertPEM string `json:"certPem"`
+	KeyPEM  string `json:"keyPem"`
+	Token   string `json:"token"`
+	CAPEM   string `json:"caPem"`
 }

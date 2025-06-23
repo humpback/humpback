@@ -49,6 +49,8 @@ export default {
     "noExceptionServices": "服务运行的很稳定，没有异常的服务！",
     "noEnabledNodes": "没有启用的机器!",
     "noAbnormalNodes": "没有异常机器，超棒的机器维护！",
+    "addNodesTips": "一次添加最多10个节点，添加成功后，请在60分钟内进行注册认证，否则将失效。",
+    "addNodesSuccessTips": "添加成功！请在60分钟内完成<span class='keywords-primary'>humpback-agent</span>安装。",
 
     "AUDIT_CONTROL": "启用和禁用内核审计;更改审计过滤规则;检索审核状态和筛选规则。",
     "AUDIT_WRITE": "将记录写入内核审计日志。",

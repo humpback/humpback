@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { cloneDeep } from "lodash-es"
-import { UserInfo } from "@/types"
+import { NodeInfo } from "@/types"
 
 const emits = defineEmits<{
   (e: "refresh"): void
@@ -9,27 +9,22 @@ const emits = defineEmits<{
 const { t } = useI18n()
 
 const isAction = ref(false)
-const isChecked = ref(false)
 const dialogInfo = ref({
   show: false,
-  info: {} as UserInfo
+  info: {} as NodeInfo
 })
 
-function open(info: UserInfo) {
-  isChecked.value = false
+function open(info: NodeInfo) {
   dialogInfo.value.info = cloneDeep(info)
   dialogInfo.value.show = true
 }
 
-async function confirmDelete() {
-  if (!isChecked.value) {
-    return
-  }
+async function confirm() {
   isAction.value = true
-  return await userService
-    .delete(dialogInfo.value.info.userId)
+  return await nodeService
+    .refreshRegisterToken(dialogInfo.value.info.nodeId)
     .then(() => {
-      ShowSuccessMsg(t("message.deleteSuccess"))
+      ShowSuccessMsg(t("message.refreshSuccess"))
       dialogInfo.value.show = false
       emits("refresh")
     })
@@ -41,12 +36,11 @@ defineExpose({ open })
 
 <template>
   <v-dialog v-model="dialogInfo.show" width="600px">
-    <template #header>{{ t("header.deleteUser") }}</template>
-    <div class="my-3 f-bold">{{ t("notify.delete") }}</div>
-    <v-delete-input-continue v-model="isChecked" :keywords="dialogInfo.info.username" class="mt-5" @enter="confirmDelete()" />
+    <template #header>{{ t("header.refreshRegisterToken") }}</template>
+    <div class="my-3 f-bold" v-html="t('notify.refreshRegisterToken', { ip: dialogInfo.info.ipAddress })" />
     <template #footer>
       <el-button @click="dialogInfo.show = false">{{ t("btn.cancel") }}</el-button>
-      <el-button :disabled="!isChecked" :loading="isAction" type="danger" @click="confirmDelete">{{ t("btn.delete") }}</el-button>
+      <el-button :loading="isAction" type="primary" @click="confirm">{{ t("btn.confirm") }}</el-button>
     </template>
   </v-dialog>
 </template>

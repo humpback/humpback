@@ -31,6 +31,7 @@ export default {
     "command": "命令",
     "editLabel": "编辑标签",
     "addLabel": "添加标签",
+    "refreshRegisterToken": "刷新注册令牌",
     "enable": "启用",
     "disable": "停用",
     "addGroup": "添加分组",

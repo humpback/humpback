@@ -18,6 +18,7 @@ export default {
     "removeNode": "删除机器",
     "enableNode": "启用机器",
     "disableNode": "停用机器",
+    "refreshRegisterToken": "刷新注册令牌",
     "addRegistry": "添加仓库",
     "editRegistry": "编辑仓库",
     "deleteRegistry": "删除仓库",

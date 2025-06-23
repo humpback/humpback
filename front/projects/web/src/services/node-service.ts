@@ -14,7 +14,11 @@ class NodeService {
   }
 
   async create(data: any) {
-    return await httpClient.post<string>("/webapi/node", data).then(res => res.data)
+    return await httpClient.post<NodeInfo[]>("/webapi/node", data).then(res => res.data)
+  }
+
+  async refreshRegisterToken(nodeId: string) {
+    return await httpClient.put<string>(`/webapi/node/${nodeId}/refresh-register-token`, undefined).then(res => res.data)
   }
 
   async updateLabel(data: any) {

@@ -460,6 +460,7 @@
     "IconMdiPlay": true,
     "IconMdiRestart": true,
     "IconMdiSquare": true,
-    "IconMdiStopCircleOutline": true
+    "IconMdiStopCircleOutline": true,
+    "RegisterInfo": true
   }
 }

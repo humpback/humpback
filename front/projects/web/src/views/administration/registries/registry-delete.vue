@@ -46,7 +46,7 @@ defineExpose({ open })
   <v-dialog v-model="dialogInfo.show" width="600px">
     <template #header>{{ t("header.deleteRegistry") }}</template>
     <div class="my-3 f-bold">{{ t("notify.delete") }}</div>
-    <v-delete-input-continue v-model="isChecked" :keywords="dialogInfo.info.url" class="mt-5" />
+    <v-delete-input-continue v-model="isChecked" :keywords="dialogInfo.info.url" class="mt-5" @enter="confirmDelete()" />
     <template #footer>
       <el-button @click="dialogInfo.show = false">{{ t("btn.cancel") }}</el-button>
       <el-button v-if="!isDefaultRegistry(dialogInfo.info.url)" :disabled="!isChecked" :loading="isAction" type="danger" @click="confirmDelete"

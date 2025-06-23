@@ -55,6 +55,9 @@ export default {
     "noExceptionServices": "The service runs very stably, and there are no abnormal services!",
     "noEnabledNodes": "There are no enabled nodes!",
     "noAbnormalNodes": "No abnormal nodes, great machine maintenance!",
+    "addNodesTips":
+      "A maximum of 10 nodes can be added at a time, and the registration and authentication must be completed within 60 minutes after the addition is successful, otherwise it will become invalid.",
+    "addNodesSuccessTips": "Added successfully! Please complete the <span class='keywords-primary'>humpback-agent</span> installation within 60 minutes.",
 
     "AUDIT_CONTROL": "Enable and disable kernel auditing; change auditing filter rules; retrieve auditing status and filtering rules.",
     "AUDIT_WRITE": "Write records to kernel auditing log.",

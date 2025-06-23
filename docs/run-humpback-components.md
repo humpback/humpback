@@ -8,22 +8,15 @@ To get started, you will need the latest version of Docker installed and working
 
 ## Deployment Humpback
 
-First, create the volume that Humpback will use to store its database:
-
-```bash
-docker volume create humpback_data
-```
-
-Then, install the Humpback container:
+Install the Humpback container:
 
 ```bash
 docker run -d \
   --name humpback \
-  -p 8100:8100 \
-  -p 8101:8101 \
+  --net=host \
   --restart=always \
   -v humpback_data:/workspace/data \
-  -e LOCATION=prd \
+  -v humpback_certs:/workspace/certs \
   humpbacks/humpback:latest
 ```
 
@@ -34,6 +27,8 @@ Humpback has now been installed. you can log into your Humpback instance by open
 ```
 http://localhost:8100
 ```
+
+Website use HTTP and API site use HTTPS for communication by default. Humpback has an internal self-signed certificate management system. You can enable HTTPS communication for the web site by setting the environment variable `SITE_CERT_ENABLED=true`. However, for security reasons, HTTPS communication between the API site and the agent cannot be disabled. That said, you don’t need to worry about this part, as Humpback handles certificate management for you.
 
 You can use the account initialized by the system to log in. Both the username and the password are `humpback`. 
 
@@ -50,7 +45,7 @@ docker run -d \
   --privileged \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -v /var/lib/docker:/var/lib/docker \
-  -e HUMPBACK_AGENT_API_BIND=0.0.0.0:8018 \
+  -e HUMPBACK_SERVER_REGISTER_TOKEN={token} \
   -e HUMPBACK_SERVER_HOST={server-address}:8101 \
   -e HUMPBACK_VOLUMES_ROOT_DIRECTORY=/var/lib/docker \
   humpbacks/humpback-agent
