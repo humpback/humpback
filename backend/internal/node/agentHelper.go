@@ -41,7 +41,7 @@ func getAgent(nodeId string) httpx.HttpXClient {
 		return agent
 	} else {
 		ip := utils.HostIP()
-		serverBundle, err := security.CreateCertificateBundle("humpback-server", ip)
+		serverBundle, err := security.CreateCertificateBundle("humpback-server", "", ip)
 		if err != nil {
 			return nil
 		}

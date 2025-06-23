@@ -1,20 +1,20 @@
 version: 1.0.0
 location: prd
+hostIp:
 backend:
   checkInterval: 30
   serviceCheckInterval: 10
   checkThreshold: 3
   backendPort: 8101
-node:
-  hostIp: 0.0.0.0
-  sitePort: 8100
 html:
   dir: './web'
   load: true
+  sitePort: 8100
 cert:
   siteCertFile: '/workspace/certs/cert.pem'
   siteKeyFile: '/workspace/certs/key.pem'
-  siteCertEnabled: true  # 只控制web站点是否启用
+  siteCertDomain: ''
+  siteCertEnabled: false  # 只控制web站点是否启用
   certCacheFolder: '/workspace/certs'
 db:
   root: '/workspace/data/humpback.db'

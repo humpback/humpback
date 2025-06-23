@@ -1,19 +1,19 @@
 version: 1.0.0
 location: local # local / dev / prd
+hostIp: 
 backend:
   checkInterval: 30
   serviceCheckInterval: 10
   checkThreshold: 3
   backendPort: 8101
-node:
-  hostIp: 0.0.0.0
-  sitePort: 8100
 html:
   dir: '../front/projects/web/dist'
   load: false
+  sitePort: 8100
 cert:
   siteCertFile: './certs/cert.crt'
   siteKeyFile: './certs/key.key'
+  siteCertDomain: 'localhost'
   siteCertEnabled: false  # 只控制web站点是否启用
   certCacheFolder: './certs'
 db:
