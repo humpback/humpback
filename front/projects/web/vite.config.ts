@@ -124,33 +124,23 @@ export default defineConfig({
       }
     }
   },
-  preview: {
-    host: "localhost",
-    port: 5131,
-    strictPort: true,
-    open: true
+  build: {
+    target: "es2020",
+    chunkSizeWarningLimit: 500,
+    rollupOptions: {
+      //此处可以添加多个入口文件，适用于多页面应用模式
+      input: {
+        main: resolve(__dirname, "index.html")
+      }
+      // output: {
+      //   manualChunks(id) {
+      //     if (id.includes("node_modules")) {
+      //       return id.toString().split("node_modules/")[1].split("/")[0].toString()
+      //     }
+      //   }
+      // }
+    }
   },
-  // build: {
-  //   outDir: "dist",
-  //   assetsDir: "assets",
-  //   emptyOutDir: true,
-  //   copyPublicDir: true,
-  //   reportCompressedSize: false,
-  //   chunkSizeWarningLimit: 4096,
-  //   rollupOptions: {
-  //     //此处可以添加多个入口文件，适用于多页面应用模式
-  //     input: {
-  //       main: resolve(__dirname, "index.html")
-  //     },
-  //     output: {
-  //       manualChunks(id) {
-  //         if (id.includes("node_modules")) {
-  //           return id.toString().split("node_modules/")[1].split("/")[0].toString()
-  //         }
-  //       }
-  //     }
-  //   }
-  // },
   experimental: {
     //可以自定义不同的文件类型的访问路径。
     renderBuiltUrl: (

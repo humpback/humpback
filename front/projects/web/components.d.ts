@@ -153,7 +153,7 @@ declare module 'vue' {
     VUsernameInput: typeof import('./src/components/business/v-name/VUsernameInput.vue')['default']
     VUsersSelect: typeof import('./src/components/business/v-user/VUsersSelect.vue')['default']
   }
-  export interface ComponentCustomProperties {
+  export interface GlobalDirectives {
     vLoading: typeof import('element-plus/es')['ElLoadingDirective']
   }
 }
