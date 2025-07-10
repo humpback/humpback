@@ -12,19 +12,15 @@ import ElementPlus from "unplugin-element-plus/vite"
 export default defineConfig({
   //项目根目录(index.ts.html 文件所在的位置,可以是相对路径也可以是绝对路径)，默认为process.cwd()
   root: process.cwd(),
-  //开发或生产环境服务的公共基础路径。设置此路径后，项目中的静态资源和路由都会基于这个路径进行生成。
-  base: "/",
-  mode: "development",
   envDir: process.cwd(),
   //以 envPrefix 开头的环境变量会通过 import.meta.env 暴露在你的客户端源码中。
   envPrefix: "VUE_",
   clearScreen: true,
-  cacheDir: "node_modules/.vite",
   define: {
+    "process.env": {},
     __VUE_I18N_FULL_INSTALL__: true,
     __VUE_I18N_LEGACY_API__: false,
     __INTLIFY_PROD_DEVTOOLS__: false,
-    "process.env": {},
     __APP_VERSION__: JSON.stringify(process.env.npm_package_version)
   },
   resolve: {
